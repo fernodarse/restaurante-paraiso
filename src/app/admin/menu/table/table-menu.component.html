@@ -1,0 +1,24 @@
+<button class="btn btn-primary m-1" (click)="createMenu()">
+    Create New Product
+</button>
+<table class="table table-sm table-bordered table-striped">
+    <tr>        
+        <th>Nombre</th>
+        <th>Categoria</th>
+        <th>Precio</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let item of getMenuList()">
+        <td>{{item.nombre}}</td>
+        <td>{{item.categoria}}</td>
+        <td>{{item.precio | currency:"USD" }}</td>
+        <td class="text-center">
+            <button class="btn btn-danger btn-sm mr-1" (click)="deleteMenu(item.menuId)">
+                Delete
+            </button>
+            <button class="btn btn-warning btn-sm" (click)="editMenu(item.menuId)">
+                Edit
+            </button>
+        </td>
+    </tr>
+</table>
