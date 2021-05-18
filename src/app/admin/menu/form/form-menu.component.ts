@@ -1,16 +1,13 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import { NgForm } from "@angular/forms";
+import { FormControl, NgForm } from "@angular/forms";
 import { Menu } from "../../../models/menu";
 import { MenuService } from "../../../models/menu.service";
 import { MODES, SharedState, SHARED_STATE } from "../../../models/sharedState.model";
 import { Observable } from "rxjs";
 import { DatePipe } from '@angular/common';
 import { FileService } from 'src/app/models/file.service';
-
-interface CategoriaMenu {
-  id: string
-  nombre: string;  
-}
+import { CategoriaMenu, ListCategoriaMenu } from 'src/app/models/staticts';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'form-menu',
@@ -21,12 +18,6 @@ interface CategoriaMenu {
 export class FormMenuComponent implements OnInit {
 
   menu: Menu = new Menu();
-  categoriaMenu:CategoriaMenu[]=[
-    { id: '0', nombre: "Tragos"},
-    { id: '1', nombre: "Sopas"},
-    { id: '2', nombre: "Ensaladas"},
-    { id: '3', nombre: "Buffet"},
-  ];
 
   selectedFile: File = null;
   porcentage = 0;
@@ -35,7 +26,9 @@ export class FormMenuComponent implements OnInit {
   constructor(private menuServices: MenuService,
     @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>,
     private datePipe: DatePipe,
-    private uploadService: FileService) {
+    private uploadService: FileService,
+    private listCategoriaMenu: ListCategoriaMenu, 
+    private snackBarService: SnackbarService,) {
 
     stateEvents.subscribe((update) => {
       this.menu = new Menu();
@@ -60,10 +53,18 @@ export class FormMenuComponent implements OnInit {
     if (form.valid) {
       console.log('submit menu', this.menu);
       if (this.editing) {
-        this.menuServices.updateMenu(this.menu.menuId, this.menu);
+        this.menuServices.updateMenu(this.menu.menuId, this.menu).then(
+          () => {
+          this.snackBarService.openSnackBar('El menú se modificó correctamente');
+          }
+          );
       } else {
         this.menu.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
-        this.menuServices.createMenu(this.menu);
+        this.menuServices.createMenu(this.menu).then(
+          () => {
+          this.snackBarService.openSnackBar('El menú se creo satifactioramente');
+          }
+          );;
       }
       form.reset();
     }
@@ -103,6 +104,10 @@ export class FormMenuComponent implements OnInit {
         );
       }     
   }
+
+  hayImagen(){
+    return this.menu.datosImg.url !='';
+  }
   getValidationMessages(state: any, thingName?: string) {
     let thing: string = state.path || thingName;//tiene el mombre del campo
     let messages: string[] = [];
@@ -122,4 +127,7 @@ export class FormMenuComponent implements OnInit {
     return messages;
   } 
 
+  categoriaMenu(): CategoriaMenu[]{
+    return this.listCategoriaMenu.categoriaMenu;
+  }
 }

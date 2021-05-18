@@ -13,6 +13,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     declarations: [],
@@ -31,6 +33,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatTooltipModule,
         MatCheckboxModule,
         MatProgressBarModule,
+        MatPaginatorModule,
+        NgxPaginationModule
     ],
     exports: [
         CommonModule,
@@ -47,6 +51,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatTooltipModule,
         MatCheckboxModule, 
         MatProgressBarModule,
+        MatPaginatorModule,
+        NgxPaginationModule
     ]
 })
 export class NgMaterialModule { }

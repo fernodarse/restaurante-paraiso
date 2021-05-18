@@ -8,6 +8,7 @@ import { FormMenuComponent } from './menu/form/form-menu.component';
 import { SharedState, SHARED_STATE } from '../models/sharedState.model';
 import { Subject } from 'rxjs';
 import { NgMaterialModule } from '../ng-material/ng-material.module';
+import { ListCategoriaMenu } from '../models/staticts';
 
 const childRoutes: Routes = [
   /*{ path: "", component: IntroComponent, pathMatch: "full" },
@@ -25,7 +26,10 @@ let routes= RouterModule.forChild([
   imports: [
     CommonModule,FormsModule, ReactiveFormsModule, routes, NgMaterialModule,
   ],
-  providers: [{ provide: SHARED_STATE, useValue: new Subject<SharedState>() }]
+  providers: [
+    { provide: SHARED_STATE, useValue: new Subject<SharedState>() },
+      ListCategoriaMenu
+    ]
   
 })
 export class AdminModule { }

@@ -4,6 +4,11 @@ import { MenuService } from "../../../models/menu.service";
 import { MODES, SharedState, SHARED_STATE } from "../../../models/sharedState.model";
 import { Observable, Observer, Subject } from "rxjs";
 import { takeUntil } from 'rxjs/operators';
+import { CategoriaMenu, ListCategoriaMenu } from 'src/app/models/staticts';
+import { PageEvent } from '@angular/material/paginator';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
   selector: 'table-menu',
@@ -14,9 +19,36 @@ export class TableMenuComponent implements OnInit {
 
   private menuList: Menu[] = [];
   private unsubscribe$ = new Subject<void>();
+  categoria: string = '';
+
+  //paginado
+  length = 0;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  config: any;
+  currentPage = 1;
+
+  //spiner
+  color: ThemePalette = 'warn';
+  mode: ProgressSpinnerMode = 'indeterminate';
+  value = 50;
 
   constructor(private menuServices: MenuService,
-    @Inject(SHARED_STATE) public observer: Observer<SharedState>) { }
+    @Inject(SHARED_STATE) public observer: Observer<SharedState>,
+    private listCategoriaMenu: ListCategoriaMenu,
+    private snackBarService: SnackbarService,) {
+    this.config = {
+      currentPage: this.currentPage,
+      itemsPerPage: this.pageSize //? +this.pageSize : this.pageSizeOptions[0]
+    };
+  }
+
+  pageChange(pageEvent: PageEvent) {
+    this.currentPage=pageEvent.pageIndex+1;
+    this.pageSize=pageEvent.pageSize;
+    console.log('nueva pagina', pageEvent);
+    console.log('nueva config', this.config);
+  }
 
 
   getMenu(key: string): Observable<Menu> {
@@ -24,20 +56,27 @@ export class TableMenuComponent implements OnInit {
   }
 
   getMenuList(): Menu[] {
-    return this.menuList;
+    return this.menuList.filter((menu) => this.categoria == '' || menu.categoria == this.categoria);
   }
 
   getAllMenus() {
     return this.menuServices.getAllMenus()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(result => {
-        this.menuList = result;    
-        console.log("getAllMenus",this.menuList )    
+        this.menuList = result;
+        this.length = this.menuList.length;
+        console.log("getAllMenus", this.menuList)
+        console.log("cantidad de elementos", this.length)
       });
   }
 
   deleteMenu(key: string) {
-    this.menuServices.deleteMenu(key);
+    this.menuServices.deleteMenu(key).then(
+      () => {
+        console.log('El menú se eliminó correctamente')
+       this.snackBarService.openSnackBar('El menú se eliminó correctamente');
+      }
+      );;
   }
   editMenu(key: string) {
     this.observer.next(new SharedState(MODES.EDIT, key));
@@ -47,12 +86,20 @@ export class TableMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllMenus();
+    this.getAllMenus();    
   }
 
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  categoriaXId(id: string) {
+    return this.listCategoriaMenu.categoriaXId(id);
+  }
+
+  categoriaMenu(): CategoriaMenu[] {
+    return this.listCategoriaMenu.categoriaMenu;
   }
 
 }

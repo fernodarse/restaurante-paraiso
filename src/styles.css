@@ -27,3 +27,19 @@ body {
 .example-margin {
     margin: 0 10px;
 }
+
+.spiner-tabla {
+    width: 100%;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* mensges del snack bar*/
+.snackbar-ribon {
+    color: #ffffff;
+    background: #17a2b8;
+}

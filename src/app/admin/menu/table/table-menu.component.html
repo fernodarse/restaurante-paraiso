@@ -1,24 +1,57 @@
 <button class="btn btn-primary m-1" (click)="createMenu()">
     Create New Product
 </button>
+<mat-form-field class="col-3 ">
+    <mat-label>Buscar x categoria</mat-label>
+    <mat-select name="categoria" [(ngModel)]="categoria">
+        <mat-option [value]="''">Todas</mat-option>
+        <mat-option *ngFor="let categoria of categoriaMenu()" [value]="categoria.id">
+            {{categoria.nombre}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
 <table class="table table-sm table-bordered table-striped">
-    <tr>        
-        <th>Nombre</th>
-        <th>Categoria</th>
-        <th>Precio</th>
-        <th></th>
-    </tr>
-    <tr *ngFor="let item of getMenuList()">
-        <td>{{item.nombre}}</td>
-        <td>{{item.categoria}}</td>
-        <td>{{item.precio | currency:"USD" }}</td>
-        <td class="text-center">
-            <button class="btn btn-danger btn-sm mr-1" (click)="deleteMenu(item.menuId)">
-                Delete
-            </button>
-            <button class="btn btn-warning btn-sm" (click)="editMenu(item.menuId)">
-                Edit
-            </button>
-        </td>
-    </tr>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Categoria</th>
+            <th>Precio</th>
+            <th></th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        <tr *ngIf="length==0">
+            <td colspan="4">
+                <mat-card class="spiner-tabla wrapper">
+                    <mat-card-content style="align-content: center;padding-left: 40%;">
+                        <mat-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value">
+                        </mat-progress-spinner>
+                    </mat-card-content>
+                </mat-card>
+            </td>
+        </tr>
+        <tr *ngFor="let item of getMenuList() | paginate : {
+        itemsPerPage: pageSize,
+        currentPage: currentPage,
+        totalItems: length
+      };let i = index" [class.active]="i == currentIndex">
+            <td>{{ item.nombre }}</td>
+            <td>{{ categoriaXId(item.categoria) }}</td>
+            <td>{{ item.precio | currency:"USD" }}</td>
+            <td class="text-center">
+                <button class="btn btn-danger btn-sm mr-1" (click)="deleteMenu(item.menuId)">
+                    Delete
+                </button>
+                <button class="btn btn-warning btn-sm" (click)="editMenu(item.menuId)">
+                    Edit
+                </button>
+            </td>
+        </tr>
+    </tbody>
 </table>
+<!-- (page)="pageEvent($event)" -->
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)"
+    itemsPerPageLabel='Elmentos x página'>
+</mat-paginator>
