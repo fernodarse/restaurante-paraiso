@@ -1,21 +1,17 @@
-<button class="btn btn-primary m-1" (click)="createMenu()">
-    Crear Menu
+<button class="btn btn-primary m-1" (click)="createEvento()">
+    Crear Evento
 </button>
-<mat-form-field class="col-3 ">
-    <mat-label>Buscar x categoria</mat-label>
-    <mat-select name="categoria" [(ngModel)]="categoria">
-        <mat-option [value]="''">Todas</mat-option>
-        <mat-option *ngFor="let categoria of categoriaMenu()" [value]="categoria.id">
-            {{categoria.nombre}}
-        </mat-option>
-    </mat-select>
-</mat-form-field>
+
+<mat-label>Buscar </mat-label>
+<mat-checkbox name="destacado" [(ngModel)]="filtro" class="example-margin">Destacado
+</mat-checkbox>
+
 <table class="table table-sm table-bordered table-striped">
     <thead>
         <tr>
             <th>Nombre</th>
-            <th>Categoria</th>
-            <th>Precio</th>
+            <th>Descripcion</th>
+            <th>Destacado</th>
             <th></th>
         </tr>
     </thead>
@@ -32,19 +28,19 @@
                 </mat-card>
             </td>
         </tr>
-        <tr *ngFor="let item of getMenuList() | paginate : {
+        <tr *ngFor="let item of getEventoList() | paginate : {
         itemsPerPage: pageSize,
         currentPage: currentPage,
         totalItems: length
       };let i = index" [class.active]="i == currentIndex">
-            <td>{{ item.nombre }}</td>
-            <td>{{ categoriaXId(item.categoria) }}</td>
-            <td>{{ item.precio | currency:"USD" }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.descripcion }}</td>
+            <td>{{ item.destacado }}</td>
             <td class="text-center">
-                <button class="btn btn-danger btn-sm mr-1" (click)="deleteMenu(item.menuId)">
+                <button class="btn btn-danger btn-sm mr-1" (click)="deleteEvento(item.eventoId)">
                     Delete
                 </button>
-                <button class="btn btn-warning btn-sm" (click)="editMenu(item.menuId)">
+                <button class="btn btn-warning btn-sm" (click)="editEvento(item.eventoId)">
                     Edit
                 </button>
             </td>

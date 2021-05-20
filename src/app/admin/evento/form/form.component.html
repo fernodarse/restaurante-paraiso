@@ -1,0 +1,57 @@
+<mat-card class="bg-primary text-white p-2 mb-2" [class.bg-warning]="editing">
+    {{editing ? "Modificar" : "Crear"}} Evento
+</mat-card>
+<form novalidate #form="ngForm" (ngSubmit)="submitForm(form)" (reset)="resetForm()" class="">
+    <div class="row">
+        <mat-form-field class="col-8">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Nombre del evento" name="nombre" [(ngModel)]="evento.name" #nombre="ngModel"
+                required>
+            <mat-hint>Nombre del evento!</mat-hint>
+            <mat-error *ngFor="let error of getValidationMessages(nombre)">
+                <span [innerHTML]="error"></span>
+            </mat-error>
+        </mat-form-field>
+        <section class="example-section col-4">
+            <mat-checkbox class="example-margin" name="destacado" [(ngModel)]="evento.destacado">Destacado
+            </mat-checkbox>
+        </section>
+        <!-- <mat-hint>El menu aparecerá en las recomendaciones del chef</mat-hint> -->
+    </div>
+
+    <mat-form-field class="form-control">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput placeholder="Ej. Describe un momento..." name="descripcion" [(ngModel)]="evento.descripcion"
+            #descripcion="ngModel" required></textarea>
+        <mat-hint>Breve descripcion del evento</mat-hint>
+        <mat-error *ngFor="let error of getValidationMessages(descripcion)">
+            <span [innerHTML]="error"></span>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-subtitle>Foto</mat-card-subtitle>
+        </mat-card-header>
+        <div *ngIf="!hayImagen() "
+            style="width: auto;height: 100px;text-align: center;border: dotted 0.1px;padding-top: 40px;"> No imagen
+        </div>
+        <img *ngIf="hayImagen()" mat-card-image src="{{evento.photoURL}}" alt="    Photo del evento">
+
+        <mat-card-actions>
+            <mat-form-field class="col-8">
+                <mat-label>Foto</mat-label>
+                <input matInput placeholder="Url de la imagen" name="photoURL" [(ngModel)]="evento.photoURL"
+                    #photoURL="ngModel"  pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$" required>
+                <mat-error *ngFor="let error of getValidationMessages(photoURL)">
+                    <span [innerHTML]="error"></span>
+                </mat-error>
+            </mat-form-field>
+        </mat-card-actions>
+    </mat-card>
+
+    <button type="submit" class="btn btn-primary m-1" [class.btn-warning]="editing" [disabled]="form.invalid">
+        {{editing ? "Guardar" : "Crear"}}
+    </button>
+    <button type="reset" class="btn btn-secondary m-1">Cancelar</button>
+</form>

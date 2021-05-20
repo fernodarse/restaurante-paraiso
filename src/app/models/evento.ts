@@ -4,4 +4,5 @@ export class Evento {
     descripcion: string;
     destacado: boolean;
     photoURL: string;
+    createdDate: any;
 }

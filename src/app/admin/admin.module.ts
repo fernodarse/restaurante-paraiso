@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
@@ -9,6 +9,9 @@ import { SharedState, SHARED_STATE } from '../models/sharedState.model';
 import { Subject } from 'rxjs';
 import { NgMaterialModule } from '../ng-material/ng-material.module';
 import { ListCategoriaMenu } from '../models/staticts';
+import { EventoComponent } from './evento/evento.component';
+import { TableEventoComponent } from './evento/table/table.component';
+import { FormEventoComponent } from './evento/form/form.component';
 
 const childRoutes: Routes = [
   /*{ path: "", component: IntroComponent, pathMatch: "full" },
@@ -17,18 +20,22 @@ const childRoutes: Routes = [
   
 let routes= RouterModule.forChild([
     { path: "", component: MenuComponent, pathMatch: "full" },
-    //{ path: "", component: IntroComponent/*, children: childRoutes*/ },
-    /*{ path: "sku", component: DemoFormSkuComponent, pathMatch: "full" },*/
+    { path: "evento", component: EventoComponent, pathMatch: "full" },
+    /*{ path: "sku", component: DemoFormSkuComponent/*, children: childRoutes },*/
   ]);
 
 @NgModule({
-  declarations: [MenuComponent, TableMenuComponent, FormMenuComponent],
+  declarations: [
+    MenuComponent, TableMenuComponent, FormMenuComponent,
+    EventoComponent, TableEventoComponent, FormEventoComponent
+  ],
   imports: [
     CommonModule,FormsModule, ReactiveFormsModule, routes, NgMaterialModule,
   ],
   providers: [
     { provide: SHARED_STATE, useValue: new Subject<SharedState>() },
-      ListCategoriaMenu
+      ListCategoriaMenu,
+      DatePipe
     ]
   
 })

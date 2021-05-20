@@ -76,7 +76,7 @@ export class TableMenuComponent implements OnInit {
         console.log('El menú se eliminó correctamente')
        this.snackBarService.openSnackBar('El menú se eliminó correctamente');
       }
-      );;
+      );
   }
   editMenu(key: string) {
     this.observer.next(new SharedState(MODES.EDIT, key));

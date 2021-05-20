@@ -9,6 +9,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgMaterialModule } from './ng-material/ng-material.module'
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { routing } from './app.routing';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component'
@@ -24,7 +25,8 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component'
     AngularFirestoreModule,
     BrowserAnimationsModule,
     NgMaterialModule, 
-    routing
+    routing,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent] 
