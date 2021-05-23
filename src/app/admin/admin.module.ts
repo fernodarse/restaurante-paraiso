@@ -12,6 +12,12 @@ import { ListCategoriaMenu } from '../models/staticts';
 import { EventoComponent } from './evento/evento.component';
 import { TableEventoComponent } from './evento/table/table.component';
 import { FormEventoComponent } from './evento/form/form.component';
+import { CommentsComponent } from './comments/comments.component';
+import { TableComponent } from './comments/table/table.component';
+
+import { DocPipe } from '../pipe/doc.pipe';
+import { TruncateTextPipe } from '../pipe/truncatetext.pipe';
+import { CardComponent } from './comments/card/card.component';
 
 const childRoutes: Routes = [
   /*{ path: "", component: IntroComponent, pathMatch: "full" },
@@ -21,13 +27,16 @@ const childRoutes: Routes = [
 let routes= RouterModule.forChild([
     { path: "", component: MenuComponent, pathMatch: "full" },
     { path: "evento", component: EventoComponent, pathMatch: "full" },
+    { path: "comentario", component: CommentsComponent, pathMatch: "full" },
     /*{ path: "sku", component: DemoFormSkuComponent/*, children: childRoutes },*/
   ]);
 
 @NgModule({
   declarations: [
     MenuComponent, TableMenuComponent, FormMenuComponent,
-    EventoComponent, TableEventoComponent, FormEventoComponent
+    EventoComponent, TableEventoComponent, FormEventoComponent, CommentsComponent, TableComponent,
+    DocPipe,TruncateTextPipe,
+    CardComponent,
   ],
   imports: [
     CommonModule,FormsModule, ReactiveFormsModule, routes, NgMaterialModule,
@@ -36,7 +45,6 @@ let routes= RouterModule.forChild([
     { provide: SHARED_STATE, useValue: new Subject<SharedState>() },
       ListCategoriaMenu,
       DatePipe
-    ]
-  
+    ],  
 })
 export class AdminModule { }

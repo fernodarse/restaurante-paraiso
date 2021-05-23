@@ -38,18 +38,18 @@
     <mat-card-title>
         <div class="comment-card-title">
             <div>
-                {{comment.commentedBy}}
+                nombre : {{comment.commentedBy}}
+                correo (no mostrar) : {{comment.email}}
+                <img src="{{comment.photoURL}}">
             </div>
             <div *ngIf="appUser?.isAdmin">
-                <button mat-icon-button matTooltip="Delete comment" matTooltipPosition="before" color="accent"
-                    (click)="deleteComment(comment.commentId)">
-                    <mat-icon>delete</mat-icon>
-                </button>
+                
             </div>
         </div>
     </mat-card-title>
     <mat-card-subtitle>{{ comment.commentDate  }}</mat-card-subtitle> <!-- | date:'YYYY-MM-DD' -->
         <mat-card-content>
             <p>{{comment.content}}</p>
-        </mat-card-content>
+          <!--  <p *ngIf="comment.menu | doc | async as menu"> del menu: {{ menu.nombre }} </p> --> <!-- *ngIf="comment.menu | doc | async as menu"-->
+        </mat-card-content>   
 </mat-card>

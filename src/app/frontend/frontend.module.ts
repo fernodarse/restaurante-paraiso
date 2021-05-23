@@ -13,6 +13,7 @@ import { ListCategoriaMenu } from '../models/staticts';
 import { CommentsComponent } from './menu/comments/comments.component';
 import { FormsModule } from '@angular/forms';
 
+
 let routes= RouterModule.forChild([
   { path: "", component: FrontendComponent, pathMatch: "full" },
   { path: '**', component: FrontendComponent }
@@ -22,7 +23,9 @@ let routes= RouterModule.forChild([
   imports: [
     CommonModule,routes, NgMaterialModule,FormsModule,
   ],
-  declarations: [FrontendComponent, MenuComponent, BannerComponent, GaleriaComponent, ReservaComponent, ContactComponent, ScrollerComponent, CommentsComponent],
+  declarations: [FrontendComponent, MenuComponent, BannerComponent, 
+    GaleriaComponent, ReservaComponent, ContactComponent, ScrollerComponent, CommentsComponent,
+  ],
   providers: [ListCategoriaMenu,]
 })
 export class FrontendModule { }

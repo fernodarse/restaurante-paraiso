@@ -1,0 +1,29 @@
+<!-- <mat-label>Buscar </mat-label>
+<mat-checkbox name="destacado" [(ngModel)]="filtro" class="example-margin">Destacado
+</mat-checkbox> -->
+<mat-form-field class="col-3 ">
+    <mat-label>Buscar x menu</mat-label>
+    <mat-select name="menu" [(ngModel)]="selectedMenuId">
+        <mat-option [value]="''">Todas</mat-option>
+        <mat-option *ngFor="let menu of menuList" [value]="menu.menuId">
+            {{menu.nombre}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-card *ngIf="length==0;" class="spiner-tabla wrapper">
+            <mat-card-content style="align-content: center;padding-left: 40%;">
+                <mat-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value">
+                </mat-progress-spinner>
+            </mat-card-content>
+</mat-card>
+<card-comment *ngFor="let comment of getCommentList() | paginate : {
+    itemsPerPage: pageSize,
+    currentPage: currentPage,
+    totalItems: length
+  };let i = index" [class.active]="i == currentIndex" class="comment-card mat-elevation-z2" [comment]=" comment " (eliminar)="deleteComment($event)" (estado)="cambiarEstado($event)" >
+ </card-comment>
+
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)"
+    itemsPerPageLabel='Elmentos x página'>
+</mat-paginator>

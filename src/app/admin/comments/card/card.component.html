@@ -1,0 +1,25 @@
+<mat-card class="comment-card mat-elevation-z2">
+    <mat-card-title>
+        <div class="comment-card-title">
+            <div>
+                <div> <img src="{{comment.photoURL}}"> </div>
+                <div>{{comment.commentedBy}}</div>                
+            </div>
+            <div >
+                <button mat-icon-button matTooltip="Delete comment" matTooltipPosition="before" color="accent"
+                    (click)="deleteComment()">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <button  [class]="getClasses()" class="btn btn-sm mr-1" (click)="cambiarEstado()">
+                    {{ comment.activo ?  "Desactivar" : "Activar"}}
+                </button>
+            </div>
+        </div>
+    </mat-card-title>
+    <mat-card-subtitle>{{comment.commentDate }} <!--| date:'medium' --></mat-card-subtitle>
+    <mat-card-subtitle>{{comment.email }} <!--| date:'medium' --></mat-card-subtitle>
+    <mat-card-content>
+        <p>{{ showContent ? comment.content : comment.content  | truncatetext:100 }}</p>
+        <a (click)="setShowContent()" >{{ showContent ? "Ocultar" : "Leer más "}} </a>
+    </mat-card-content>
+</mat-card>
