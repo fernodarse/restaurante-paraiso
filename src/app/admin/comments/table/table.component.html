@@ -1,7 +1,7 @@
 <!-- <mat-label>Buscar </mat-label>
 <mat-checkbox name="destacado" [(ngModel)]="filtro" class="example-margin">Destacado
 </mat-checkbox> -->
-<mat-form-field class="col-3 ">
+<!-- <mat-form-field class="col-3 ">
     <mat-label>Buscar x menu</mat-label>
     <mat-select name="menu" [(ngModel)]="selectedMenuId">
         <mat-option [value]="''">Todas</mat-option>
@@ -9,7 +9,22 @@
             {{menu.nombre}}
         </mat-option>
     </mat-select>
-</mat-form-field>
+</mat-form-field>-->
+
+<mat-form-field class="col-3">
+    <mat-label>Buscar x menu</mat-label>
+    <input type="text"
+           placeholder="Buscar x menu"
+           aria-label="Buscar"
+           matInput
+           [formControl]="myControl"
+           [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option.nombre">
+        {{option.nombre}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 
 <mat-card *ngIf="length==0;" class="spiner-tabla wrapper">
             <mat-card-content style="align-content: center;padding-left: 40%;">
@@ -17,12 +32,18 @@
                 </mat-progress-spinner>
             </mat-card-content>
 </mat-card>
-<card-comment *ngFor="let comment of getCommentList() | paginate : {
+<div>
+<ul  class="columns" data-columns="2">
+  <li *ngFor="let comment of getCommentList() | paginate : {
     itemsPerPage: pageSize,
     currentPage: currentPage,
     totalItems: length
-  };let i = index" [class.active]="i == currentIndex" class="comment-card mat-elevation-z2" [comment]=" comment " (eliminar)="deleteComment($event)" (estado)="cambiarEstado($event)" >
- </card-comment>
+  };let i = index" >
+    <card-comment  [class.active]="i == currentIndex" class="comment-card mat-elevation-z2 " [comment]=" comment " (eliminar)="deleteComment($event)" (estado)="cambiarEstado($event)" >
+    </card-comment>
+  </li>
+</ul>
+</div>
 
 <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)"
     itemsPerPageLabel='Elmentos x página'>

@@ -16,6 +16,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
     declarations: [],
@@ -37,6 +38,7 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatPaginatorModule,
         NgxPaginationModule,
         MatTabsModule,
+        MatAutocompleteModule,
     ],
     exports: [
         CommonModule,
@@ -56,6 +58,7 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatPaginatorModule,
         NgxPaginationModule,
         MatTabsModule,
+        MatAutocompleteModule,
     ]
 })
 export class NgMaterialModule { }

@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { PageEvent } from '@angular/material/paginator';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Observable, Observer, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, map, startWith, takeUntil } from 'rxjs/operators';
 import { Comments } from 'src/app/models/comment';
 import { CommentService } from 'src/app/models/comment.service';
 import { Menu } from 'src/app/models/menu';
@@ -35,6 +36,9 @@ export class TableComponent implements OnInit {
   mode: ProgressSpinnerMode = 'indeterminate';
   value = 50;
 
+  myControl = new FormControl();
+  filteredOptions: Observable<Menu[]>;
+
   constructor(private commentServices: CommentService,
     @Inject(SHARED_STATE) public observer: Observer<SharedState>,
     private snackBarService: SnackbarService,
@@ -55,6 +59,25 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
     this.getAllComment();
     this.getAllMenus();
+    
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+  }
+
+  private _filter(value: string): Menu[] {
+    const filterValue = value.toLowerCase();     
+    const select =  this.menuList.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0)
+    
+    const menuFiltrado = select.filter(option => option.nombre.toLowerCase() == filterValue)
+    if(menuFiltrado.length>0 ){
+      console.log('filtrando ')
+      this.selectedMenuId = menuFiltrado[0].menuId;
+    }else{
+      this.selectedMenuId='';
+    }
+    return select;
   }
 
   getCommentList() {
