@@ -13,11 +13,16 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { routing } from './app.routing';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component'
+import { REST_URL } from './models/rest.datasource';
+import { AdminAuthGuard } from './guards/admin-auth.guard';
+import { AuthAdminRestService } from './services/authAdmin-rest.service';
+import { HttpClientModule } from '@angular/common/http';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
  
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent,    
+   // NavBarComponent,    
   ],
   imports: [
     BrowserModule,
@@ -26,9 +31,20 @@ import { NavBarComponent } from './component/nav-bar/nav-bar.component'
     BrowserAnimationsModule,
     NgMaterialModule, 
     routing,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule,
+    /*JwtModule.forRoot({
+      config: {
+        tokenGetter: function  tokenGetter() { 
+        return localStorage.getItem('token');
+        }
+      }}) */
   ],
-  providers: [],
+  providers: [
+    { provide: REST_URL, useValue: `http://${location.hostname}:3000/` },
+    AuthAdminRestService,
+    AdminAuthGuard,
+  ],
   bootstrap: [AppComponent] 
 })
 export class AppModule { }

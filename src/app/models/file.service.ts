@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpEventType, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, finalize, map } from 'rxjs/operators';
+import { RestDataSource, REST_URL } from './rest.datasource';
 
 @Injectable({
   providedIn: 'root'

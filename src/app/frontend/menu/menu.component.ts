@@ -16,25 +16,22 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  private menuList: Menu[] = [];
-  private unsubscribe$ = new Subject<void>();
-
   appUser: AppUser;
 
   selectedMenu:string;
 
   constructor(private menuServices: MenuService,
     private listCategoriaMenu: ListCategoriaMenu,
-    private authService: AuthService,) { }
+    private authService: AuthService,) {}
 
-  ngOnInit(): void {
-    this.getAllMenus();
+  ngOnInit(): void {   
+    
     this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
   }
 
   ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
+   // this.unsubscribe$.next();
+    //this.unsubscribe$.complete();
   }
 
   categoriaMenu(): CategoriaMenu[] {
@@ -42,17 +39,8 @@ export class MenuComponent implements OnInit {
   }
 
   getMenuListXCategoria(categoria:string): Menu[] {
-    return this.menuList.filter((menu) => menu.categoria == categoria);
+    let menuList=this.menuServices.getAllMenus()
+    return menuList.filter((menu) => menu.categoria == categoria);
   }
-
-  getAllMenus() {
-    return this.menuServices.getAllMenus()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(result => {
-        this.menuList = result;
-        //console.log("getAllMenus", this.menuList)
-      });
-  }
-
-
+  
 }

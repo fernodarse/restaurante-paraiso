@@ -19,6 +19,8 @@ export class FormMenuComponent implements OnInit {
 
   menu: Menu = new Menu();
 
+  confirmPassword='';
+
   selectedFile: File = null;
   porcentage = 0;
   fileAttr = 'Choose File';
@@ -35,6 +37,7 @@ export class FormMenuComponent implements OnInit {
       console.log('recibiendo en form', update);
       if (update.id != undefined) {
         this.menuServices.getMenubyId(update.id).subscribe(result => {
+          console.log('busqueda x id', result)
           Object.assign(this.menu, result);
           this.menu.menuId = update.id;
         });
@@ -66,7 +69,8 @@ export class FormMenuComponent implements OnInit {
           }
           );;
       }
-      form.reset();
+      //form.reset();
+      //this.resetForm();
     }
   }
   resetForm() {
@@ -92,17 +96,24 @@ export class FormMenuComponent implements OnInit {
         this.uploadService.pushFileToStorage(this.selectedFile,this.menu.datosImg).subscribe(
           percentage => {
             this.porcentage = Math.round(percentage ? percentage : 0);
-            /*this.nombreFichero=this.uploadService.name;
-            this.url=this.uploadService.url;
-            console.log('subido ',this.nombreFichero)
-            console.log('subido url',this.url)*/
             console.log('subido url',this.menu.datosImg)
           },
           error => {
             console.log(error);
           }
         );
-      }     
+      }  
+     /* if (this.selectedFile) {
+        this.uploadService.pushFileToBackend(this.selectedFile,this.menu.datosImg).subscribe(
+          percentage => {
+            console.log('porcentage subido', percentage)
+            this.porcentage = Math.round(percentage ? percentage : 0);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }  */
   }
 
   hayImagen(){

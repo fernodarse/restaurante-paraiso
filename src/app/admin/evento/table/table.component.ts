@@ -16,8 +16,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 })
 export class TableEventoComponent implements OnInit {
 
-  private list: Evento[] = [];
-  private unsubscribe$ = new Subject<void>();
+  
   filtro: boolean = false;
 
   //paginado
@@ -54,18 +53,20 @@ export class TableEventoComponent implements OnInit {
   }
 
   getEventoList(): Evento[] {
-    return this.list.filter((menu) => this.filtro == false || menu.destacado == this.filtro);
+    let list=this.eventoServices.getAllEventos()
+    this.length=list.length;
+    return list.filter((evnto) => this.filtro == false || evnto.destacado == this.filtro);
   }
 
   getAllEventos() {
-    return this.eventoServices.getAllEventos()
+    /*return this.eventoServices.getAllEventos()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(result => {
         this.list = result;
         this.length = this.list.length;
         console.log("getAllMenus", this.list)
         console.log("cantidad de elementos", this.length)
-      });
+      });*/
   }
 
   deleteEvento(key: string) {
@@ -85,11 +86,5 @@ export class TableEventoComponent implements OnInit {
   ngOnInit(): void {
     this.getAllEventos();    
   }
-
-  ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
-
 
 }

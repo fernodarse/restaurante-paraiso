@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
-import { Observable, of,combineLatest } from 'rxjs';
+import { Observable, of,combineLatest, Subject } from 'rxjs';
 import { flatMap, map, switchMap } from 'rxjs/operators';
 import { CommentBy, Comments } from '../models/comment';
 //import { uniq, flatten } from 'lodash'
@@ -12,7 +12,24 @@ import { AppUser } from './appuser';
 })
 export class CommentService {
 
-  constructor(private db: AngularFirestore) { }
+  private list: Comments[] = [];
+  private unsubscribe$ = new Subject<void>();
+
+  constructor(private db: AngularFirestore) { 
+    const comments = this.db.collection<Comments>('comments',
+    ref => ref.orderBy('commentDate','desc'))
+        .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(
+            c => ({
+              commentId: c.payload.doc.id,
+              ...c.payload.doc.data()
+            }));
+        })).subscribe(result => {
+          this.list=result;
+          console.log("getAllComments", this.list)
+        });;
+  }
 
   saveComment(comment: Comments) {
     
@@ -30,18 +47,8 @@ export class CommentService {
   }
 
   
-  getAllComments(){
-    const comments = this.db.collection<Comments>('comments',
-    ref => ref.orderBy('commentDate','desc'))
-        .snapshotChanges().pipe(
-        map(actions => {
-          return actions.map(
-            c => ({
-              commentId: c.payload.doc.id,
-              ...c.payload.doc.data()
-            }));
-        }));
-  return comments;
+  getAllComments(){    
+  return this.list;
   }
 
   getAllCommentsForMenu(menuId: string): Observable<Comments[]> {

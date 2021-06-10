@@ -17,8 +17,6 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 })
 export class TableMenuComponent implements OnInit {
 
-  private menuList: Menu[] = [];
-  private unsubscribe$ = new Subject<void>();
   categoria: string = '';
 
   //paginado
@@ -56,24 +54,28 @@ export class TableMenuComponent implements OnInit {
   }
 
   getMenuList(): Menu[] {
-    return this.menuList.filter((menu) => this.categoria == '' || menu.categoria == this.categoria);
+    let list=this.menuServices.getAllMenus().filter((menu) => this.categoria == '' || menu.categoria == this.categoria);
+    this.length=list.length
+    return list
   }
 
   getAllMenus() {
-    return this.menuServices.getAllMenus()
+    /*return this.menuServices.getAllMenus()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(result => {
         this.menuList = result;
         this.length = this.menuList.length;
         console.log("getAllMenus", this.menuList)
         console.log("cantidad de elementos", this.length)
-      });
+      });*/
+      //this.menuList=this.menuServices.getAllMenus();
+     // console.log("getAllMenus comp", this.menuList)
   }
 
   deleteMenu(key: string) {
     this.menuServices.deleteMenu(key).then(
       () => {
-        console.log('El menú se eliminó correctamente')
+       console.log('El menú se eliminó correctamente')
        this.snackBarService.openSnackBar('El menú se eliminó correctamente');
       }
       );
@@ -89,10 +91,10 @@ export class TableMenuComponent implements OnInit {
     this.getAllMenus();    
   }
 
-  ngOnDestroy() {
+  /*ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
-  }
+  }*/
 
   categoriaXId(id: string) {
     return this.listCategoriaMenu.categoriaXId(id);

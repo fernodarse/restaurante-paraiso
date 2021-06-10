@@ -19,9 +19,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 })
 export class TableComponent implements OnInit {
 
-  private commetList: Comments[] = [];
-  menuList: Menu[] = [];
-  private unsubscribe$ = new Subject<void>();
+  
   selectedMenuId:String='';
 
   //paginado
@@ -57,8 +55,9 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllComment();
-    this.getAllMenus();
+    //this.getAllComment();
+   // this.menuList = this.getAllMenus();
+   //this.menuList= this.menuServices.getAllMenus();
     
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -68,8 +67,9 @@ export class TableComponent implements OnInit {
 
   private _filter(value: string): Menu[] {
     const filterValue = value.toLowerCase();     
-    const select =  this.menuList.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0)
-    
+    const select =  this.getAllMenus().filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0)
+    console.log('filtrando list',this.getAllMenus())
+    console.log('filtrando select',select)
     const menuFiltrado = select.filter(option => option.nombre.toLowerCase() == filterValue)
     if(menuFiltrado.length>0 ){
       console.log('filtrando ')
@@ -81,9 +81,11 @@ export class TableComponent implements OnInit {
   }
 
   getCommentList() {
-    return this.commetList.filter((c) => this.selectedMenuId == '' || c.menuId == this.selectedMenuId);;
+    let list=this.commentServices.getAllComments()
+    this.length=list.length;
+    return list.filter((c) => this.selectedMenuId == '' || c.menuId == this.selectedMenuId);;
   }
-  getAllComment() {
+  /*getAllComment() {
     return this.commentServices.getAllComments()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(result => {
@@ -92,7 +94,7 @@ export class TableComponent implements OnInit {
         console.log("getAllComment", this.commetList)
         console.log("cantidad de elementos", this.length)
       });
-  }
+  }*/
 
   deleteComment(key: string) {
     this.commentServices.deleteSingleComment(key).then(
@@ -117,11 +119,12 @@ export class TableComponent implements OnInit {
   }     
 
   getAllMenus() {
-    return this.menuServices.getAllMenus()
+    /*return this.menuServices.getAllMenus()
       .subscribe(result => {
         this.menuList = result;
         console.log("menus para buscar coments", this.menuList)
-      });
+      });*/
+      return this.menuServices.getAllMenus();
   }
 
 }

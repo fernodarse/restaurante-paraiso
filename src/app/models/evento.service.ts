@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Evento } from '../models/evento';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,24 @@ import { Observable } from 'rxjs';
 
 export class EventoService {
 
-  constructor(private db: AngularFirestore) { }
+  private list: Evento[] = [];
+  private unsubscribe$ = new Subject<void>();
+  
+  constructor(private db: AngularFirestore) {
+    const eventos = this.db.collection<Evento>('eventos', ref =>
+    ref.orderBy('createdDate', 'desc'))
+    .snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(
+          c => ({
+              eventoId: c.payload.doc.id,
+            ...c.payload.doc.data()
+          }));
+      })).subscribe(result => {
+        this.list=result;
+        console.log("getAllEvento", this.list)
+      });
+   }
 
   createEvento(evento: Evento) {
     const eventoData = JSON.parse(JSON.stringify(evento));
@@ -18,18 +35,8 @@ export class EventoService {
     return this.db.collection('eventos').add(eventoData);
   }
 
-  getAllEventos(): Observable<Evento[]> {
-    const eventos = this.db.collection<Evento>('eventos', ref =>
-      ref.orderBy('createdDate', 'desc'))
-      .snapshotChanges().pipe(
-        map(actions => {
-          return actions.map(
-            c => ({
-                eventoId: c.payload.doc.id,
-              ...c.payload.doc.data()
-            }));
-        }));
-    return eventos;
+  getAllEventos(): Evento[] {    
+    return this.list;
   }
 
   getEventobyId(id: string): Observable<Evento> {
@@ -46,5 +53,10 @@ export class EventoService {
   updateEvento(Id: string, evento: Evento) {
     const putData = JSON.parse(JSON.stringify(evento));
     return this.db.doc('eventos/' + Id).update(putData);
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

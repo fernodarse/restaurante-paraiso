@@ -1,5 +1,7 @@
 import { Routes, RouterModule } from "@angular/router";
-import { AppComponent } from "./app.component";
+import { LoginComponent } from "./admin/login/login.component";
+import { AdminAuthGuard } from "./guards/admin-auth.guard";
+import { Role } from 'src/app/models/staticts';
 
 const routes: Routes = [
   {
@@ -10,8 +12,13 @@ const routes: Routes = [
   {
     path: "admin",
     loadChildren: () => import("./admin/admin.module")
-      .then(m => m.AdminModule)
+      .then(m => m.AdminModule),
+    canActivate: [AdminAuthGuard], 
+    data: { 
+      expectedRole: Role.Admin
+    } 
   },
+  { path: "login", component: LoginComponent, pathMatch: "full" },
   { path: "", redirectTo: "/inicio", pathMatch: "full" },
 ]
 

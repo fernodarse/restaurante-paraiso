@@ -1,25 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Menu } from '../models/menu';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
 
-@Injectable({
+@Injectable(/*{
   providedIn: 'root'
-})
+}*/)
 
 export class MenuService {
 
-  constructor(private db: AngularFirestore) { }
+  private menuList: Menu[] = [];
+  private unsubscribe$ = new Subject<void>();
 
-  createMenu(menu: Menu) {
-    const menuData = JSON.parse(JSON.stringify(menu));
-    console.log("createMenu ", menuData);
-    return this.db.collection('menus').add(menuData);
-  }
-
-  getAllMenus(): Observable<Menu[]> {
-    const menus = this.db.collection<Menu>('menus', ref =>
+  constructor(private db: AngularFirestore) {
+    this.db.collection<Menu>('menus', ref =>
       ref.orderBy('createdDate', 'desc'))
       .snapshotChanges().pipe(
         map(actions => {
@@ -28,8 +23,21 @@ export class MenuService {
               menuId: c.payload.doc.id,
               ...c.payload.doc.data()
             }));
-        }));
-    return menus;
+        })).pipe(takeUntil(this.unsubscribe$))
+        .subscribe(result => {
+          this.menuList = result;
+          console.log("getAllMenus", this.menuList)
+        });
+   }
+
+  createMenu(menu: Menu) {
+    const menuData = JSON.parse(JSON.stringify(menu));
+    console.log("createMenu ", menuData);
+    return this.db.collection('menus').add(menuData);
+  }
+
+  getAllMenus(): Menu[] {
+    return this.menuList 
   }
 
   getMenubyId(id: string): Observable<Menu> {
@@ -46,5 +54,10 @@ export class MenuService {
   updateMenu(menuId: string, menu: Menu) {
     const putData = JSON.parse(JSON.stringify(menu));
     return this.db.doc('menus/' + menuId).update(putData);
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

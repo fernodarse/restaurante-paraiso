@@ -12,6 +12,14 @@ import { NgMaterialModule } from '../ng-material/ng-material.module';
 import { ListCategoriaMenu } from '../models/staticts';
 import { CommentsComponent } from './menu/comments/comments.component';
 import { FormsModule } from '@angular/forms';
+import { MenuService } from '../models/menu.service';
+import { MenuRestService } from '../models/menu-rest.service';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from '../services/auth.service';
+import { AuthRestService } from '../services/auth-rest.service';
+import { UserRestService } from '../models/user-rest.service';
+import { NavBarComponent } from '../component/nav-bar/nav-bar.component';
+import { ComponentModule } from '../component/component.module';
 
 
 let routes= RouterModule.forChild([
@@ -21,11 +29,17 @@ let routes= RouterModule.forChild([
 
 @NgModule({  
   imports: [
-    CommonModule,routes, NgMaterialModule,FormsModule,
+    CommonModule,routes, NgMaterialModule,FormsModule,HttpClientModule,ComponentModule,
   ],
   declarations: [FrontendComponent, MenuComponent, BannerComponent, 
     GaleriaComponent, ReservaComponent, ContactComponent, ScrollerComponent, CommentsComponent,
+    
   ],
-  providers: [ListCategoriaMenu,]
+  providers: [
+    ListCategoriaMenu,
+    /*MenuService,*/{ provide: MenuService, useClass: MenuRestService },
+    UserRestService,
+    AuthService,// { provide:AuthService, useClass: AuthRestService}
+  ]
 })
 export class FrontendModule { }

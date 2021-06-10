@@ -19,3 +19,9 @@ export class ListCategoriaMenu {
     }
 
 }
+
+export enum Role {
+    User = 'user',
+    Admin = 'admin',
+}
+
