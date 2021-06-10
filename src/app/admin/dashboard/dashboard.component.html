@@ -1,0 +1,157 @@
+<!-- Header -->
+<header id="js-header" class="u-header u-header--sticky-top">
+    <div class="u-header__section u-header__section--admin-dark g-min-height-65">
+        <nav class="navbar no-gutters g-pa-0">
+            <div class="col-auto d-flex flex-nowrap u-header-logo-toggler g-py-12">
+                <!-- Logo -->
+                <a class="navbar-brand d-flex align-self-center g-hidden-xs-down g-line-height-1 py-0 g-mt-5" [routerLink]="['dashboard']">
+                    <p>Dashboard</p>
+                </a>
+                <!-- End Logo -->
+
+                <!-- Sidebar Toggler -->
+                <a class="js-side-nav u-header__nav-toggler d-flex align-self-center ml-auto" href="#"
+                    data-hssm-class="u-side-nav--mini u-sidebar-navigation-v1--mini"
+                    data-hssm-body-class="u-side-nav-mini" data-hssm-is-close-all-except-this="true"
+                    data-hssm-target="#sideNav">
+                    <i class="hs-admin-align-left"></i>
+                </a>
+                <!-- End Sidebar Toggler -->
+            </div>
+
+            <!-- Top Search Bar -->
+            <form id="searchMenu" class="u-header--search col-sm g-py-12 g-ml-15--sm g-ml-20--md g-mr-10--sm"
+                aria-labelledby="searchInvoker" action="#!">
+                <div class="input-group g-max-width-450--sm">
+                    <input class="form-control h-100 form-control-md g-rounded-4 g-pr-40" type="text"
+                        placeholder="Enter search keywords">
+                    <button type="submit"
+                        class="btn u-btn-outline-primary g-brd-none g-bg-transparent--hover g-pos-abs g-top-0 g-right-0 d-flex g-width-40 h-100 align-items-center justify-content-center g-font-size-18 g-z-index-2"><i
+                            class="hs-admin-search"></i>
+                    </button>
+                </div>
+            </form>
+            <!-- End Top Search Bar -->
+            <!-- Top User -->
+            <div class="col-auto d-flex g-pt-5 g-pt-0--sm g-pl-10 g-pl-20--sm">
+                <div class="g-pos-rel g-px-10--lg">
+                    <a id="profileMenuInvoker" class="d-block" href="#" aria-controls="profileMenu" aria-haspopup="true"
+                        aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#profileMenu"
+                        data-dropdown-type="css-animation" data-dropdown-duration="300"
+                        data-dropdown-animation-in="fadeIn" data-dropdown-animation-out="fadeOut">
+                        <span class="g-pos-rel">
+                            <span class="u-badge-v2--xs u-badge--top-right g-hidden-sm-up g-bg-secondary g-mr-5"></span>
+                            <img class="g-width-30 g-width-40--md g-height-30 g-height-40--md rounded-circle g-mr-10--sm"
+                                src="../../../assets/img-temp/130x130/img1.jpg" alt="Image description">
+                        </span>
+                        <span class="g-pos-rel g-top-2">
+                            <span class="g-hidden-sm-down">Admin</span>
+                            <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-10"></i>
+                        </span>
+                    </a>
+
+                    <!-- Top User Menu -->
+                    <ul id="profileMenu"
+                        class="g-pos-abs g-left-0 g-width-100x--lg g-nowrap g-font-size-14 g-py-20 g-mt-17 rounded"
+                        aria-labelledby="profileMenuInvoker">
+                        <li class="g-mb-10">
+                            <a class="media g-color-primary--hover g-py-5 g-px-20" href="#">
+                                <span class="d-flex align-self-center g-mr-12">
+                                    <i class="hs-admin-user"></i>
+                                </span>
+                                <span class="media-body align-self-center">My Profile</span>
+                            </a>
+                        </li>
+                        <li class="mb-0">
+                            <a class="media g-color-primary--hover g-py-5 g-px-20" href="#">
+                                <span class="d-flex align-self-center g-mr-12">
+                                    <i class="hs-admin-shift-right"></i>
+                                </span>
+                                <span class="media-body align-self-center">Sign Out</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- End Top User Menu -->
+                </div>
+            </div>
+            <!-- End Top User -->
+        </nav>
+    </div>
+</header>
+<!-- End Header -->
+
+<main class="container-fluid px-0 g-pt-65">
+    <div class="row no-gutters g-pos-rel g-overflow-x-hidden">
+        <!-- Sidebar Nav -->
+        <div id="sideNav" class="col-auto u-sidebar-navigation-v1 u-sidebar-navigation--dark">
+            <ul id="sideNavMenu"
+                class="u-sidebar-navigation-v1-menu u-side-nav--top-level-menu g-min-height-100vh mb-0">
+                <!-- Dashboards -->
+                <li
+                    class="u-sidebar-navigation-v1-menu-item u-side-nav--has-sub-menu u-side-nav--top-level-menu-item has-active">
+                    <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12" 
+                        data-hssm-target="#subMenu1" href="#">
+                        <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                            <i class="hs-admin-align-justify"></i>
+                        </span>
+                        <span class="media-body align-self-center">Servicios</span>
+                        <span class="d-flex align-self-center u-side-nav--control-icon">
+                            <i class="hs-admin-angle-right"></i>
+                        </span>
+                        <span class="u-side-nav--has-sub-menu__indicator"></span>
+                    </a>
+
+                    <!-- Dashboards: Submenu-1 -->
+                    <ul id="subMenu1" class="u-sidebar-navigation-v1-menu u-side-nav--second-level-menu mb-0"
+                        style="display: block;">
+                        <!-- Dashboards v1 -->
+                        <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12 active"
+                                [routerLink]="['dashboard/menu']">
+                                <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                    <i class="hs-admin-write"></i>
+                                </span>
+                                <span class="media-body align-self-center">Menú</span>
+                            </a>
+                        </li>
+                        <!-- End Dashboards v1 -->
+
+                        <!-- Dashboards v2 -->
+                        <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
+                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12"
+                                [routerLink]="['dashboard/booking']">
+                                <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
+                                    <i class="hs-admin-time"></i>
+                                </span>
+                                <span class="media-body align-self-center">Reservaciones</span>
+                            </a>
+                        </li>
+                        <!-- End Dashboards v2 -->
+                    </ul>
+                    <!-- End Dashboards: Submenu-1 -->
+                </li>
+                <!-- End Dashboards -->
+
+                <!-- Metrics -->
+                <li class="u-sidebar-navigation-v1-menu-item u-side-nav--top-level-menu-item">
+                    <a class="media u-side-nav--top-level-menu-link u-side-nav--hide-on-hidden g-px-15 g-py-12"
+                        [routerLink]="['dashboard/users']">
+                        <span class="d-flex align-self-center g-pos-rel g-font-size-18 g-mr-18">
+                            <i class="hs-admin-user"></i>
+                        </span>
+                        <span class="media-body align-self-center">Usuarios</span>
+                    </a>
+                </li>
+                <!-- End Metrics -->
+
+            </ul>
+        </div>
+        <!-- End Sidebar Nav -->
+
+        <div class="col g-ml-45 g-ml-0--lg g-pb-65--md">
+            <div class="g-pa-20">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</main>

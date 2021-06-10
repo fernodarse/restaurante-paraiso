@@ -11,12 +11,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgMaterialModule } from './ng-material/ng-material.module'
 
 import { routing } from './app.routing';
-import { NavBarComponent } from './component/nav-bar/nav-bar.component'
+//import { NavBarComponent } from './component/nav-bar/nav-bar.component';
+//import { HeaderComponent } from './component/header/header.component'
  
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent
+    //LoginComponent,
+    //NavBarComponent,
+    //HeaderComponent
   ],
   imports: [
     BrowserModule,

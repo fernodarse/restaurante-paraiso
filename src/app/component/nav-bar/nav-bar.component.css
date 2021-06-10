@@ -9,3 +9,6 @@ button:focus {
     outline: none;
     border: 0;
 }
+.example-spacer {
+    flex: 1 1 auto;
+  }

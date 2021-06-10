@@ -1,9 +1,10 @@
 import { Routes, RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
+import { LoginComponent } from "./component/login/login.component";
 
 const routes: Routes = [
   {
-    path: "inicio",
+    path: "home",
     loadChildren: () => import("./frontend/frontend.module")
       .then(m => m.FrontendModule)
   },
@@ -12,7 +13,11 @@ const routes: Routes = [
     loadChildren: () => import("./admin/admin.module")
       .then(m => m.AdminModule)
   },
-  { path: "", redirectTo: "/inicio", pathMatch: "full" },
+  {
+    path: "login",component:LoginComponent
+  },
+  { path: "", redirectTo: "/home", pathMatch: "full" },
+  { path: "**", redirectTo: "/home", pathMatch: "full" },
 ]
 
 
