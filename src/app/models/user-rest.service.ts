@@ -30,9 +30,7 @@ export class UserRestService extends RestDataSource {
       console.log("getAllUser", this.list)
     });
     
-   }
-
-  
+   }  
 
   create(user: AppUser) {
 

@@ -3,7 +3,6 @@
 }
 
 .example-header-image {
-  /*background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');*/
   background-size: cover;
   height: auto !important;
   width: auto !important;
@@ -16,4 +15,8 @@
 
 .mat-card-subtitle{
   margin-bottom: 2px !important;
+}
+
+.comment-card{
+  min-height: 188px;
 }

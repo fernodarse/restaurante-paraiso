@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppUser } from 'src/app/models/appuser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { AuthAdminRestService } from 'src/app/services/authAdmin-rest.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,9 +13,9 @@ export class NavBarComponent implements OnInit {
 
   appUser: AppUser;
   url:string;
-  constructor(private authService: AuthService,
+  constructor(@Inject("autenticar")private authService: AuthService,
     private router: Router,
-    private authAdminService: AuthAdminRestService) {
+    /*private authService: AuthAdminRestService*/) {
 
     //actualizando la ruta de navegacion
     console.log('URL ',router.url);
@@ -48,12 +47,15 @@ export class NavBarComponent implements OnInit {
   }
 
   getUserAdmin(){
-     return this.authAdminService.decode()
+    // return this.appUser//this.authService.decode()
+    console.log('data', this.authService.getUserData())
+    return this.authService.getUserData()
   }
 
   logoutAdmin(){
-    localStorage.removeItem('token');
-    this.router.navigate(['/']);
+    //localStorage.removeItem('token');
+    this.authService.logout()
+   // this.router.navigate(['/']);
   }
 
 }

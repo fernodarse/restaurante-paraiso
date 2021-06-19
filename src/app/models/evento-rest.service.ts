@@ -66,10 +66,6 @@ export class EventoRestService extends RestDataSource {
       this.list.splice(index,1,evento);
     })
     return     res.toPromise() 
-    /*return this.sendRequest<Evento>("PATCH", `${this.url}${Id}`, evento).toPromise<Evento>().finally(() => {
-     let index= this.list.findIndex(item => item.eventoId == Id);
-     this.list.splice(index,1,evento);      
-    });*/
   }
 
   ngOnDestroy() {

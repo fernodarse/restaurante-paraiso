@@ -39,7 +39,9 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from '../services/auth.service';
 import { AuthRestService } from '../services/auth-rest.service';
 import { AuthInterceptorService } from '../services/auth-interceptor';
-import { AuthAdminRestService } from '../services/authAdmin-rest.service';
+import { UserService } from '../models/user.service';
+import { CommentService } from '../models/comment.service';
+import { CommentRestService } from '../models/comment-rest.service';
 
 const childRoutes: Routes = [
   /*{ path: "", component: IntroComponent, pathMatch: "full" },
@@ -51,7 +53,7 @@ const childRoutes: Routes = [
 ];
 
 let routes = RouterModule.forChild([
-  { path: "", component: AdminComponent, children: childRoutes },  
+  { path: "", component: AdminComponent, children: childRoutes },
   /*{ path: "sku", component: DemoFormSkuComponent/*, children: childRoutes },*/
 ]);
 
@@ -71,19 +73,27 @@ let routes = RouterModule.forChild([
     LoginComponent,
   ],
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule, routes, NgMaterialModule, HttpClientModule,ComponentModule
+    CommonModule, FormsModule, ReactiveFormsModule, routes, NgMaterialModule, HttpClientModule, ComponentModule
   ],
   providers: [
     { provide: SHARED_STATE, useValue: new Subject<SharedState>() },
     ListCategoriaMenu,
     DatePipe,
-    MenuService,//{ provide: MenuService, useClass: MenuRestService },
-    FileService,//{ provide: FileService, useClass: FileRestService }, 
-      /*EventoService, */{ provide: EventoService, useClass: EventoRestService },
-    UserRestService,
+    AuthService,
+
     CustomvalidationService,
-    /*AuthService,*///{ provide: AuthService, useClass: AuthRestService },
+
+    MenuService,
+    FileService,
+    EventoService,
+    UserService,    
     
+    /*{ provide: MenuService, useClass: MenuRestService },
+    { provide: FileService, useClass: FileRestService }, 
+    { provide: EventoService, useClass: EventoRestService },
+    { provide: UserService, useClass: UserRestService },
+    { provide: CommentService, useClass: CommentRestService },*/
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

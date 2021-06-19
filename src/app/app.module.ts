@@ -15,9 +15,12 @@ import { routing } from './app.routing';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component'
 import { REST_URL } from './models/rest.datasource';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
-import { AuthAdminRestService } from './services/authAdmin-rest.service';
 import { HttpClientModule } from '@angular/common/http';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { AuthService } from './services/auth.service';
+import { AuthRestService } from './services/auth-rest.service';
+import { UserService } from './models/user.service';
+import { UserRestService } from './models/user-rest.service';
  
 @NgModule({
   declarations: [
@@ -28,10 +31,10 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     BrowserAnimationsModule,
     NgMaterialModule, 
-    routing,
-    AngularFireAuthModule,
+    routing,    
     HttpClientModule,
     /*JwtModule.forRoot({
       config: {
@@ -42,8 +45,13 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
   ],
   providers: [
     { provide: REST_URL, useValue: `http://${location.hostname}:3000/` },
-    AuthAdminRestService,
     AdminAuthGuard,
+
+    { provide: 'autenticar', useClass: AuthService},    
+   UserService, 
+
+   /*{ provide: 'autenticar', useClass: AuthRestService },
+   { provide: UserService, useClass: UserRestService },*/
   ],
   bootstrap: [AppComponent] 
 })

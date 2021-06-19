@@ -8,6 +8,7 @@ import { Role } from 'src/app/models/staticts';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { PageEvent } from '@angular/material/paginator';
 import { AppUser } from 'src/app/models/appuser';
+import { UserService } from 'src/app/models/user.service';
 
 @Component({
   selector: 'table-user',
@@ -30,7 +31,7 @@ export class TableUserComponent {
   mode: ProgressSpinnerMode = 'indeterminate';
   value = 50;
 
-  constructor(private userServices: UserRestService,
+  constructor(private userServices: UserService,
     @Inject(SHARED_STATE) public observer: Observer<SharedState>,
     private snackBarService: SnackbarService,) {
     this.config = {
@@ -71,10 +72,6 @@ export class TableUserComponent {
   }
   createUser() {
     this.observer.next(new SharedState(MODES.CREATE));
-  }
-
-  profile(){
-    this.userServices.profile().subscribe(data=> console.log(data))
   }
 
 }

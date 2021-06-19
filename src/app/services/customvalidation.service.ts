@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn, AbstractControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
-import { UserRestService } from 'src/app/models/user-rest.service';
+import { UserService } from '../models/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomvalidationService {
 
-  constructor(private userService: UserRestService) { }
+  constructor(private userService: UserService) { }
 
   patternValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {
@@ -63,7 +63,7 @@ export class CustomvalidationService {
       if (userName != undefined) {
         console.log('user name', userName)
         this.userService.getUserbyName(userName).subscribe(result => {
-          console.log('busqueda x user', result)
+          console.log('busqueda x user', result, idExcluye)
           if (result != null && result.userId!=idExcluye) {
             resolve(true);
           } else {

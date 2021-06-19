@@ -20,6 +20,9 @@ import { AuthRestService } from '../services/auth-rest.service';
 import { UserRestService } from '../models/user-rest.service';
 import { NavBarComponent } from '../component/nav-bar/nav-bar.component';
 import { ComponentModule } from '../component/component.module';
+import { UserService } from '../models/user.service';
+import { CommentService } from '../models/comment.service';
+import { CommentRestService } from '../models/comment-rest.service';
 
 
 let routes= RouterModule.forChild([
@@ -37,9 +40,15 @@ let routes= RouterModule.forChild([
   ],
   providers: [
     ListCategoriaMenu,
-    /*MenuService,*/{ provide: MenuService, useClass: MenuRestService },
-    UserRestService,
-    AuthService,// { provide:AuthService, useClass: AuthRestService}
+    AuthService,
+
+    MenuService, 
+    UserService,   
+    CommentService,      
+
+    /*{ provide: MenuService, useClass: MenuRestService },
+    { provide: UserService, useClass: UserRestService },
+    { provide: CommentService, useClass: CommentRestService },*/
   ]
 })
 export class FrontendModule { }

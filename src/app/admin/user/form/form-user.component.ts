@@ -5,6 +5,7 @@ import { AppUser } from 'src/app/models/appuser';
 import { MODES, SharedState, SHARED_STATE } from 'src/app/models/sharedState.model';
 import { Role } from 'src/app/models/staticts';
 import { UserRestService } from 'src/app/models/user-rest.service';
+import { UserService } from 'src/app/models/user.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class FormUserComponent implements OnInit {
   cambiarPas='';
   cambiarRepitPas='';
 
-  constructor(private userService: UserRestService,
+  constructor(private userService: UserService,
     @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>,
     private snackBarService: SnackbarService,) {
     stateEvents.subscribe((update) => {

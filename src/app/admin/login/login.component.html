@@ -1,22 +1,27 @@
-<h1>Login</h1>
+<mat-card>
+  <mat-card-content>
+    <form class="custom-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <h2>Log In</h2>
 
-<div class="alert alert-danger" role="alert" *ngIf="message">
-  {{ message }}
-</div>
+      <mat-error *ngIf="message!='' ">
+        {{ message }}
+      </mat-error>
 
-<form class="form-inline" >
-  <div class="form-group">
-    <label for="username">User: (type <em>user</em>)</label>
-    <input class="form-control" name="username" #username>
-  </div>
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="User" [(ngModel)]="user.userName" name="username" #username="ngModel" required>
+        <mat-error *ngFor="let error of getValidationMessages(username)">
+          <span [innerHTML]="error"></span>
+        </mat-error>
+      </mat-form-field>
 
-  <div class="form-group">
-    <label for="password">Password: (type <em>password</em>)</label>
-    <input class="form-control" type="password" name="password" #password>
-  </div>
-
-  <a class="btn btn-default" (click)="login(username.value, password.value)">
-    Submit
-  </a>
-</form>
-
+      <mat-form-field class="full-width-input">
+        <input matInput placeholder="Password" [(ngModel)]="user.password" type="password" name="password" #password="ngModel" required>
+        <mat-error *ngFor="let error of getValidationMessages(password)">
+          <span [innerHTML]="error"></span>
+        </mat-error>
+      </mat-form-field>
+      
+      <button mat-raised-button color="primary" [disabled]="form.invalid">Login</button>
+    </form>
+  </mat-card-content>
+</mat-card>

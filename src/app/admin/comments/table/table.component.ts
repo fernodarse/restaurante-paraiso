@@ -85,16 +85,6 @@ export class TableComponent implements OnInit {
     this.length=list.length;
     return list.filter((c) => this.selectedMenuId == '' || c.menuId == this.selectedMenuId);;
   }
-  /*getAllComment() {
-    return this.commentServices.getAllComments()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(result => {
-        this.commetList = result;
-        this.length = this.commetList.length;
-        console.log("getAllComment", this.commetList)
-        console.log("cantidad de elementos", this.length)
-      });
-  }*/
 
   deleteComment(key: string) {
     this.commentServices.deleteSingleComment(key).then(

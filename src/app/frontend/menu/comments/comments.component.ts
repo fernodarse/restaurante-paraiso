@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { AppUser } from 'src/app/models/appuser';
 import { Comments,CommentBy } from 'src/app/models/comment';
@@ -30,7 +30,7 @@ export class CommentsComponent implements OnInit {
 
   constructor(private datePipe: DatePipe,
     private commentService: CommentService,
-    private authService: AuthService,
+    @Inject ("autenticar") private  authService: AuthService,
     private snackBarService: SnackbarService,
     private menuServices: MenuService) { }
   
