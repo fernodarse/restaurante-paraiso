@@ -52,7 +52,7 @@ import { UserRestService } from './models/user-rest.service';
 
    /*{ provide: 'autenticar', useClass: AuthRestService },
    { provide: UserService, useClass: UserRestService },*/
-  ],
+  ], 
   bootstrap: [AppComponent] 
 })
 export class AppModule { }

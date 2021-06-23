@@ -9,9 +9,6 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-.container {
-    padding-top: 60px;
-}
 
 .example-panel-blue.mat-select-panel {
     background: rgba(0, 0, 255, 0.5);

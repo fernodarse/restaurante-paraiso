@@ -27,6 +27,7 @@
     "angular-material-fileupload": "^3.0.2",
     "bootstrap": "^5.0.1",
     "firebase": "^8.6.1",
+    "firebase-admin": "^9.9.0",
     "jquery": "^3.6.0",
     "ngx-pagination": "^5.1.0",
     "rxjs": "~6.6.0",
@@ -51,5 +52,18 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "^4.1.5"
+  },
+  "browser": {
+    "crypto": false,
+    "fs": false,
+    "zlib": false,
+    "http": false,
+    "https": false,
+    "net": false,
+    "os": false,
+    "path": false,
+    "stream": false,
+    "tls": false,
+    "constants": false
   }
 }

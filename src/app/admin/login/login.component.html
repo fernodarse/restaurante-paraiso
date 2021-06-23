@@ -1,27 +1,37 @@
-<mat-card>
-  <mat-card-content>
-    <form class="custom-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
-      <h2>Log In</h2>
+<section class="g-min-height-100vh g-flex-centered g-bg-lightblue-radialgradient-circle">
+  <div class="container g-py-100">
+    <div class="row justify-content-center">
 
-      <mat-error *ngIf="message!='' ">
-        {{ message }}
-      </mat-error>
+      <mat-card>
+        <mat-card-content>
+          <form class="custom-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
+            <h2 class="h2 g-color-black g-font-weight-600">Restaurant | Paradise</h2>
 
-      <mat-form-field class="full-width-input">
-        <input matInput placeholder="User" [(ngModel)]="user.userName" name="username" #username="ngModel" required>
-        <mat-error *ngFor="let error of getValidationMessages(username)">
-          <span [innerHTML]="error"></span>
-        </mat-error>
-      </mat-form-field>
+            <mat-error *ngIf="message!='' ">
+              {{ message }}
+            </mat-error>
 
-      <mat-form-field class="full-width-input">
-        <input matInput placeholder="Password" [(ngModel)]="user.password" type="password" name="password" #password="ngModel" required>
-        <mat-error *ngFor="let error of getValidationMessages(password)">
-          <span [innerHTML]="error"></span>
-        </mat-error>
-      </mat-form-field>
-      
-      <button mat-raised-button color="primary" [disabled]="form.invalid">Login</button>
-    </form>
-  </mat-card-content>
-</mat-card>
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="User" [(ngModel)]="user.userName" name="username" #username="ngModel"
+                required>
+              <mat-error *ngFor="let error of getValidationMessages(username)">
+                <span [innerHTML]="error"></span>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Password" [(ngModel)]="user.password" type="password" name="password"
+                #password="ngModel" required>
+              <mat-error *ngFor="let error of getValidationMessages(password)">
+                <span [innerHTML]="error"></span>
+              </mat-error>
+            </mat-form-field>
+
+            <button [disabled]="form.invalid" class="btn btn-md u-btn-primary rounded g-py-13 g-px-25">Login</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+.comment {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    /* It will end with ellipsis when text-overflow: ellipsis is included */
+    position: relative;
+    visibility: visible;
+}
+
+@mixin truncate-text($font-size: 16px, $line-height: 1.4, $lines-to-show: 3) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines-to-show;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    /* It will end with ellipsis when text-overflow: ellipsis is included */
+    position: relative;
+    visibility: visible;
+    /* this is a tricky to work correctly at IOS */
+    // Fallback for browsers that not support line-clamp
+    @supports not (-webkit-line-clamp: $lines-to-show) {
+        display: block;
+        max-height: $font-size * $line-height * $lines-to-show;
+        line-height: $line-height;
+    }
+}

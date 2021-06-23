@@ -88,7 +88,7 @@ let routes = RouterModule.forChild([
     EventoService,
     UserService,    
     
-    /*{ provide: MenuService, useClass: MenuRestService },
+    /*{ provide: MenuService, useClass: MenuRestService }, 
     { provide: FileService, useClass: FileRestService }, 
     { provide: EventoService, useClass: EventoRestService },
     { provide: UserService, useClass: UserRestService },

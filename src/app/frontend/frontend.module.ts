@@ -3,14 +3,10 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FrontendComponent } from './frontend.component';
 import { MenuComponent } from './menu/menu.component';
-import { BannerComponent } from './banner/banner.component';
-import { GaleriaComponent } from './galeria/galeria.component';
-import { ReservaComponent } from './reserva/reserva.component';
 import { ContactComponent } from './contact/contact.component';
-import { ScrollerComponent } from './scroller/scroller.component';
+
 import { NgMaterialModule } from '../ng-material/ng-material.module';
 import { ListCategoriaMenu } from '../models/staticts';
-import { CommentsComponent } from './menu/comments/comments.component';
 import { FormsModule } from '@angular/forms';
 import { MenuService } from '../models/menu.service';
 import { MenuRestService } from '../models/menu-rest.service';
@@ -23,6 +19,11 @@ import { ComponentModule } from '../component/component.module';
 import { UserService } from '../models/user.service';
 import { CommentService } from '../models/comment.service';
 import { CommentRestService } from '../models/comment-rest.service';
+import { GalleryComponent } from './gallery/gallery.component';
+import { BookingComponent } from './booking/booking.component';
+import { AboutComponent } from './about/about.component';
+import { MainSliderComponent } from './main-slider/main-slider.component';
+import { SpecialComponent } from './special/special.component';
 
 
 let routes= RouterModule.forChild([
@@ -34,8 +35,8 @@ let routes= RouterModule.forChild([
   imports: [
     CommonModule,routes, NgMaterialModule,FormsModule,HttpClientModule,ComponentModule,
   ],
-  declarations: [FrontendComponent, MenuComponent, BannerComponent, 
-    GaleriaComponent, ReservaComponent, ContactComponent, ScrollerComponent, CommentsComponent,
+  declarations: [FrontendComponent, 
+    MenuComponent, GalleryComponent, BookingComponent, ContactComponent, AboutComponent, MainSliderComponent,SpecialComponent
     
   ],
   providers: [
@@ -44,9 +45,9 @@ let routes= RouterModule.forChild([
 
     MenuService, 
     UserService,   
-    CommentService,      
+    CommentService,   
 
-    /*{ provide: MenuService, useClass: MenuRestService },
+   /*{ provide: MenuService, useClass: MenuRestService }, 
     { provide: UserService, useClass: UserRestService },
     { provide: CommentService, useClass: CommentRestService },*/
   ]

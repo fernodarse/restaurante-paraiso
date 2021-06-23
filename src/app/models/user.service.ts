@@ -4,6 +4,8 @@ import { map, tap } from 'rxjs/operators';
 import { Observable, of, Subject } from 'rxjs';
 import { AppUser } from './appuser';
 import { Role } from './staticts';
+import * as admin from "firebase-admin"; 
+import { serviceAccount } from '../../.././ServiceAccount';
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +15,35 @@ export class UserService {
 
   private list: AppUser[] = [];
   private unsubscribe$ = new Subject<void>();
-  
+
   constructor(private db: AngularFirestore) {
     const users = this.db.collection<AppUser>('appusers')
-    .snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(
-          c => ({
-            userId: c.payload.doc.id,
-            ...c.payload.doc.data()
-          }));
-      })).subscribe(result => {
-        this.list=result;
-        console.log("getAllUser services", this.list)
-      });
-   }
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(
+            c => ({
+              userId: c.payload.doc.id,
+              ...c.payload.doc.data()
+            }));
+        })).subscribe(result => {
+          this.list = result;
+          console.log("getAllUser services", this.list)
+        });
+
+    /*var serviceAccount = require("../../../finca-paraiso-firebase-adminsdk-yh6eo-5451d809b1.json");
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount)
+    });*/
+   /* admin.initializeApp({
+      credential: admin.credential.applicationDefault(),
+      databaseURL: 'https://finca-paraiso.firebaseio.com'
+  });*/
+
+  /*admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://finca-paraiso.firebaseio.com"
+  }); */
+  }   
 
   create(user: AppUser) {
     const objData = JSON.parse(JSON.stringify(user));
@@ -35,40 +51,40 @@ export class UserService {
     return this.db.collection('appusers').add(objData);
   }
 
-  createRed(user: any,rol=Role.User) {
+  createRed(user: any, rol = Role.User) {
     const userRef = this.db.doc(`appusers/${user.uid}`);
     const data = {
       name: user.displayName ? user.displayName : user.email,
       email: user.email,
       photoURL: user.photoURL,
       rol: rol,
-      username:user.email,
+      username: user.email,
     };
     return userRef.set(data, { merge: true });
   }
 
-  getAllUser(): AppUser[] {    
+  getAllUser(): AppUser[] {
     return this.list;
   }
 
- getUserbyId(id: string): Observable<AppUser> {
+  getUserbyId(id: string): Observable<AppUser> {
 
-  let obj = this.db.collection<AppUser>('appusers').doc(id)
-  .snapshotChanges()
-  .pipe(
-    map(actions => {
-      console.log('snapshotChanges', actions)
-      let find= ({
-        userId: actions.payload.id,
-        ...actions.payload.data()
-      })
-      let userData=new AppUser();
-      Object.assign(userData,find)
-      console.log('objeto asigando', userData)
-      return userData
-    }))    
-    //.toPromise()
-    ;
+    let obj = this.db.collection<AppUser>('appusers').doc(id)
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          console.log('snapshotChanges', actions)
+          let find = ({
+            userId: actions.payload.id,
+            ...actions.payload.data()
+          })
+          let userData = new AppUser();
+          Object.assign(userData, find)
+          console.log('objeto asigando', userData)
+          return userData
+        }))
+      //.toPromise()
+      ;
     return obj;
   }
 
@@ -78,19 +94,19 @@ export class UserService {
 
   getUserbyName(userName: string): Observable<AppUser> {
     const usuarioFind = this.db.collection<AppUser>('appusers',
-    ref => ref.where('userName', '==', userName))
-    .snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(
-          c => ({
-            userId: c.payload.doc.id,
-            ...c.payload.doc.data()
-          }));
-      }))
-    //.valueChanges()
-    .pipe(
-      map(value =>  value.length > 0 ? value[0] : null  ),
-    );
+      ref => ref.where('userName', '==', userName))
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(
+            c => ({
+              userId: c.payload.doc.id,
+              ...c.payload.doc.data()
+            }));
+        }))
+      //.valueChanges()
+      .pipe(
+        map(value => value.length > 0 ? value[0] : null),
+      );
     return usuarioFind;
   }
 
@@ -104,7 +120,7 @@ export class UserService {
     return this.db.doc('appusers/' + Id).update(putData);
   }
 
-  makeLogin(username:string,password:string): Observable<any> {  
+  makeLogin(username: string, password: string): Observable<any> {
     let credentials = {
       username: username,
       password: password
