@@ -1,188 +1,151 @@
 <!-- Section Content -->
-<section id="bookingForm" class="g-theme-bg-gray-light-v4 g-py-100">
-    <div class="container g-max-width-780 text-center g-mb-60">
-      <div class="text-center text-uppercase u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
-        <h4 class="g-font-weight-700 g-font-size-12 g-color-primary g-mb-15">Customer choice</h4>
-        <h2 class="u-heading-v5__title g-line-height-1_2 g-font-weight-700 g-font-size-32 g-font-size-40--md g-bg-primary--before g-pb-40">Good taste</h2>
-      </div>
+<section id="bookingForm" class="text-center g-color-white g-bg-primary g-py-80">
+    <div class="container g-max-width-780">
+        <div class="text-center text-uppercase u-heading-v7-3 g-mb-30">
+            <h3 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-20">Booking from</h3>
+            <h2 class="u-heading-v7__title g-font-weight-700 g-font-size-32 g-font-size-40--md g-color-white g-mb-30">
+                Reservation with open table</h2>
 
-      <p class="mb-0">Etiam ultrices lacus ut ligula vestibulum, sit amet mattis nunc elementum. Nam arcu enim, euismod nec purus non, aliquam congue ante. Nulla faucibus enim mauris, fringilla mollis ligula sollicitudin mollis.</p>
+            <div class="u-heading-v7-divider g-brd-gray-light-v4">
+                <i class="fa fa-circle"></i>
+            </div>
+        </div>
+
+        <p class="g-color-white-opacity-0_7 g-mb-75">Etiam ultrices lacus ut ligula vestibulum, sit amet mattis nunc
+            elementum. Nam arcu enim, euismod nec purus non, aliquam congue ante. Nulla faucibus enim mauris,
+            fringilla mollis ligula sollicitudin mollis.</p>
     </div>
 
     <div class="container">
-      <section class="js-carousel g-mx-minus-15"
-           data-slides-show="4"
-           data-arrows-classes="u-arrow-v1 g-pos-abs g-top-0 g-width-45 g-height-45 g-color-primary g-color-white--hover g-bg-white g-bg-primary--hover g-mt-80 g-transition-0_2 g-transition--ease-in"
-           data-arrow-left-classes="fa fa-chevron-left g-left-15"
-           data-arrow-right-classes="fa fa-chevron-right g-right-15"
-           data-responsive='[{
-             "breakpoint": 1200,
-             "settings": {
-               "slidesToShow": 4
-             }
-           }, {
-             "breakpoint": 992,
-             "settings": {
-               "slidesToShow": 2
-             }
-           }, {
-             "breakpoint": 576,
-             "settings": {
-               "slidesToShow": 1
-             }
-           }]'>
-        <div class="js-slide g-px-15 g-pb-10">
-          <!-- Article -->
-          <article class="u-shadow-v10 g-bg-white g-color-gray-light-v28">
-            <!-- Article Image -->
-            <img class="w-100" src="assets/img-temp/810x600/img1.jpg" alt="Image description">
-            <!-- End Article Image -->
-
-            <!-- Article Content -->
-            <div class="g-py-30 g-px-25">
-              <em class="d-block text-uppercase font-weight-bold g-color-primary g-font-style-normal g-font-size-11 g-mb-7">Steak</em>
-              <h4 class="text-uppercase font-weight-bold h6 g-color-black-dark-v1 g-mb-10">Steak + Potatoes</h4>
-              <p class="g-mb-20">Curabitur eget tortor sed urna faucibus iaculis id et nulla. Aliquam erat volutpat.</p>
-              <strong class="g-color-primary g-font-size-16">$12.99</strong>
-            </div>
-            <!-- End Article Content -->
-          </article>
-          <!-- End Article -->
+        <form novalidate #form="ngForm" (ngSubmit)="onSubmit(form)">
+            <div class="text-center text-uppercase u-heading-v7-3 g-mb-30">
+                <h3 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-20">{{ message }}</h3>
         </div>
+            <div class="row g-mb-40">
+                <div class="col-md-4 pb-2">
+                    <div class="form-group g-pos-rel">
+                        <!--<input name="name" [(ngModel)]="booking.name" #name="ngModel" required
+                            class="form-control h-100 u-theme-shadow-v1 g-font-size-default g-color-white g-placeholder-inherit g-theme-bg-primary-dark-v1 g-brd-none rounded-0 g-px-25 g-py-13"
+                            type="text" placeholder="Reservation name">
 
-        <div class="js-slide g-px-15 g-pb-10">
-          <!-- Article -->
-          <article class="u-shadow-v10 g-bg-white g-color-gray-light-v28">
-            <!-- Article Image -->
-            <img class="w-100" src="assets/img-temp/810x600/img2.jpg" alt="Image description">
-            <!-- End Article Image -->
+                        <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
+                            <i class="fa fa-calendar"></i>
+                        </div>-->
+                        <mat-form-field class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
+                            <mat-label>Reservation name</mat-label>
+                            <input matInput placeholder="Nombre del menu" name="name" [(ngModel)]="booking.name" #name="ngModel" 
+                                required placeholder="Responsable del booking">
+                            
+                            <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
+                                <i class="fa fa-ticket fa-male"></i>
+                            </div>
+                            <mat-hint>Responsable del booking</mat-hint>
+                            <mat-error *ngFor="let error of getValidationMessages(name)">
+                                <span [innerHTML]="error"></span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-4 pb-2">
+                    <div class="form-group g-pos-rel">
+                        <!--<input name="date" [(ngModel)]="booking.date" #date="ngModel" required                        
+                            class="form-control h-100 u-theme-shadow-v1 g-font-size-default g-color-white g-placeholder-inherit g-theme-bg-primary-dark-v1 g-brd-none rounded-0 g-px-25 g-py-13"
+                            type="text" placeholder="Reservation date">-->
+                            <mat-form-field class="example-full-width" appearance="fill" 
+                            class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
+                                <mat-label>Choose a date</mat-label>
+                                <input matInput [ngModelOptions]="{standalone: true}" name="date" [matDatepicker]="picker" [(ngModel)]="booking.date" 
+                                #date="ngModel" required [min]="minDate" [max]="maxDate" class="g-color-white" readonly
+                                >
+                                <mat-datepicker-toggle matSuffix [for]="picker">
+                                  <mat-icon matDatepickerToggleIcon>
+                                    <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                  </mat-icon>
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error *ngFor="let error of getValidationMessages(date)">
+                                    <span [innerHTML]="error"></span>
+                                </mat-error>
+                            </mat-form-field>
+                        <!--<div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
+                            <i class="fa fa-calendar"></i>  keyboard_arrow_down
+                        </div>-->
+                    </div>                    
+                </div>
 
-            <!-- Article Content -->
-            <div class="g-py-30 g-px-25">
-              <em class="d-block text-uppercase font-weight-bold g-color-primary g-font-style-normal g-font-size-11 g-mb-7">Steak</em>
-              <h4 class="text-uppercase font-weight-bold h6 g-color-black-dark-v1 g-mb-10">Steak + Potatoes</h4>
-              <p class="g-mb-20">Curabitur eget tortor sed urna faucibus iaculis id et nulla. Aliquam erat volutpat.</p>
-              <strong class="g-color-primary g-font-size-16">$12.99</strong>
+                <div class="col-md-4">
+                    <div class="form-group g-pos-rel">
+                        <!--<input name="time" [(ngModel)]="booking.time" #time="ngModel" required
+                            class="form-control h-100 u-theme-shadow-v1 g-font-size-default g-color-white g-placeholder-inherit g-theme-bg-primary-dark-v1 g-brd-none rounded-0 g-px-25 g-py-13"
+                            type="text" placeholder="Reservation time">-->
+                            <mat-form-field appearance="fill"
+                            class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
+                                <mat-label i18n="Timepicker 1 Title">Reservation time</mat-label>
+                                <input matTimepicker #t1="matTimepicker" i18n-okLabel="Timepicker 1 Ok Label" okLabel="Ok"
+                                  i18n-cancelLabel="Timepicker 1 Cancel Label" cancelLabel="Cancel" #time="ngModel" [minDate]="minTime"
+                                  [maxDate]="maxTime" id="timepicker-example-1" mode="24h" ngModel placeholder="Please select time"
+                                  name="time" [(ngModel)]="booking.time" required>
+                                <mat-icon matSuffix (click)="t1.showDialog()">access_time</mat-icon>
+                                <mat-error *ngIf="time.touched && time.invalid">Invalid Date</mat-error>
+                            </mat-form-field>
+                    </div>
+                </div>
             </div>
-            <!-- End Article Content -->
-          </article>
-          <!-- End Article -->
-        </div>
+            <div class="row g-mb-40">
+                <div class="col-md-4 pb-2">
+                    <div class="form-group g-pos-rel">
+                        <!--<input name="cantPersonas" [(ngModel)]="booking.cantPersonas" #cantPersonas="ngModel" required
+                            class="form-control h-100 u-theme-shadow-v1 g-font-size-default g-color-white g-placeholder-inherit g-theme-bg-primary-dark-v1 g-brd-none rounded-0 g-px-25 g-py-13"
+                            type="text" placeholder="Persons">
 
-        <div class="js-slide g-px-15 g-pb-10">
-          <!-- Article -->
-          <article class="u-shadow-v10 g-bg-white g-color-gray-light-v28">
-            <!-- Article Image -->
-            <img class="w-100" src="assets/img-temp/810x600/img3.jpg" alt="Image description">
-            <!-- End Article Image -->
+                        <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
+                            <i class="fa fa-users"></i>
+                        </div>-->
+                        <mat-form-field appearance="fill"
+                        class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
+                            <mat-label>Persons</mat-label>
+                            <input matInput name="cantPersonas" [(ngModel)]="booking.cantPersonas" #cantPersonas="ngModel" required  type="number" placeholder="Persons">
+                            <span matPrefix>#</span>
+                            <mat-hint>Number of seats</mat-hint>
+                            <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
+                                <i class="fa fa-users"></i>
+                            </div>
+                            <mat-error *ngFor="let error of getValidationMessages(cantPersonas)">
+                                <span [innerHTML]="error"></span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
 
-            <!-- Article Content -->
-            <div class="g-py-30 g-px-25">
-              <em class="d-block text-uppercase font-weight-bold g-color-primary g-font-style-normal g-font-size-11 g-mb-7">Steak</em>
-              <h4 class="text-uppercase font-weight-bold h6 g-color-black-dark-v1 g-mb-10">Steak + Potatoes</h4>
-              <p class="g-mb-20">Curabitur eget tortor sed urna faucibus iaculis id et nulla. Aliquam erat volutpat.</p>
-              <strong class="g-color-primary g-font-size-16">$12.99</strong>
+                <div class="col-md-8">
+                    <div class="form-group g-pos-rel">
+                        <!--<textarea placeholder="Aditional booking's information " name="mensaje"
+                            [(ngModel)]="booking.mensaje" #mensaje="ngModel"
+                            class="form-control h-100 u-theme-shadow-v1 g-font-size-default g-color-white g-placeholder-inherit g-theme-bg-primary-dark-v1 g-brd-none rounded-0 g-px-25 g-py-13"></textarea>
+                        -->
+                        <mat-form-field class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
+                            <mat-label>Message</mat-label>
+                            <textarea matInput placeholder="Aditional booking's information " name="mensaje" [(ngModel)]="booking.mensaje" #mensaje="ngModel"></textarea>
+                            <mat-hint>Notas adicionales para la cena</mat-hint>
+                            <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
+                                <i class="fa fa-comment"></i>
+                            </div>
+                            <mat-error *ngFor="let error of getValidationMessages(mensaje)">
+                                <span [innerHTML]="error"></span>
+                            </mat-error>
+                        </mat-form-field>
+                        </div>
+                </div>
+
             </div>
-            <!-- End Article Content -->
-          </article>
-          <!-- End Article -->
-        </div>
 
-        <div class="js-slide g-px-15 g-pb-10">
-          <!-- Article -->
-          <article class="u-shadow-v10 g-bg-white g-color-gray-light-v28">
-            <!-- Article Image -->
-            <img class="w-100" src="assets/img-temp/810x600/img4.jpg" alt="Image description">
-            <!-- End Article Image -->
-
-            <!-- Article Content -->
-            <div class="g-py-30 g-px-25">
-              <em class="d-block text-uppercase font-weight-bold g-color-primary g-font-style-normal g-font-size-11 g-mb-7">Steak</em>
-              <h4 class="text-uppercase font-weight-bold h6 g-color-black-dark-v1 g-mb-10">Steak + Potatoes</h4>
-              <p class="g-mb-20">Curabitur eget tortor sed urna faucibus iaculis id et nulla. Aliquam erat volutpat.</p>
-              <strong class="g-color-primary g-font-size-16">$12.99</strong>
-            </div>
-            <!-- End Article Content -->
-          </article>
-          <!-- End Article -->
-        </div>
-
-        <div class="js-slide g-px-15 g-pb-10">
-          <!-- Article -->
-          <article class="u-shadow-v10 g-bg-white g-color-gray-light-v28">
-            <!-- Article Image -->
-            <img class="w-100" src="assets/img-temp/810x600/img1.jpg" alt="Image description">
-            <!-- End Article Image -->
-
-            <!-- Article Content -->
-            <div class="g-py-30 g-px-25">
-              <em class="d-block text-uppercase font-weight-bold g-color-primary g-font-style-normal g-font-size-11 g-mb-7">Steak</em>
-              <h4 class="text-uppercase font-weight-bold h6 g-color-black-dark-v1 g-mb-10">Steak + Potatoes</h4>
-              <p class="g-mb-20">Curabitur eget tortor sed urna faucibus iaculis id et nulla. Aliquam erat volutpat.</p>
-              <strong class="g-color-primary g-font-size-16">$12.99</strong>
-            </div>
-            <!-- End Article Content -->
-          </article>
-          <!-- End Article -->
-        </div>
-
-        <div class="js-slide g-px-15 g-pb-10">
-          <!-- Article -->
-          <article class="u-shadow-v10 g-bg-white g-color-gray-light-v28">
-            <!-- Article Image -->
-            <img class="w-100" src="assets/img-temp/810x600/img2.jpg" alt="Image description">
-            <!-- End Article Image -->
-
-            <!-- Article Content -->
-            <div class="g-py-30 g-px-25">
-              <em class="d-block text-uppercase font-weight-bold g-color-primary g-font-style-normal g-font-size-11 g-mb-7">Steak</em>
-              <h4 class="text-uppercase font-weight-bold h6 g-color-black-dark-v1 g-mb-10">Steak + Potatoes</h4>
-              <p class="g-mb-20">Curabitur eget tortor sed urna faucibus iaculis id et nulla. Aliquam erat volutpat.</p>
-              <strong class="g-color-primary g-font-size-16">$12.99</strong>
-            </div>
-            <!-- End Article Content -->
-          </article>
-          <!-- End Article -->
-        </div>
-
-        <div class="js-slide g-px-15 g-pb-10">
-          <!-- Article -->
-          <article class="u-shadow-v10 g-bg-white g-color-gray-light-v28">
-            <!-- Article Image -->
-            <img class="w-100" src="assets/img-temp/810x600/img3.jpg" alt="Image description">
-            <!-- End Article Image -->
-
-            <!-- Article Content -->
-            <div class="g-py-30 g-px-25">
-              <em class="d-block text-uppercase font-weight-bold g-color-primary g-font-style-normal g-font-size-11 g-mb-7">Steak</em>
-              <h4 class="text-uppercase font-weight-bold h6 g-color-black-dark-v1 g-mb-10">Steak + Potatoes</h4>
-              <p class="g-mb-20">Curabitur eget tortor sed urna faucibus iaculis id et nulla. Aliquam erat volutpat.</p>
-              <strong class="g-color-primary g-font-size-16">$12.99</strong>
-            </div>
-            <!-- End Article Content -->
-          </article>
-          <!-- End Article -->
-        </div>
-
-        <div class="js-slide g-px-15 g-pb-10">
-          <!-- Article -->
-          <article class="u-shadow-v10 g-bg-white g-color-gray-light-v28">
-            <!-- Article Image -->
-            <img class="w-100" src="assets/img-temp/810x600/img4.jpg" alt="Image description">
-            <!-- End Article Image -->
-
-            <!-- Article Content -->
-            <div class="g-py-30 g-px-25">
-              <em class="d-block text-uppercase font-weight-bold g-color-primary g-font-style-normal g-font-size-11 g-mb-7">Steak</em>
-              <h4 class="text-uppercase font-weight-bold h6 g-color-black-dark-v1 g-mb-10">Steak + Potatoes</h4>
-              <p class="g-mb-20">Curabitur eget tortor sed urna faucibus iaculis id et nulla. Aliquam erat volutpat.</p>
-              <strong class="g-color-primary g-font-size-16">$12.99</strong>
-            </div>
-            <!-- End Article Content -->
-          </article>
-          <!-- End Article -->
-        </div>
-      </section>
+            <button
+                class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2 g-brd-none rounded-0 g-px-30 g-py-25"
+                type="submit" role="button"
+                [disabled]="form.invalid">Book now</button>
+        </form>
     </div>
-  </section>
-  <!-- End Section Content -->
+</section>
+<!-- End Section Content -->

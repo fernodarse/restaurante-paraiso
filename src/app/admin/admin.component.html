@@ -51,7 +51,7 @@
                         </span>
                         <span class="g-pos-rel g-top-2">
                             <span class="g-hidden-sm-down">
-                                 {{getUserAdmin().username}}
+                                 {{getUserAdmin().username ? getUserAdmin().username : getUserAdmin().userName}}
                             </span>
                             <i class="hs-admin-angle-down g-pos-rel g-top-2 g-ml-10"></i>
                         </span>
@@ -111,14 +111,14 @@
                     <!-- Dashboards: Submenu-1 -->
                     <ul id="subMenu1" class="u-sidebar-navigation-v1-menu u-side-nav--second-level-menu mb-0"
                         style="display: block;">
-                        <!-- Dashboards v1 -->
+                        <!-- Dashboards v1 -->                        
                         <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
-                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12 active"
-                                [routerLink]="['/admin']">
+                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12"
+                                [routerLink]="['booking']">
                                 <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
-                                    <i class="hs-admin-write"></i>
+                                    <i class="hs-admin-time"></i>
                                 </span>
-                                <span class="media-body align-self-center">Menú</span>
+                                <span class="media-body align-self-center">Reservaciones</span>
                             </a>
                         </li>
                         <!-- End Dashboards v1 -->
@@ -126,21 +126,21 @@
                         <!-- Dashboards v2 -->
                         <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
                             <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12"
-                                [routerLink]="['admin/booking']">
+                                [routerLink]="['/admin/menu']">
                                 <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
-                                    <i class="hs-admin-time"></i>
+                                    <i class="icon-food-001"></i>
                                 </span>
-                                <span class="media-body align-self-center">Reservaciones</span>
+                                <span class="media-body align-self-center">Menú</span>
                             </a>
                         </li>
                         <!-- End Dashboards v2 -->
 
                         <!-- Dashboards v3 -->
                         <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
-                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12 active"
+                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12"
                                 [routerLink]="['/admin/evento']">
                                 <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
-                                    <i class="hs-admin-write"></i>
+                                    <i class="hs-admin-camera"></i>
                                 </span>
                                 <span class="media-body align-self-center">Evento</span>
                             </a>
@@ -148,10 +148,10 @@
                         <!-- End Dashboards v3 -->
                         <!-- Dashboards v4 -->
                         <li class="u-sidebar-navigation-v1-menu-item u-side-nav--second-level-menu-item">
-                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12 active"
+                            <a class="media u-side-nav--second-level-menu-link g-px-15 g-py-12"
                                 [routerLink]="['/admin/comentario']">
                                 <span class="d-flex align-self-center g-mr-15 g-mt-minus-1">
-                                    <i class="hs-admin-write"></i>
+                                    <i class="hs-admin-comment"></i>
                                 </span>
                                 <span class="media-body align-self-center">Comentarios</span>
                             </a>

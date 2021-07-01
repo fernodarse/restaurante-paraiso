@@ -83,7 +83,7 @@ export class UserRestService extends RestDataSource {
     });
   }
 
-  updateUser(Id: string, user: AppUser) {
+  updateUser(Id: string, user: AppUser,cambiarPas=false) {
     console.log('user a enviado', user);
     let res=this.sendRequest<AppUser>("PATCH", `${this.url}${Id}`, user);
     res.subscribe((e)=>{

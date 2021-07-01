@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Role } from '../models/staticts';
 import { UserService } from '../models/user.service';
@@ -66,11 +66,8 @@ export class AuthService {
   }
 
    // Sign in with email/password
-  loginUser(email, password):Observable<any> {
+  /*loginUser(email, password):Observable<any> {
     console.log('login  serv')
-   /* const credential = await this.afAuth.signInWithEmailAndPassword(email, password)
-    this.updateUserData(credential.user);
-    return credential.user !=null*/
     return new Observable((observer) => {
       this.afAuth.signInWithEmailAndPassword(email, password).then(credential => {        
         console.log('credential ', credential)
@@ -107,6 +104,26 @@ export class AuthService {
         return observer.next(newError)
       })
     })//.toPromise()
+  }*/
+  loginUser(email, password):Observable<any> {
+    console.log('login  serv')
+    let newError={code: "", message:""}
+    return new Observable((observer) => {
+      this.userService.makeLogin(email, password)
+      .subscribe((result)=> {
+        console.log(result)
+        if(result.userName != undefined){
+          this.userData=result;
+          return  observer.next(true)
+        }else{
+          return observer.next(
+            {
+              code: "auth/wrong-password",
+              message: 'Usuario y contraseña incorrectos.'
+            })
+        }
+      });
+    })
   }
 
   public isAuthenticated(): boolean {

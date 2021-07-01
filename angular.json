@@ -23,11 +23,10 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+            "styles": [              
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/assets/vendor/icon-awesome/css/font-awesome.min.css",
+              "node_modules/font-awesome/css/font-awesome.css",              
               "src/assets/vendor/icon-line/css/simple-line-icons.css",
               "src/assets/vendor/icon-etlinefont/style.css",
               "src/assets/vendor/hs-admin-icons/hs-admin-icons.css",
@@ -90,7 +89,8 @@
               "src/assets/js/components/hs.donut-chart.js",
               "src/assets/js/components/hs.bar-chart.js",
               "src/assets/js/helpers/hs.focus-state.js",
-              "src/assets/js/components/hs.popup.js"
+              "src/assets/js/components/hs.popup.js",
+              "node_modules/crypto-js/crypto-js.js"
             ]
           },
           "configurations": {

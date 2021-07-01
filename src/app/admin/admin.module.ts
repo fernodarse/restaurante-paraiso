@@ -42,14 +42,22 @@ import { AuthInterceptorService } from '../services/auth-interceptor';
 import { UserService } from '../models/user.service';
 import { CommentService } from '../models/comment.service';
 import { CommentRestService } from '../models/comment-rest.service';
+import { EncryptionService } from '../services/encryption.service';
+import { BookingComponent } from './booking/booking.component';
+import { BookingService } from '../models/booking.service';
+import { BookingRestService } from '../models/booking-rest.service';
+import { TableBookingComponent } from './booking/table/table.component';
+import { FormBookingComponent } from './booking/form/form-booking.component';
 
 const childRoutes: Routes = [
   /*{ path: "", component: IntroComponent, pathMatch: "full" },
   { path: "sku", component: DemoFormSkuComponent, pathMatch: "full" },*/
-  { path: "", component: MenuComponent, pathMatch: "full" },
+  { path: "", redirectTo: "booking" },
   { path: "evento", component: EventoComponent, pathMatch: "full" },
   { path: "comentario", component: CommentsComponent, pathMatch: "full" },
   { path: "usuario", component: UserComponent, pathMatch: "full" },
+  { path: "booking", component: BookingComponent, pathMatch: "full" }, 
+  { path: "menu", component: MenuComponent, pathMatch: "full" }, 
 ];
 
 let routes = RouterModule.forChild([
@@ -63,14 +71,13 @@ let routes = RouterModule.forChild([
     EventoComponent, TableEventoComponent, FormEventoComponent, CommentsComponent, TableComponent,
     DocPipe, TruncateTextPipe,
     CardComponent,
-    UserComponent,
-    TableUserComponent,
-    FormUserComponent,
+    UserComponent, TableUserComponent, FormUserComponent,
     PasswordPatternDirective,
     MatchPasswordDirective,
     ValidateUserNameDirective,
     AdminComponent,
     LoginComponent,
+    BookingComponent, TableBookingComponent,FormBookingComponent,
   ],
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, routes, NgMaterialModule, HttpClientModule, ComponentModule
@@ -82,17 +89,20 @@ let routes = RouterModule.forChild([
     AuthService,
 
     CustomvalidationService,
+    EncryptionService,
 
     MenuService,
     FileService,
     EventoService,
-    UserService,    
+    UserService,
+    BookingService,   
     
     /*{ provide: MenuService, useClass: MenuRestService }, 
     { provide: FileService, useClass: FileRestService }, 
     { provide: EventoService, useClass: EventoRestService },
     { provide: UserService, useClass: UserRestService },
-    { provide: CommentService, useClass: CommentRestService },*/
+    { provide: CommentService, useClass: CommentRestService },
+    { provide: BookingService, useClass: BookingRestService },*/
 
     {
       provide: HTTP_INTERCEPTORS,
@@ -100,5 +110,6 @@ let routes = RouterModule.forChild([
       multi: true
     }
   ],
+  exports:[]
 })
 export class AdminModule { }

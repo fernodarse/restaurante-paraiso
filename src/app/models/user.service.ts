@@ -4,8 +4,9 @@ import { map, tap } from 'rxjs/operators';
 import { Observable, of, Subject } from 'rxjs';
 import { AppUser } from './appuser';
 import { Role } from './staticts';
-import * as admin from "firebase-admin"; 
+import * as admin from "firebase-admin";
 import { serviceAccount } from '../../.././ServiceAccount';
+import { EncryptionService } from '../services/encryption.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class UserService {
   private list: AppUser[] = [];
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private ecript: EncryptionService) {
     const users = this.db.collection<AppUser>('appusers')
       .snapshotChanges().pipe(
         map(actions => {
@@ -29,23 +30,10 @@ export class UserService {
           this.list = result;
           console.log("getAllUser services", this.list)
         });
-
-    /*var serviceAccount = require("../../../finca-paraiso-firebase-adminsdk-yh6eo-5451d809b1.json");
-    admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount)
-    });*/
-   /* admin.initializeApp({
-      credential: admin.credential.applicationDefault(),
-      databaseURL: 'https://finca-paraiso.firebaseio.com'
-  });*/
-
-  /*admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://finca-paraiso.firebaseio.com"
-  }); */
-  }   
+ }
 
   create(user: AppUser) {
+    user.password=this.ecript.hash(user.password)
     const objData = JSON.parse(JSON.stringify(user));
     console.log("createUser ", objData);
     return this.db.collection('appusers').add(objData);
@@ -115,17 +103,29 @@ export class UserService {
     return this.db.doc('appusers/' + objId).delete();
   }
 
-  updateUser(Id: string, user: AppUser) {
+  updateUser(Id: string, user: AppUser,cambiarPas=false) {
+
+    /*console.log('modificar usuario ',user)
+    const putData = JSON.parse(JSON.stringify(user));
+    return this.db.doc('appusers/' + Id).update(putData);*/
+    if(cambiarPas){
+      user.password=this.ecript.hash(user.password)
+    }
+    console.log('modificar usuario ',user)
     const putData = JSON.parse(JSON.stringify(user));
     return this.db.doc('appusers/' + Id).update(putData);
   }
 
   makeLogin(username: string, password: string): Observable<any> {
-    let credentials = {
-      username: username,
-      password: password
-    }
-    return null //this.sendRequest<any>("POST", this.urlAut, credentials);     
+    return new Observable((observer) => {
+      this.getUserbyName(username)
+      .subscribe((user) => {
+        if (user && this.ecript.compare(password, user.password)) {
+          return observer.next(user)
+        }
+        return observer.next(false)
+      })
+    })     
   }
 
   ngOnDestroy() {

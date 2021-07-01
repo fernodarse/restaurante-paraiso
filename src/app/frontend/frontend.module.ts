@@ -7,7 +7,7 @@ import { ContactComponent } from './contact/contact.component';
 
 import { NgMaterialModule } from '../ng-material/ng-material.module';
 import { ListCategoriaMenu } from '../models/staticts';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuService } from '../models/menu.service';
 import { MenuRestService } from '../models/menu-rest.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,6 +24,11 @@ import { BookingComponent } from './booking/booking.component';
 import { AboutComponent } from './about/about.component';
 import { MainSliderComponent } from './main-slider/main-slider.component';
 import { SpecialComponent } from './special/special.component';
+import { BookingService } from '../models/booking.service';
+import { BookingRestService } from '../models/booking-rest.service';
+import { DocPipe } from '../pipe/doc.pipe';
+import { TruncateTextPipe } from '../pipe/truncatetext.pipe';
+import { DatePipe } from '@angular/common';
 
 
 let routes= RouterModule.forChild([
@@ -33,23 +38,26 @@ let routes= RouterModule.forChild([
 
 @NgModule({  
   imports: [
-    CommonModule,routes, NgMaterialModule,FormsModule,HttpClientModule,ComponentModule,
+    CommonModule,routes, NgMaterialModule,FormsModule,HttpClientModule,ComponentModule,ReactiveFormsModule
   ],
   declarations: [FrontendComponent, 
-    MenuComponent, GalleryComponent, BookingComponent, ContactComponent, AboutComponent, MainSliderComponent,SpecialComponent
+    MenuComponent, GalleryComponent, BookingComponent, ContactComponent, AboutComponent, MainSliderComponent,SpecialComponent,
     
   ],
-  providers: [
+  providers: [    
     ListCategoriaMenu,
     AuthService,
+    DatePipe,
 
     MenuService, 
     UserService,   
-    CommentService,   
+    CommentService,
+    BookingService,   
 
-   /*{ provide: MenuService, useClass: MenuRestService }, 
+   /* { provide: MenuService, useClass: MenuRestService }, 
     { provide: UserService, useClass: UserRestService },
-    { provide: CommentService, useClass: CommentRestService },*/
+    { provide: CommentService, useClass: CommentRestService },
+    { provide: BookingService, useClass: BookingRestService },*/
   ]
 })
 export class FrontendModule { }

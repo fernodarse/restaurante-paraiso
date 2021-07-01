@@ -49,7 +49,7 @@ export class FormUserComponent implements OnInit {
           this.user.password=this.cambiarPas;
           msg='La contraseña se guardó correctamente'
         }
-        this.userService.updateUser(this.user.userId, this.user).then(
+        this.userService.updateUser(this.user.userId, this.user,this.cambiarPas!='').then(
           () => {
             this.snackBarService.openSnackBar(msg);
           }

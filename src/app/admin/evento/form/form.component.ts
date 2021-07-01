@@ -51,7 +51,7 @@ export class FormEventoComponent implements OnInit {
           () => {
           this.snackBarService.openSnackBar('El evento se creo satifactioramente');
           }
-          );;
+          );
       }
       form.reset();
     }

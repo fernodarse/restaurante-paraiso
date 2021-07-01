@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppUser } from '../models/appuser';
 import { AuthService } from '../services/auth.service';
@@ -75,7 +75,7 @@ export class AdminComponent implements OnInit {
   }
 
   getUserAdmin(): any{
-    console.log('data', this.authService.getUserData())
+    //console.log('data', this.authService.getUserData())
     return this.authService.getUserData()
   }
 

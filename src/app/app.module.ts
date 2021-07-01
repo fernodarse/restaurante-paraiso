@@ -21,11 +21,13 @@ import { AuthService } from './services/auth.service';
 import { AuthRestService } from './services/auth-rest.service';
 import { UserService } from './models/user.service';
 import { UserRestService } from './models/user-rest.service';
+import { DocPipe } from './pipe/doc.pipe';
+import { TruncateTextPipe } from './pipe/truncatetext.pipe';
  
 @NgModule({
   declarations: [
     AppComponent,
-   // NavBarComponent,    
+   // NavBarComponent,  
   ],
   imports: [
     BrowserModule,

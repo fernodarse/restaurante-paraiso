@@ -40,56 +40,6 @@ export class LoginComponent {
             this.message = '';
           }.bind(this), 9500);
         }) 
-        /*.catch((error) => {
-          hayError = true;
-          this.message = 'Usuario y contraseña incorrectos.';
-          //code: "auth/network-request-failed"
-          if (error.code == "auth/network-request-failed") {
-            this.message = 'Hay problemas de conección';
-          }
-          if (error.code == "auth/wrong-password") {
-            this.message = 'Usuario y contraseña incorrectos.';
-          }
-          console.log('error autenti', error)
-
-          setTimeout(function () {
-            this.message = '';
-          }.bind(this), 9500);
-        }).then((result) => {
-          //"auth/invalid-email"
-          console.log('resp autenti', result);
-          if (!hayError && result) {
-            this.router.navigateByUrl('/admin');
-           /* if (result == undefined) {
-              this.router.navigateByUrl('/admin');
-            } else {
-              const { access_token } = result as any;
-              console.log('token ', access_token);
-              if (access_token != undefined) {
-                localStorage.setItem('token', access_token)
-                this.router.navigateByUrl('/admin');
-              }
-            }*/
-      /*    }
-
-        })*/
-      /*this.userService.makeLogin(this.user.userName, this.user.password)
-        .pipe(catchError((error: Response) => {
-          this.message = 'Usuario y contraseña incorrectos.';
-          setTimeout(function () {
-            this.message = '';
-          }.bind(this), 9500);
-          return of(false);
-        }))
-        .subscribe(data => {
-          console.log('datos recibidos login ', data);
-          const { access_token } = data as any;
-          console.log('token ', access_token);
-          if (access_token != undefined) {
-            localStorage.setItem('token', access_token)
-            this.router.navigateByUrl('/admin');
-          }
-        });*/
     }
   }
 

@@ -17,6 +17,11 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgxPaginationModule } from 'ngx-pagination';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatTimepickerModule } from 'mat-timepicker';
+
 
 @NgModule({
     declarations: [],
@@ -39,6 +44,13 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
         NgxPaginationModule,
         MatTabsModule,
         MatAutocompleteModule,
+
+        MatDatepickerModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
+        MatNativeDateModule,
+        MatTimepickerModule,
     ],
     exports: [
         CommonModule,
@@ -59,6 +71,14 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
         NgxPaginationModule,
         MatTabsModule,
         MatAutocompleteModule,
+        
+        MatDatepickerModule,
+        NgxMatDatetimePickerModule,
+        NgxMatTimepickerModule,
+        NgxMatNativeDateModule,
+        MatNativeDateModule,
+        MatTimepickerModule,
+
     ]
 })
 export class NgMaterialModule { }
