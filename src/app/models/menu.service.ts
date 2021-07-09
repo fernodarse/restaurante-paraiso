@@ -40,6 +40,10 @@ export class MenuService {
     return this.menuList 
   }
 
+  getDestacados(destacado:boolean = true): Menu[] {
+    return this.menuList.filter((menu) => menu.destacado == destacado); 
+  }
+
   getMenubyId(id: string): Observable<Menu> {
     console.log("id ", id);  
     const menuDetails = this.db.doc<Menu>('menus/' + id).valueChanges(); 

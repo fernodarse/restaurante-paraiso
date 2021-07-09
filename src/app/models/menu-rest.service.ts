@@ -43,6 +43,10 @@ export class MenuRestService extends RestDataSource {
     return this.menuList;//super.sendRequest<Menu[]>("GET", this.url);
   }
 
+  getDestacados(destacado:boolean = true): Menu[] {
+    return this.menuList.filter((menu) => menu.destacado == destacado); 
+  }
+  
   getMenubyId(id: string): Observable<Menu> {
     return super.sendRequest<Menu>("GET", `${this.url}id/${id}`);
   }

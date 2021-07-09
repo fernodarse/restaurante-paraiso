@@ -49,11 +49,11 @@ import { TruncateTextPipe } from './pipe/truncatetext.pipe';
     { provide: REST_URL, useValue: `http://${location.hostname}:3000/` },
     AdminAuthGuard,
 
-    { provide: 'autenticar', useClass: AuthService},    
-   UserService, 
+   /*{ provide: 'autenticar', useClass: AuthService},    
+   UserService,*/ 
 
-   /*{ provide: 'autenticar', useClass: AuthRestService },
-   { provide: UserService, useClass: UserRestService },*/
+   { provide: 'autenticar', useClass: AuthRestService },
+   { provide: UserService, useClass: UserRestService },
   ], 
   bootstrap: [AppComponent] 
 })

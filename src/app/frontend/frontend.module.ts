@@ -29,6 +29,8 @@ import { BookingRestService } from '../models/booking-rest.service';
 import { DocPipe } from '../pipe/doc.pipe';
 import { TruncateTextPipe } from '../pipe/truncatetext.pipe';
 import { DatePipe } from '@angular/common';
+import { ComentComponent } from '../component/coment/coment.component';
+import { TestimonioComponent } from '../component/coment/testimonio/testimonio.component';
 
 
 let routes= RouterModule.forChild([
@@ -41,7 +43,7 @@ let routes= RouterModule.forChild([
     CommonModule,routes, NgMaterialModule,FormsModule,HttpClientModule,ComponentModule,ReactiveFormsModule
   ],
   declarations: [FrontendComponent, 
-    MenuComponent, GalleryComponent, BookingComponent, ContactComponent, AboutComponent, MainSliderComponent,SpecialComponent,
+    MenuComponent, GalleryComponent, BookingComponent, ContactComponent, AboutComponent, MainSliderComponent,SpecialComponent, ComentComponent, TestimonioComponent,
     
   ],
   providers: [    
@@ -49,15 +51,15 @@ let routes= RouterModule.forChild([
     AuthService,
     DatePipe,
 
-    MenuService, 
+    /*MenuService, 
     UserService,   
     CommentService,
-    BookingService,   
+    BookingService,*/   
 
-   /* { provide: MenuService, useClass: MenuRestService }, 
+    { provide: MenuService, useClass: MenuRestService }, 
     { provide: UserService, useClass: UserRestService },
     { provide: CommentService, useClass: CommentRestService },
-    { provide: BookingService, useClass: BookingRestService },*/
+    { provide: BookingService, useClass: BookingRestService },
   ]
 })
 export class FrontendModule { }

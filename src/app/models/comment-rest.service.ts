@@ -64,6 +64,10 @@ export class CommentRestService extends RestDataSource{
   return this.list;
   }
 
+  getActiveComments(){    
+    return this.list;
+  }
+
   getAllCommentsForMenu(menuId: string): Observable<Comments[]> {
     return super.sendRequest<Comments[]>("GET", `${this.url}coment/menu/${menuId}`);
   }

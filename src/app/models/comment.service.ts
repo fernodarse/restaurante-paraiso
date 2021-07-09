@@ -51,6 +51,10 @@ export class CommentService {
   return this.list;
   }
 
+  getActiveComments(){    
+    return this.list;
+  }
+
   getAllCommentsForMenu(menuId: string): Observable<Comments[]> {
     const comments = this.db.collection<Comments>('comments',
       ref => ref.where('menuId', '==', menuId)

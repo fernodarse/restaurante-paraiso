@@ -7,10 +7,10 @@ export interface CategoriaMenu {
 export class ListCategoriaMenu {
 
     categoriaMenu: CategoriaMenu[] = [
-        { id: '0', nombre: "Tragos" },
-        { id: '1', nombre: "Sopas" },
-        { id: '2', nombre: "Ensaladas" },
-        { id: '3', nombre: "Buffet" },
+        { id: '0', nombre: "Cockteles" },
+        { id: '1', nombre: "Ensaladas" },
+        { id: '2', nombre: "Carnes" },
+        { id: '3', nombre: "Postres" },
     ];
 
     categoriaXId(id) {

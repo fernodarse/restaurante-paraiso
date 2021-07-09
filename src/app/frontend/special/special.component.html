@@ -1,176 +1,102 @@
 <!-- Section Content -->
 <section id="special" class="g-bg-primary g-py-100">
-    <div class="container">
-        <section class="js-carousel" data-vertical="true" data-pagi-classes="u-carousel-indicators-v7 text-center">
-            <div class="js-slide">
-                <!-- Article -->
+    <div class="container"  > <!-- *ngIf="getSpeciales().length != 0 " -->
+        <section  class="js-carousel"  data-vertical="true" data-pagi-classes="u-carousel-indicators-v7 text-center" >  <!-- [innerHTML]="getSpecial()" -->
+          <div class="js-slide" *ngFor="let especial of getSpeciales()" >       
                 <article class="row flex-items-middle text-center">
                     <div class="col-lg-6 align-self-center g-mb-50">
-                        <div
-                            class="text-uppercase text-center u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
-                            <h4 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-15">From chef
+                        <div class="text-uppercase text-center u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
+                            <h4 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-15">
+                                From chef
                             </h4>
-                            <h2
-                                class="u-heading-v5__title g-line-height-1_2 g-font-weight-700 g-font-size-32 g-font-size-40--md g-color-white g-bg-white--before g-pb-40">
-                                Green soup with croutons</h2>
+                            <h2 class="u-heading-v5__title g-line-height-1_2 g-font-weight-700 g-font-size-32 g-font-size-40--md g-color-white g-bg-white--before g-pb-40">
+                                {{especial.nombre}}
+                            </h2>
                         </div>
 
                         <div class="g-px-70--md">
-                            <p class="g-color-white-opacity-0_7 g-mb-25">Sed feugiat porttitor nunc, non dignissim ipsum
-                                vestibulum in. Donec in blandit dolor. Vivamus a fringilla lorem, vel faucibus ante.</p>
+                            <p class="g-color-white-opacity-0_7 g-mb-25">
+                                 {{ especial.descripcion }}
+                            </p>
                         </div>
 
-                        <strong class="d-block g-color-white g-font-size-26 g-mb-30">$14.00</strong>
+                        <strong class="d-block g-color-white g-font-size-26 g-mb-30"> {{ especial.precio  | currency:"USD":"symbol":"1.2-2" }}</strong>
                         <button
                             class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2 g-brd-none rounded-0 g-px-30 g-py-25"
                             type="submit">Book now</button>
                     </div>
 
                     <div class="col-lg-6">
-                        <!-- Article Image -->
+                        <img class="img-fluid g-width-360 g-width-auto--lg mx-auto"
+                            src="{{ especial.datosImg.url }}" alt="Image description"> <!-- ../../../assets/img-temp/700x700/img1.png -->
+                    </div>
+                </article>
+            </div>
+              
+          <!--  <div class="js-slide" >       
+                <article class="row flex-items-middle text-center">
+                    <div class="col-lg-6 align-self-center g-mb-50">
+                        <div class="text-uppercase text-center u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
+                            <h4 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-15">
+                                From chef
+                            </h4>
+                            <h2 class="u-heading-v5__title g-line-height-1_2 g-font-weight-700 g-font-size-32 g-font-size-40--md g-color-white g-bg-white--before g-pb-40">
+                                nombre
+                            </h2>
+                        </div>
+            
+                        <div class="g-px-70--md">
+                            <p class="g-color-white-opacity-0_7 g-mb-25">
+                                Sed feugiat porttitor nunc, non dignissim ipsum
+                                vestibulum in. Donec in blandit dolor. Vivamus a fringilla lorem, vel faucibus ante.
+                            </p>
+                        </div>
+            
+                        <strong class="d-block g-color-white g-font-size-26 g-mb-30">$14.00</strong>
+                        <button
+                            class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2 g-brd-none rounded-0 g-px-30 g-py-25"
+                            type="submit">Book now</button>
+                    </div>
+            
+                    <div class="col-lg-6">
                         <img class="img-fluid g-width-360 g-width-auto--lg mx-auto"
                             src="../../../assets/img-temp/700x700/img1.png" alt="Image description">
-                        <!-- End Article Image -->
                     </div>
                 </article>
-                <!-- End Article -->
             </div>
-
-            <div class="js-slide">
-                <!-- Article -->
+            
+            <div class="js-slide" >       
                 <article class="row flex-items-middle text-center">
                     <div class="col-lg-6 align-self-center g-mb-50">
-                        <div
-                            class="text-uppercase text-center u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
-                            <h4 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-15">From chef
+                        <div class="text-uppercase text-center u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
+                            <h4 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-15">
+                                From chef
                             </h4>
-                            <h2
-                                class="u-heading-v5__title g-line-height-1_2 g-font-weight-700 g-font-size-40 g-color-white g-bg-white--before g-pb-40">
-                                Spaghetti</h2>
+                            <h2 class="u-heading-v5__title g-line-height-1_2 g-font-weight-700 g-font-size-32 g-font-size-40--md g-color-white g-bg-white--before g-pb-40">
+                                Nombre 2
+                            </h2>
                         </div>
-
+            
                         <div class="g-px-70--md">
-                            <p class="g-color-white-opacity-0_7 g-mb-25">Sed feugiat porttitor nunc, non dignissim ipsum
-                                vestibulum in. Donec in blandit dolor. Vivamus a fringilla lorem, vel faucibus ante.</p>
+                            <p class="g-color-white-opacity-0_7 g-mb-25">
+                                Sed feugiat porttitor nunc, non dignissim ipsum
+                                vestibulum in. Donec in blandit dolor. Vivamus a fringilla lorem, vel faucibus ante.
+                            </p>
                         </div>
-
+            
                         <strong class="d-block g-color-white g-font-size-26 g-mb-30">$14.00</strong>
                         <button
                             class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2 g-brd-none rounded-0 g-px-30 g-py-25"
                             type="submit">Book now</button>
                     </div>
-
+            
                     <div class="col-lg-6">
-                        <!-- Article Image -->
                         <img class="img-fluid g-width-360 g-width-auto--lg mx-auto"
-                            src="../../../assets/img-temp/700x700/img2.png" alt="Image description">
-                        <!-- End Article Image -->
+                            src="../../../assets/img-temp/700x700/img1.png" alt="Image description">
                     </div>
                 </article>
-                <!-- End Article -->
             </div>
-
-            <div class="js-slide">
-                <!-- Article -->
-                <article class="row flex-items-middle text-center">
-                    <div class="col-lg-6 align-self-center g-mb-50">
-                        <div
-                            class="text-uppercase text-center u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
-                            <h4 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-15">From chef
-                            </h4>
-                            <h2
-                                class="u-heading-v5__title g-line-height-1_2 g-font-weight-700 g-font-size-40 g-color-white g-bg-white--before g-pb-40">
-                                Green soup with croutons</h2>
-                        </div>
-
-                        <div class="g-px-70--md">
-                            <p class="g-color-white-opacity-0_7 g-mb-25">Sed feugiat porttitor nunc, non dignissim ipsum
-                                vestibulum in. Donec in blandit dolor. Vivamus a fringilla lorem, vel faucibus ante.</p>
-                        </div>
-
-                        <strong class="d-block g-color-white g-font-size-26 g-mb-30">$14.00</strong>
-                        <button
-                            class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2 g-brd-none rounded-0 g-px-30 g-py-25"
-                            type="submit">Book now</button>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <!-- Article Image -->
-                        <img class="img-fluid g-width-360 g-width-auto--lg mx-auto"
-                            src="../../../assets/img-temp/700x700/img3.png" alt="Image description">
-                        <!-- End Article Image -->
-                    </div>
-                </article>
-                <!-- End Article -->
-            </div>
-
-            <div class="js-slide">
-                <!-- Article -->
-                <article class="row flex-items-middle text-center">
-                    <div class="col-lg-6 align-self-center g-mb-50">
-                        <div
-                            class="text-uppercase text-center u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
-                            <h4 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-15">From chef
-                            </h4>
-                            <h2
-                                class="u-heading-v5__title g-line-height-1_2 g-font-weight-700 g-font-size-40 g-color-white g-bg-white--before g-pb-40">
-                                Green soup with croutons</h2>
-                        </div>
-
-                        <div class="g-px-70--md">
-                            <p class="g-color-white-opacity-0_7 g-mb-25">Sed feugiat porttitor nunc, non dignissim ipsum
-                                vestibulum in. Donec in blandit dolor. Vivamus a fringilla lorem, vel faucibus ante.</p>
-                        </div>
-
-                        <strong class="d-block g-color-white g-font-size-26 g-mb-30">$14.00</strong>
-                        <button
-                            class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2 g-brd-none rounded-0 g-px-30 g-py-25"
-                            type="submit">Book now</button>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <!-- Article Image -->
-                        <img class="img-fluid g-width-360 g-width-auto--lg mx-auto"
-                            src="../../../assets/img-temp/700x700/img4.png" alt="Image description">
-                        <!-- End Article Image -->
-                    </div>
-                </article>
-                <!-- End Article -->
-            </div>
-
-            <div class="js-slide">
-                <!-- Article -->
-                <article class="row flex-items-middle text-center">
-                    <div class="col-lg-6 align-self-center g-mb-50">
-                        <div
-                            class="text-uppercase text-center u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
-                            <h4 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-15">From chef
-                            </h4>
-                            <h2
-                                class="u-heading-v5__title g-line-height-1_2 g-font-weight-700 g-font-size-40 g-color-white g-bg-white--before g-pb-40">
-                                Green soup with croutons</h2>
-                        </div>
-
-                        <div class="g-px-70--md">
-                            <p class="g-color-white-opacity-0_7 g-mb-25">Sed feugiat porttitor nunc, non dignissim ipsum
-                                vestibulum in. Donec in blandit dolor. Vivamus a fringilla lorem, vel faucibus ante.</p>
-                        </div>
-
-                        <strong class="d-block g-color-white g-font-size-26 g-mb-30">$14.00</strong>
-                        <button
-                            class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2 g-brd-none rounded-0 g-px-30 g-py-25"
-                            type="submit">Book now</button>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <!-- Article Image -->
-                        <img class="img-fluid g-width-360 g-width-auto--lg mx-auto"
-                            src="../../../assets/img-temp/700x700/img5.png" alt="Image description">
-                        <!-- End Article Image -->
-                    </div>
-                </article>
-                <!-- End Article -->
-            </div>
+        -->
         </section>
     </div>
 </section>

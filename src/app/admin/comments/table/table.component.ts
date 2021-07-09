@@ -83,7 +83,7 @@ export class TableComponent implements OnInit {
   getCommentList() {
     let list=this.commentServices.getAllComments()
     this.length=list.length;
-    return list.filter((c) => this.selectedMenuId == '' || c.menuId == this.selectedMenuId);;
+    return list.filter((c) => this.selectedMenuId == '' || c.menuId == this.selectedMenuId);
   }
 
   deleteComment(key: string) {

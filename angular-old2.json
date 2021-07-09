@@ -23,10 +23,9 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [              
-              "src/styles.css",
+            "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/font-awesome/css/font-awesome.css",              
+              "node_modules/font-awesome/css/font-awesome.css",
               "src/assets/vendor/icon-line/css/simple-line-icons.css",
               "src/assets/vendor/icon-etlinefont/style.css",
               "src/assets/vendor/hs-admin-icons/hs-admin-icons.css",
@@ -47,9 +46,9 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/vendor/jquery-migrate/jquery-migrate.min.js",
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/assets/vendor/jquery-migrate/jquery-migrate.min.js",
               "src/assets/vendor/master-slider/source/assets/js/masterslider.min.js",
               "src/assets/vendor/cubeportfolio-full/cubeportfolio/js/jquery.cubeportfolio.min.js",
               "src/assets/vendor/slick-carousel/slick/slick.js",
@@ -89,8 +88,7 @@
               "src/assets/js/components/hs.donut-chart.js",
               "src/assets/js/components/hs.bar-chart.js",
               "src/assets/js/helpers/hs.focus-state.js",
-              "src/assets/js/components/hs.popup.js",
-              "node_modules/crypto-js/crypto-js.js" 
+              "src/assets/js/components/hs.popup.js"
             ]
           },
           "configurations": {

@@ -91,18 +91,18 @@ let routes = RouterModule.forChild([
     CustomvalidationService,
     EncryptionService,
 
-    MenuService,
+    /*MenuService,
     FileService,
     EventoService,
     UserService,
-    BookingService,   
+    BookingService,*/   
     
-    /*{ provide: MenuService, useClass: MenuRestService }, 
+    { provide: MenuService, useClass: MenuRestService }, 
     { provide: FileService, useClass: FileRestService }, 
     { provide: EventoService, useClass: EventoRestService },
     { provide: UserService, useClass: UserRestService },
     { provide: CommentService, useClass: CommentRestService },
-    { provide: BookingService, useClass: BookingRestService },*/
+    { provide: BookingService, useClass: BookingRestService },
 
     {
       provide: HTTP_INTERCEPTORS,
