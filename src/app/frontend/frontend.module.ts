@@ -31,6 +31,8 @@ import { TruncateTextPipe } from '../pipe/truncatetext.pipe';
 import { DatePipe } from '@angular/common';
 import { ComentComponent } from '../component/coment/coment.component';
 import { TestimonioComponent } from '../component/coment/testimonio/testimonio.component';
+import { EventoService } from '../models/evento.service';
+import { EventoRestService } from '../models/evento-rest.service';
 
 
 let routes= RouterModule.forChild([
@@ -60,6 +62,7 @@ let routes= RouterModule.forChild([
     { provide: UserService, useClass: UserRestService },
     { provide: CommentService, useClass: CommentRestService },
     { provide: BookingService, useClass: BookingRestService },
+    { provide: EventoService, useClass: EventoRestService },
   ]
 })
 export class FrontendModule { }
