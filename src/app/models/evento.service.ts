@@ -14,19 +14,23 @@ export class EventoService {
   private unsubscribe$ = new Subject<void>();
   
   constructor(private db: AngularFirestore) {
-    const eventos = this.db.collection<Evento>('eventos', ref =>
-    ref.orderBy('createdDate', 'desc'))
-    .snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(
-          c => ({
-              eventoId: c.payload.doc.id,
-            ...c.payload.doc.data()
-          }));
-      })).subscribe(result => {
+    this.loadData().subscribe(result => {
         this.list=result;
         console.log("getAllEvento", this.list)
       });
+   }
+
+   loadData(){
+     return this.db.collection<Evento>('eventos', ref =>
+     ref.orderBy('createdDate', 'desc'))
+     .snapshotChanges().pipe(
+       map(actions => {
+         return actions.map(
+           c => ({
+               eventoId: c.payload.doc.id,
+             ...c.payload.doc.data()
+           }));
+       }))
    }
 
   createEvento(evento: Evento) {
@@ -37,6 +41,20 @@ export class EventoService {
 
   getAllEventos(): Evento[] {    
     return this.list;
+  }
+
+  getEventosActivos(): Evento[] /*Observable<Evento[]>*/ { 
+    /*return this.db.collection<Evento>('eventos', ref =>
+    ref.orderBy('createdDate', 'desc'))
+    .snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(
+          c => ({
+              eventoId: c.payload.doc.id,
+            ...c.payload.doc.data()
+          }));
+      }))*/
+      return this.list.filter((evento)=>evento.destacado==true);
   }
 
   getEventobyId(id: string): Observable<Evento> {

@@ -15,6 +15,11 @@ export class ComentComponent implements OnInit {
 
   getCommentList() {
     let list=this.commentServices.getAllComments()
+    list=list.concat(list)
+    list=list.concat(list)
+    list=list.concat(list)
+    list=list.concat(list)
+    list=list.concat(list)
     return list; 
   }
 

@@ -17,12 +17,16 @@ export class EventoRestService extends RestDataSource {
   constructor(http: HttpClient, @Inject(REST_URL) private url: string) {
     super(http);
     this.url = url + "evento/";
-    super.sendRequest<Evento[]>("GET", this.url)
+    this.loadData()
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe(result => {
       this.list = result;
       console.log("getAllEventos", this.list)
     });
+   }
+
+   loadData(){
+     return super.sendRequest<Evento[]>("GET", this.url)
    }
 
   createEvento(evento: Evento) {
@@ -43,6 +47,11 @@ export class EventoRestService extends RestDataSource {
 
   getAllEventos(): Evento[] {    
     return this.list;
+  }
+
+  getEventosActivos(): Evento[]/*Observable<Evento[]>*/ {    
+    //return super.sendRequest<Evento[]>("GET", this.url);
+    return this.list.filter((evento)=>evento.destacado==true);
   }
 
   getEventobyId(id: string): Observable<Evento> {

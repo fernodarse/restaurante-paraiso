@@ -1,6 +1,14 @@
 <button class="btn btn-primary m-1" (click)="createBooking()">
     Crear Booking
 </button>
+<mat-form-field class="col-3">
+    <mat-label>Buscar x fecha</mat-label>
+    <input matInput name="filterDate" [matDatepicker]="pickerFilter" [(ngModel)]="filterDate" class="" 
+    (dateInput)="filtrarFecha($event)">
+    <!--  -->
+    <mat-datepicker-toggle matSuffix [for]="pickerFilter"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFilter></mat-datepicker>
+</mat-form-field>
 <table class="table table-sm table-bordered table-striped">
     <thead>
         <tr>
@@ -12,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngIf="length==0">
+        <tr *ngIf="length==-1">
             <td colspan="4">
                 <mat-card class="spiner-tabla wrapper">
                     <mat-card-content style="align-content: center;padding-left: 40%;">
@@ -22,13 +30,18 @@
                 </mat-card>
             </td>
         </tr>
+        <tr *ngIf="length==0">
+            <td colspan="5">
+                <h5>No hay resultados</h5>
+            </td>
+        </tr>
         <tr *ngFor="let item of getBookingList() | paginate : {
         itemsPerPage: pageSize,
         currentPage: currentPage,
         totalItems: length
       };let i = index" [class.active]="i == currentIndex">
             <td>{{ item.name }}</td>
-            <td>{{ item.date | date }} -  {{ item.time | date:'shortTime'}}</td>
+            <td>{{ item.date | date }} - {{ item.time | date:'shortTime'}}</td>
             <td>{{ item.cantPersonas }}</td>
             <td>{{ item.createdDate | date }}</td>
             <td class="text-center">

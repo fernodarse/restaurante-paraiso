@@ -14,9 +14,10 @@
         <ul class="nav justify-content-center text-uppercase u-nav-v5-3 u-nav-primary g-line-height-1_4 g-font-weight-700 g-font-size-default g-brd-bottom--md g-brd-gray-light-v4 g-mb-80--md"
             role="tablist" data-target="days" data-tabs-mobile-type="slide-up-down"
             data-btn-classes="btn btn-md btn-block text-uppercase g-font-weight-700 u-btn-outline-primary">
-            <li class="nav-item g-mx-10--md" *ngFor="let categoria of categoriaMenu();let first = first" >
-                <a class="nav-link g-theme-color-gray-dark-v1 g-covariablelor-primary--hover g-pb-25--md " [class.active]="first == true"
-                    data-toggle="tab" href="#{{categoria.nombre | lowercase }}" role="tab" aria-selected="{{ first  }}">{{categoria.nombre}}</a>
+            <li class="nav-item g-mx-10--md" *ngFor="let categoria of categoriaMenu();let first = first">
+                <a class="nav-link g-theme-color-gray-dark-v1 g-covariablelor-primary--hover g-pb-25--md "
+                    [class.active]="first == true" data-toggle="tab" href="#{{categoria.nombre | lowercase }}"
+                    role="tab" aria-selected="{{ first  }}">{{categoria.nombre}}</a>
             </li>
             <li class="nav-item g-mx-10--md">
                 <a class="nav-link g-theme-color-gray-dark-v1 g-color-primary--hover g-pb-25--md" data-toggle="tab"
@@ -40,10 +41,36 @@
 
     <div class="container">
         <div id="days" class="tab-content g-pt-20">
-            <div *ngFor="let categoria of categoriaMenu();let first = first" 
-                     class="tab-pane fade" [class.active]="first == true" [class.show]="first == true"
-                      id="{{categoria.nombre | lowercase}}" role="tabpanel" [innerHTML]="getMenuHtmlList(categoria.id)">
+            <div *ngFor="let categoria of categoriaMenu();let first = first" class="tab-pane fade"
+                [class.active]="first == true" [class.show]="first == true" id="{{categoria.nombre | lowercase}}"
+                role="tabpanel" [innerHTML]="getMenuHtmlList(categoria.id)">
+               <!--  <div class="row">
+                    <div class="col-md-6 g-mb-50" *ngFor="let menu of getMenuListXCategoria(categoria)">
+                        <article class="media">
+                            <a class="g-width-100" href="#">
+                                <img class="img-fluid g-rounded-50x" src="{{ imagenMenu(menu) }}"
+                                    alt="Image description">
+                            </a>
+                            <div class="media-body align-self-center g-pl-10">
+                                <div
+                                    class="d-flex justify-content-between u-heading-v1-4 g-bg-main g-theme-brd-gray-light-v1 g-mb-8">
+                                    <h3
+                                        class="align-self-center u-heading-v1__title g-color-black g-font-weight-700 g-font-size-13 text-uppercase mb-0">
+                                        {{ menu.nombre }} </h3>
 
+                                    <div class="align-self-center g-pos-rel g-bg-main g-pl-15">
+                                        <strong
+                                            class="g-font-weight-700 g-font-size-13 g-color-white g-bg-primary g-rounded-3 g-py-4 g-px-12">
+                                            {{menu.precio | currency:"USD":"symbol":"1.2-2" }}
+                                        </strong>
+                                    </div>
+                                </div>
+
+                                <p class="mb-0"></p>
+                            </div>
+                        </article>
+                    </div>
+                </div>-->
             </div>
 
             <!-- active show -->
@@ -180,4 +207,4 @@
                 </div>
                 <!-- End Products Block -->
             </div>
- </div>
+        </div>

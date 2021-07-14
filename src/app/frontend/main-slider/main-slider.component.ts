@@ -45,7 +45,7 @@ export class MainSliderComponent implements OnInit {
     });
 
     // initialization of carousel
-    $.HSCore.components.HSCarousel.init('.js-carousel');
+    //$.HSCore.components.HSCarousel.init('.js-carousel');
 
     // initialization of go to section
     $.HSCore.components.HSGoTo.init('.js-go-to');

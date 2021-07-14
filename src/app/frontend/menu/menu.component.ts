@@ -30,10 +30,8 @@ export class MenuComponent implements OnInit {
 
   getMenuHtmlList(categoria: string) {
     let menuList = this.getMenuListXCategoria(categoria);
-    /*for (let index = 0; index < menuList.length; index++) {
-      const element = menuList[index];
-      
-    }*/
+    //menuList=menuList.concat(menuList)
+    //menuList=menuList.concat(menuList)
     let html = ``;
     menuList.forEach((menu, index) => {
       let articulo = `<div class="col-md-6 g-mb-50">
@@ -51,7 +49,7 @@ export class MenuComponent implements OnInit {
 
                   <div class="align-self-center g-pos-rel g-bg-main g-pl-15">
                       <strong
-                          class="g-font-weight-700 g-font-size-13 g-color-white g-bg-primary g-rounded-3 g-py-4 g-px-12">$  ${this.precio(menu)}  </strong>
+                          class="g-font-weight-700 g-font-size-13 g-color-white g-bg-primary g-rounded-3 g-py-4 g-px-12">$${this.precio(menu)}  </strong>
                   </div>
               </div>
 

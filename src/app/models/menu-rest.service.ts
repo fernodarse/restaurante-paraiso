@@ -17,12 +17,16 @@ export class MenuRestService extends RestDataSource {
     super(http);
     this.url = url + "menu/";
     console.log('iniciado');
-    super.sendRequest<Menu[]>("GET", this.url)
-    .pipe(takeUntil(this.unsubscribe$))
+    
+    this.loadData().pipe(takeUntil(this.unsubscribe$))
     .subscribe(result => {
       this.menuList = result;
       console.log("getAllMenus", this.menuList)
     });
+  }
+
+  loadData(){
+    return super.sendRequest<Menu[]>("GET", this.url)
   }
 
   createMenu(menu: Menu): Promise<Menu> {
@@ -43,7 +47,7 @@ export class MenuRestService extends RestDataSource {
     return this.menuList;//super.sendRequest<Menu[]>("GET", this.url);
   }
 
-  getDestacados(destacado:boolean = true): Menu[] {
+  getDestacados(destacado:boolean = true): Menu[]  {
     return this.menuList.filter((menu) => menu.destacado == destacado); 
   }
   

@@ -14,21 +14,25 @@ export class MenuService {
   private unsubscribe$ = new Subject<void>();
 
   constructor(private db: AngularFirestore) {
-    this.db.collection<Menu>('menus', ref =>
-      ref.orderBy('createdDate', 'desc'))
-      .snapshotChanges().pipe(
-        map(actions => {
-          return actions.map(
-            c => ({
-              menuId: c.payload.doc.id,
-              ...c.payload.doc.data()
-            }));
-        })).pipe(takeUntil(this.unsubscribe$))
+    this.loadData().pipe(takeUntil(this.unsubscribe$))
         .subscribe(result => {
           this.menuList = result;
           console.log("getAllMenus", this.menuList)
         });
    }
+
+   loadData(){
+    return this.db.collection<Menu>('menus', ref =>
+    ref.orderBy('createdDate', 'desc'))
+    .snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(
+          c => ({
+            menuId: c.payload.doc.id,
+            ...c.payload.doc.data()
+          }));
+      }))
+  }
 
   createMenu(menu: Menu) {
     const menuData = JSON.parse(JSON.stringify(menu));
@@ -40,7 +44,7 @@ export class MenuService {
     return this.menuList 
   }
 
-  getDestacados(destacado:boolean = true): Menu[] {
+  getDestacados(destacado:boolean = true): Menu[]  {
     return this.menuList.filter((menu) => menu.destacado == destacado); 
   }
 

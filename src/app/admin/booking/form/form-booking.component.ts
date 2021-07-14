@@ -1,33 +1,35 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
-import {  NgForm } from "@angular/forms";
+import { NgForm } from "@angular/forms";
 import { MODES, SharedState, SHARED_STATE } from "../../../models/sharedState.model";
 import { Observable } from "rxjs";
 import { DatePipe } from '@angular/common';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { BookingService } from 'src/app/models/booking.service';
 import { Booking } from 'src/app/models/booking';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'form-booking',
   templateUrl: './form-booking.component.html',
   styleUrls: ['./form-booking.component.css'],
-  providers: [DatePipe] 
+  providers: [DatePipe]
 })
 export class FormBookingComponent implements OnInit {
 
   booking: Booking = new Booking();
 
   today = new Date()
-  minDate = new Date(this.today);  
+  minDate = new Date(this.today);
   maxDate = new Date();
-  minTime;  
+  minTime;
   maxTime;
   timeV;
 
   constructor(private bookingServices: BookingService,
     @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>,
     private datePipe: DatePipe,
-    private snackBarService: SnackbarService,) {
+    private snackBarService: SnackbarService,
+    @Inject("autenticar") private authService: AuthService,) {
 
     stateEvents.subscribe((update) => {
       this.booking = new Booking();
@@ -39,45 +41,54 @@ export class FormBookingComponent implements OnInit {
           this.booking.bookingId = update.id;
           //this.booking.time=this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm:ss');
           console.log("tiempo ", this.booking.time)
-          this.timeV=new Date(this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm:ss'))
+          this.timeV = new Date(this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm:ss'))
           console.log("time ", this.timeV)
         });
-      }else{
-        this.timeV=null
+      } else {
+        this.timeV = null
       }
       console.log('nuvo time', this.booking.time)
       this.editing = update.mode == MODES.EDIT;
     });
 
-    this.minDate.setDate(this.today.getDate()+1);
+    this.minDate.setDate(this.today.getDate() + 1);
     this.today.getFullYear
     let year = this.today.getFullYear();
     let month = this.today.getMonth();
     let day = this.today.getDate()
-    this.maxDate=new Date(year+1,month,day)
-    this.minTime=new Date(year,month,day,11,0,0,)
-    this.maxTime=new Date(year,month,day,20,0,0,)
+    this.maxDate = new Date(year + 1, month, day)
+    this.minTime = new Date(year, month, day, 8, 0, 0,)
+    this.maxTime = new Date(year, month, day, 20, 0, 0,)
 
   }
 
   editing: boolean = false;
 
-  submitForm(form: NgForm) {
+  async submitForm(form: NgForm) {
     if (form.valid) {
       console.log('submit menu', this.booking);
       if (this.editing) {
         this.bookingServices.updateBooking(this.booking.bookingId, this.booking).then(
           () => {
-          this.snackBarService.openSnackBar('El booking se modificó correctamente');
+            this.snackBarService.openSnackBar('El booking se modificó correctamente');
           }
-          );
+        );
       } else {
         this.booking.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
-        this.bookingServices.create(this.booking).then(
+        let userData:any=this.authService.getUserData();
+        this.booking.userId =  userData.sub//"60bcce599be50f3518cf7490";
+        console.log('booking datos user',);
+        /*this.bookingServices.create(this.booking)
+        .then(
           () => {
           this.snackBarService.openSnackBar('El booking se creo satifactioramente');
           }
-          );;
+          );;*/
+        (await this.bookingServices.create(this.booking)).subscribe(
+          (resp) => {
+            console.log('respuesta del booking', resp)
+            this.snackBarService.openSnackBar(resp.message);
+          })
       }
       //form.reset();
       //this.resetForm();
@@ -90,8 +101,8 @@ export class FormBookingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  timeChangeHandler(event){
-    this.booking.time=event;
+  timeChangeHandler(event) {
+    this.booking.time = event;
   }
 
   getValidationMessages(state: any, thingName?: string) {
@@ -111,6 +122,6 @@ export class FormBookingComponent implements OnInit {
     }
     //console.log('errores ',messages)
     return messages;
-  } 
+  }
 
 }

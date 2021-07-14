@@ -1,28 +1,32 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Booking } from 'src/app/models/booking';
 import { BookingService } from 'src/app/models/booking.service';
-import { NativeDateAdapter, DateAdapter,  MAT_DATE_FORMATS } from '@angular/material/core';
+import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { formatDate } from '@angular/common';
+import { AuthService } from 'src/app/services/auth.service';
+import { AppUser } from 'src/app/models/appuser';
+import { Observable } from 'rxjs';
+import { SnackbarService } from 'src/app/services/snackbar.service';
 
 export const PICK_FORMATS = {
-  parse: {dateInput: {month: 'short', year: 'numeric', day: 'numeric'}},
+  parse: { dateInput: { month: 'short', year: 'numeric', day: 'numeric' } },
   display: {
-      dateInput: 'input',
-      monthYearLabel: {year: 'numeric', month: 'short'},
-      dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-      monthYearA11yLabel: {year: 'numeric', month: 'long'}
+    dateInput: 'input',
+    monthYearLabel: { year: 'numeric', month: 'short' },
+    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
+    monthYearA11yLabel: { year: 'numeric', month: 'long' }
   }
 };
 
 class PickDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
-      if (displayFormat === 'input') {
-          return formatDate(date,'dd-MMM-yyyy',this.locale);
-      } else {
-          return date.toDateString();
-      }
+    if (displayFormat === 'input') {
+      return formatDate(date, 'dd-MMM-yyyy', this.locale);
+    } else {
+      return date.toDateString();
+    }
   }
 }
 
@@ -31,51 +35,71 @@ class PickDateAdapter extends NativeDateAdapter {
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css'],
   providers: [
-    {provide: DateAdapter, useClass: PickDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
-]
+    { provide: DateAdapter, useClass: PickDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS }
+  ]
 })
 export class BookingComponent implements OnInit {
 
-  booking:Booking=new Booking();
+  appUser: AppUser;
+  booking: Booking = new Booking();
   message: string;
   today = new Date()
-  minDate = new Date(this.today);  
+  minDate = new Date(this.today);
   maxDate = new Date();
-  minTime;  
+  minTime;
   maxTime;
-  constructor(private bookingService: BookingService,private datePipe: DatePipe,) {
-    console.log('hoy es ',this.today)
-    this.minDate.setDate(this.today.getDate()+1);
+  @ViewChild('form') ngForm;
+  constructor(private bookingService: BookingService, private datePipe: DatePipe,
+    @Inject("autenticar") private authService: AuthService,
+    private snackBarService: SnackbarService,) {
+    this.authService.appUser$.subscribe(appUser => {
+      this.appUser = appUser;
+      console.log('usuario bookin', this.appUser)
+    });
+    this.minDate.setDate(this.today.getDate() + 1);
     this.today.getFullYear
     let year = this.today.getFullYear();
     let month = this.today.getMonth();
     let day = this.today.getDate()
-    this.maxDate=new Date(year+1,month,day)
-    this.minTime=new Date(year,month,day,11,0,0,)//this.datePipe.transform(Date.now(), 'HH:mm');
-    this.maxTime=new Date(year,month,day,20,0,0,)//this.datePipe.transform(Date.now(), 'HH:mm');
-   }
+    this.maxDate = new Date(year + 1, month, day)
+    this.minTime = new Date(year, month, day, 8, 0, 0,)//this.datePipe.transform(Date.now(), 'HH:mm');
+    this.maxTime = new Date(year, month, day, 20, 0, 0,)//this.datePipe.transform(Date.now(), 'HH:mm');
+  }
 
   async onSubmit(form: NgForm): Promise<void> {
     this.message = '';
+    console.log('Submit action')
     if (form.valid) {
-      console.log('datos del booking', this.booking,this.datePipe.transform(this.booking.time, 'HH:mm'))
+      console.log('datos del booking', this.booking, this.datePipe.transform(this.booking.time, 'HH:mm'))
       this.booking.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
-        this.bookingService.create(this.booking).then(
-          () => {
-            this.message ='La reserva se ha registrado correctamente'
-          setTimeout(function () {
+      this.booking.userId = "60bcce599be50f3518cf7490"; //id 60bcce599be50f3518cf7490
+      (await this.bookingService.create(this.booking)).subscribe(
+        /*() => {//para firebase
+          this.message ='La reserva se ha registrado correctamente'
+        setTimeout(function () {
+          this.message = '';
+        }.bind(this), 9500);
+        this.resetForm()
+        form.resetForm()
+        }*/
+        (resp) => {
+          console.log('respuesta del booking', resp)
+          this.snackBarService.openSnackBar(resp.message);
+          //this.message = resp.message
+          /*setTimeout(function () {
             this.message = '';
-          }.bind(this), 9500);
-          this.resetForm()
-          form.resetForm()
-          }
-          );        
+          }.bind(this), 9500); */ 
+          this.resetForm()        
+          
+        }
+      );
     }
   }
 
   resetForm() {
     this.booking = new Booking();
+    this.ngForm.resetForm();
   }
 
   getValidationMessages(state: any, thingName?: string) {
@@ -104,7 +128,10 @@ export class BookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
+  login() {
+    this.authService.login();
+  }
 }

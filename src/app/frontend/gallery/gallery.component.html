@@ -21,10 +21,10 @@
            {"width": 500, "cols": 2},
            {"width": 320, "cols": 1}
          ]'>
-         <!-- <div class="cbp-item" *ngFor="let evento of eventos();let index=index" >
-            <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img1.jpg" data-title="Custom Title {{index}}">
+        <div class="cbp-item"  *ngFor="let evento of eventos();let index=index" >
+            <a class="cbp-caption cbp-lightbox" href="{{ imagenEvento(evento) }}" data-title="{{evento.name}}">
                 <div class="cbp-caption-defaultWrap">
-                    <img src="../../../assets/img-temp/560x560/img1.jpg" alt="Image description">
+                    <img src="{{ imagenEvento(evento) }}" alt="{{evento.name}}">
                 </div>
 
                 <div class="cbp-caption-activeWrap">
@@ -36,13 +36,14 @@
                             <h2
                                 class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
                                 {{evento.name}}</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">Nam ullamcorper mauris
-                                ex, ut efficitur est convallis nec</p>
+                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">
+                                {{ evento.descripcion}}
+                            </p>
                         </div>
                     </div>
                 </div>
             </a>
-        </div>-->
+        </div>
         <div class="cbp-item">
             <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img1.jpg" data-title="Custom Title 7">
                 <div class="cbp-caption-defaultWrap">
@@ -66,7 +67,7 @@
             </a>
         </div>
 
-         <div class="cbp-item">
+         <!--<div class="cbp-item">
             <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img2.jpg" data-title="Custom Title 2">
                 <div class="cbp-caption-defaultWrap">
                     <img src="../../../assets/img-temp/560x560/img2.jpg" alt="Image description">
@@ -272,6 +273,7 @@
                 </div>
             </a>
         </div>
+    -->
     </div>
 </section>
 <!-- End Section Content -->

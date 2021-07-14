@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Evento } from '../models/evento';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { Booking } from './booking';
 
 @Injectable({
@@ -13,37 +13,42 @@ export class BookingService {
 
   private list: Booking[] = [];
   private unsubscribe$ = new Subject<void>();
-  
+
   constructor(private db: AngularFirestore) {
     const list = this.db.collection<Booking>('bookings', ref =>
-    ref.orderBy('date', 'desc')) //createdDate
-    .snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(
-          c => ({
+      ref.orderBy('date', 'desc')) //createdDate
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(
+            c => ({
               bookingId: c.payload.doc.id,
-            ...c.payload.doc.data()
-          }));
-      })).subscribe(result => {
-        this.list=result;
-        console.log("getAllBookings", this.list)
-      });
-   }
-
-  create(booking: Booking) {
-    const bookingData = JSON.parse(JSON.stringify(booking));
-    console.log("createBooking ", bookingData);
-    return this.db.collection('bookings').add(bookingData);
+              ...c.payload.doc.data()
+            }));
+        })).subscribe(result => {
+          this.list = result;
+          console.log("getAllBookings", this.list)
+        });
   }
 
-  getAllBookings(): Booking[] {    
+  async create(booking: Booking) {
+    const bookingData = JSON.parse(JSON.stringify(booking));
+    console.log("createBooking ", bookingData);
+    let entity = (await this.db.collection('bookings').add(bookingData));
+    return of({
+      statusCode: 200,
+      message: 'La reserva se ha registrado correctamente',
+      entity: entity,
+    })
+  }
+
+  getAllBookings(): Booking[] {
     return this.list;
   }
 
   getBookingbyId(id: string): Observable<Booking> {
-    console.log("id ", id);  
-    const bookingDetails = this.db.doc<Booking>('bookings/' + id).valueChanges(); 
-    console.log("bookingDetails ", bookingDetails);   
+    console.log("id ", id);
+    const bookingDetails = this.db.doc<Booking>('bookings/' + id).valueChanges();
+    console.log("bookingDetails ", bookingDetails);
     return bookingDetails;
   }
 

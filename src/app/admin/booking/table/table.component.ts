@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { PageEvent } from '@angular/material/paginator';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Observable, Observer, Subject } from 'rxjs';
@@ -22,7 +23,7 @@ export class TableBookingComponent implements OnInit {
   filtro: boolean = false;
 
   //paginado
-  length = 0;
+  length = -1;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   config: any;
@@ -32,6 +33,8 @@ export class TableBookingComponent implements OnInit {
   color: ThemePalette = 'warn';
   mode: ProgressSpinnerMode = 'indeterminate';
   value = 50;
+
+  filterDate;//=new Date()
 
   constructor(private bookingServices: BookingService,
     @Inject(SHARED_STATE) public observer: Observer<SharedState>,
@@ -56,8 +59,16 @@ export class TableBookingComponent implements OnInit {
 
   getBookingList(): Booking[] {
     let list=this.bookingServices.getAllBookings()
+    list=list.filter((reserva) => this.filterDate == undefined || this.compararFechas(new Date(reserva.date),this.filterDate) );
     this.length=list.length;
-    return list/*.filter((evnto) => this.filtro == false || evnto.destacado == this.filtro)*/;
+    //console.log('this.filterDate',this.filterDate)
+    return list;
+  }
+
+  compararFechas(fecha1:Date, fecha2:Date){
+    console.log('fechas1 ',fecha1 )
+    console.log('fechas2 ', fecha2 )
+    return fecha1.getFullYear()==fecha2.getFullYear() && fecha1.getMonth()==fecha2.getMonth()&&fecha1.getDate()==fecha2.getDate()
   }
 
   deleteBooking(key: string) {
@@ -72,6 +83,10 @@ export class TableBookingComponent implements OnInit {
   }
   createBooking() {
     this.observer.next(new SharedState(MODES.CREATE));
+  }
+
+  filtrarFecha( event: MatDatepickerInputEvent<Date>){
+    this.filterDate=event.value
   }
 
   ngOnInit(): void { 

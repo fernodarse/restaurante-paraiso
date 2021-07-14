@@ -7,4 +7,5 @@ export class Booking {
     mensaje: string;
     activo:boolean;
     createdDate: any;
+    userId: string;
 }
