@@ -15,19 +15,23 @@ export class BookingService {
   private unsubscribe$ = new Subject<void>();
 
   constructor(private db: AngularFirestore) {
-    const list = this.db.collection<Booking>('bookings', ref =>
-      ref.orderBy('date', 'desc')) //createdDate
-      .snapshotChanges().pipe(
-        map(actions => {
-          return actions.map(
-            c => ({
-              bookingId: c.payload.doc.id,
-              ...c.payload.doc.data()
-            }));
-        })).subscribe(result => {
+    this.loadData().subscribe(result => {
           this.list = result;
           console.log("getAllBookings", this.list)
         });
+  }
+
+  loadData(){
+    return this.db.collection<Booking>('bookings', ref =>
+    ref.orderBy('date', 'desc')) //createdDate
+    .snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(
+          c => ({
+            bookingId: c.payload.doc.id,
+            ...c.payload.doc.data()
+          }));
+      }))
   }
 
   async create(booking: Booking) {

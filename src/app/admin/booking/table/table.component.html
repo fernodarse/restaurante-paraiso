@@ -9,13 +9,13 @@
     <mat-datepicker-toggle matSuffix [for]="pickerFilter"></mat-datepicker-toggle>
     <mat-datepicker #pickerFilter></mat-datepicker>
 </mat-form-field>
-<table class="table table-sm table-bordered table-striped">
+<table class="table table-sm table-bordered table-striped" matSort (matSortChange)="changeSort($event)"><!--  -->
     <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Fecha Reserva</th>
-            <th># Clientes</th>
-            <th>Creada</th>
+            <th mat-sort-header="name">Nombre</th>
+            <th mat-sort-header="date">Fecha Reserva</th>
+            <th mat-sort-header="cliente"># Clientes</th>
+            <th mat-sort-header="fCreada">Creada</th>
             <th></th>
         </tr>
     </thead>

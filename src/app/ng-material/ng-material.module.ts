@@ -21,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTimepickerModule } from 'mat-timepicker';
+import { MatSortModule } from '@angular/material/sort';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { MatTimepickerModule } from 'mat-timepicker';
         NgxPaginationModule,
         MatTabsModule,
         MatAutocompleteModule,
+        MatSortModule,
 
         MatDatepickerModule,
         NgxMatDatetimePickerModule,
@@ -71,6 +73,7 @@ import { MatTimepickerModule } from 'mat-timepicker';
         NgxPaginationModule,
         MatTabsModule,
         MatAutocompleteModule,
+        MatSortModule,
         
         MatDatepickerModule,
         NgxMatDatetimePickerModule,

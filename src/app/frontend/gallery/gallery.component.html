@@ -1,14 +1,14 @@
 <!-- Section Content -->
-<section id="gallery" class="g-bg-primary g-pt-100">
+<section id="gallery" class="g-bg-primary g-pt-100" (window:resize)="onResize($event)">
     <div class="container g-max-width-780 text-center g-mb-60">
         <div
             class="text-center text-uppercase u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
             <h4 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-15">
-                Moment gallery
+                Moment's gallery
             </h4>
             <h2
                 class="u-heading-v5__title g-line-height-1_2 g-font-weight-700 g-font-size-32 g-font-size-40--md g-color-white g-bg-white--before g-pb-40">
-                Look at these visit
+                Look at these moment
             </h2>
         </div>
     </div>
@@ -20,11 +20,12 @@
            {"width": 800, "cols": 5},
            {"width": 500, "cols": 2},
            {"width": 320, "cols": 1}
-         ]'>
-        <div class="cbp-item"  *ngFor="let evento of eventos();let index=index" >
-            <a class="cbp-caption cbp-lightbox" href="{{ imagenEvento(evento) }}" data-title="{{evento.name}}">
+         ]' >
+        <div  class="cbp-item"  *ngFor="let evento of eventos();let index=index" >
+            <a class="cbp-caption cbp-lightbox" href="{{ imagenEvento(evento) }}" data-title="{{evento.name}}"
+             ><!-- style="width: 191px; height: 191px;"  (load)="onImageLoad($event)" width="400" [style.height.px]="height"-->
                 <div class="cbp-caption-defaultWrap">
-                    <img src="{{ imagenEvento(evento) }}" alt="{{evento.name}}">
+                    <img  class="img-f" src="{{ imagenEvento(evento) }}"  [style.height.px]="height"  alt="{{evento.name}}" >
                 </div>
 
                 <div class="cbp-caption-activeWrap">
@@ -44,7 +45,7 @@
                 </div>
             </a>
         </div>
-        <div class="cbp-item">
+        <!--<div class="cbp-item">
             <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img1.jpg" data-title="Custom Title 7">
                 <div class="cbp-caption-defaultWrap">
                     <img src="../../../assets/img-temp/560x560/img1.jpg" alt="Image description">
@@ -67,7 +68,7 @@
             </a>
         </div>
 
-         <!--<div class="cbp-item">
+         <div class="cbp-item">
             <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img2.jpg" data-title="Custom Title 2">
                 <div class="cbp-caption-defaultWrap">
                     <img src="../../../assets/img-temp/560x560/img2.jpg" alt="Image description">

@@ -47855,7 +47855,7 @@ h6, .h6 {
 
 /* Cube portfolio */
 .cbp-caption-fadeIn .cbp-caption-activeWrap {
-  background-color: rgb(41,98,255);
+  background-color: rgb(41,98,255,0.85);
 }
 
 /* Master slider */

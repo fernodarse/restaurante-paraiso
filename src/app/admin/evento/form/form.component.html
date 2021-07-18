@@ -42,7 +42,7 @@
             <mat-form-field class="col-8">
                 <mat-label>Foto</mat-label>
                 <input matInput placeholder="Url de la imagen" name="photoURL" [(ngModel)]="evento.photoURL"
-                    #photoURL="ngModel"  pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$" required>
+                    #photoURL="ngModel"   required> <!-- pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"-->
                 <mat-error *ngFor="let error of getValidationMessages(photoURL)">
                     <span [innerHTML]="error"></span>
                 </mat-error>

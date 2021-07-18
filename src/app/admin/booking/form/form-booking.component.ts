@@ -57,7 +57,7 @@ export class FormBookingComponent implements OnInit {
     let month = this.today.getMonth();
     let day = this.today.getDate()
     this.maxDate = new Date(year + 1, month, day)
-    this.minTime = new Date(year, month, day, 8, 0, 0,)
+    this.minTime = new Date(2000, month, day, 8, 0, 0,)
     this.maxTime = new Date(year, month, day, 20, 0, 0,)
 
   }

@@ -17,12 +17,16 @@ export class BookingRestService extends RestDataSource {
   constructor(http: HttpClient, @Inject(REST_URL) private url: string) {
     super(http);
     this.url = url + "booking/";
-    super.sendRequest<Booking[]>("GET", this.url)
+    this.loadData()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(result => {
         this.list = result;
         console.log("getAllBooking", this.list)
       });
+  }
+
+  loadData(){
+    return super.sendRequest<Booking[]>("GET", this.url)
   }
 
   async create(booking: Booking) {

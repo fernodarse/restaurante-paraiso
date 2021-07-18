@@ -20,7 +20,7 @@
         <form novalidate #form="ngForm" (ngSubmit)="onSubmit(form)">
             <div class="text-center text-uppercase u-heading-v7-3 g-mb-30">
                 <h3 class="g-font-weight-700 g-font-size-12 g-color-white-opacity-0_7 g-mb-20">{{ message }}</h3>
-        </div>
+            </div>
             <div class="row g-mb-40">
                 <div class="col-md-4 pb-2">
                     <div class="form-group g-pos-rel">
@@ -31,16 +31,18 @@
                         <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
                             <i class="fa fa-calendar"></i>
                         </div>-->
-                        <mat-form-field  appearance="fill"  class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
+                        <mat-form-field appearance="fill"
+                            class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
                             <mat-label>Reservation name</mat-label>
-                            <input matInput placeholder="Responsable del booking" name="name" [(ngModel)]="booking.name" #name="ngModel" 
-                                required >
-                            
+                            <input matInput placeholder="Responsable del booking" name="name" [(ngModel)]="booking.name"
+                                #name="ngModel" required>
+
                             <!-- <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
                                 <i class="fa fa-ticket fa-male"></i>
                             </div>-->
-                            <mat-icon class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white pl-4">
-                                <i class="fa fa-ticket fa-male" ></i>
+                            <mat-icon
+                                class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white pl-4">
+                                <i class="fa fa-ticket fa-male"></i>
                             </mat-icon>
                             <mat-hint>Responsable del booking</mat-hint>
                             <mat-error *ngFor="let error of getValidationMessages(name)">
@@ -54,29 +56,32 @@
                         <!--<input name="date" [(ngModel)]="booking.date" #date="ngModel" required                        
                             class="form-control h-100 u-theme-shadow-v1 g-font-size-default g-color-white g-placeholder-inherit g-theme-bg-primary-dark-v1 g-brd-none rounded-0 g-px-25 g-py-13"
                             type="text" placeholder="Reservation date">-->
-                            <mat-form-field appearance="fill" class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
-                                <mat-label>Choose a date</mat-label>
-                                
-                                <input matInput  name="date" [matDatepicker]="picker" [(ngModel)]="booking.date" 
-                                #date="ngModel" required [min]="minDate" [max]="maxDate" class="g-color-white" readonly ><!--  [ngModelOptions]="{standalone: true}"-->
+                        <mat-form-field appearance="fill"
+                            class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
+                            <mat-label>Choose a date</mat-label>
 
-                                <mat-datepicker-toggle matSuffix [for]="picker">
-                                  <mat-icon matDatepickerToggleIcon>
-                                    <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
-                                        <i class="fa fa-calendar" style="padding-bottom: 5px;
+                            <input matInput name="date" [matDatepicker]="picker" [(ngModel)]="booking.date"
+                                #date="ngModel" required [min]="minDate" [max]="maxDate" class="g-color-white" readonly>
+                            <!--  [ngModelOptions]="{standalone: true}"-->
+
+                            <mat-datepicker-toggle matSuffix [for]="picker">
+                                <mat-icon matDatepickerToggleIcon>
+                                    <div
+                                        class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
+                                        <i class="fa fa-calendar" style="padding-bottom: 0px;
                                         padding-left: 15px;"></i>
                                     </div>
-                                  </mat-icon>
-                                </mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                                <mat-error *ngFor="let error of getValidationMessages(date)">
-                                    <span [innerHTML]="error"></span>
-                                </mat-error>
-                            </mat-form-field>
+                                </mat-icon>
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngFor="let error of getValidationMessages(date)">
+                                <span [innerHTML]="error"></span>
+                            </mat-error>
+                        </mat-form-field>
                         <!--<div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
                             <i class="fa fa-calendar"></i>  keyboard_arrow_down
                         </div>-->
-                    </div>                    
+                    </div>
                 </div>
 
                 <div class="col-md-4">
@@ -84,19 +89,19 @@
                         <!--<input name="time" [(ngModel)]="booking.time" #time="ngModel" required
                             class="form-control h-100 u-theme-shadow-v1 g-font-size-default g-color-white g-placeholder-inherit g-theme-bg-primary-dark-v1 g-brd-none rounded-0 g-px-25 g-py-13"
                             type="text" placeholder="Reservation time">-->
-                            <mat-form-field appearance="fill"
+                        <mat-form-field appearance="fill"
                             class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
-                                <mat-label i18n="Timepicker 1 Title">Reservation time</mat-label>
-                                
-                                <input matTimepicker #t1="matTimepicker" i18n-okLabel="Timepicker 1 Ok Label" okLabel="Ok"
-                                  i18n-cancelLabel="Timepicker 1 Cancel Label" cancelLabel="Cancel" #time="ngModel" [minDate]="minTime"
-                                  [maxDate]="maxTime" id="timepicker-example-1" mode="24h"  placeholder="Please select time"
-                                  name="time" [(ngModel)]="booking.time" required>
-                                <mat-icon matSuffix (click)="t1.showDialog()">
-                                    <i class="fa fa-clock-o" ></i>
-                                </mat-icon>
-                                <mat-error *ngIf="time.touched && time.invalid">Invalid Date</mat-error>
-                            </mat-form-field>
+                            <mat-label i18n="Timepicker 1 Title">Reservation time</mat-label>
+
+                            <input matTimepicker #t1="matTimepicker" i18n-okLabel="Timepicker 1 Ok Label" okLabel="Ok"
+                                i18n-cancelLabel="Timepicker 1 Cancel Label" cancelLabel="Cancel" #time="ngModel"
+                                [minDate]="minTime" [maxDate]="maxTime" id="timepicker-example-1" mode="24h"
+                                placeholder="Please select time" name="time" [(ngModel)]="booking.time" required>
+                            <mat-icon matSuffix (click)="t1.showDialog()">
+                                <i class="fa fa-clock-o"></i>
+                            </mat-icon>
+                            <mat-error *ngIf="time.touched && time.invalid">Invalid Date</mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
@@ -113,14 +118,17 @@
                         <mat-form-field appearance="fill"
                             class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none pb-3">
                             <mat-label>Persons</mat-label>
-                            <input class="pl-2" style="width: 80%;" matInput name="cantPersonas" [(ngModel)]="booking.cantPersonas" #cantPersonas="ngModel" required  type="number" placeholder="Persons">
+                            <input class="pl-2" style="width: 80%;" matInput name="cantPersonas"
+                                [(ngModel)]="booking.cantPersonas" #cantPersonas="ngModel" required type="number"
+                                placeholder="Persons">
                             <span matPrefix>#</span>
                             <mat-hint>Number of seats</mat-hint>
                             <!--<div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
                                 <i class="fa fa-users"></i>
                             </div>-->
-                            <mat-icon class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white pl-4">
-                                <i class="fa fa-users" ></i>
+                            <mat-icon
+                                class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white pl-4">
+                                <i class="fa fa-users"></i>
                             </mat-icon>
                             <mat-error *ngFor="let error of getValidationMessages(cantPersonas)">
                                 <span [innerHTML]="error"></span>
@@ -135,9 +143,11 @@
                             [(ngModel)]="booking.mensaje" #mensaje="ngModel"
                             class="form-control h-100 u-theme-shadow-v1 g-font-size-default g-color-white g-placeholder-inherit g-theme-bg-primary-dark-v1 g-brd-none rounded-0 g-px-25 g-py-13"></textarea>
                         -->
-                        <mat-form-field class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
+                        <mat-form-field
+                            class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
                             <mat-label>Message</mat-label>
-                            <textarea matInput placeholder="Aditional booking's information " name="mensaje" [(ngModel)]="booking.mensaje" #mensaje="ngModel"></textarea>
+                            <textarea matInput placeholder="Aditional booking's information " name="mensaje"
+                                [(ngModel)]="booking.mensaje" #mensaje="ngModel"></textarea>
                             <mat-hint>Notas adicionales para la cena</mat-hint>
                             <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
                                 <i class="fa fa-comment"></i>
@@ -146,15 +156,19 @@
                                 <span [innerHTML]="error"></span>
                             </mat-error>
                         </mat-form-field>
-                        </div>
+                    </div>
                 </div>
 
             </div>
-             <!-- *ngIf="appUser; else anonymousUser"--> 
-            <button 
+            <!-- *ngIf="appUser; else anonymousUser"-->
+            <button
                 class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2 g-brd-none rounded-0 g-px-30 g-py-25"
-                type="submit" role="button"
-                [disabled]="form.invalid">Book now</button>
+                type="submit" role="button" [disabled]="form.invalid">
+                Book now
+                <span *ngIf="submit==true" class="g-pos-abs g-right-10"> 
+                        <mat-spinner diameter=15 ></mat-spinner>
+                </span>
+            </button>
         </form>
     </div>
 </section>

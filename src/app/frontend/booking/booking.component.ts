@@ -50,6 +50,7 @@ export class BookingComponent implements OnInit {
   minTime;
   maxTime;
   @ViewChild('form') ngForm;
+  submit: boolean = false;
   constructor(private bookingService: BookingService, private datePipe: DatePipe,
     @Inject("autenticar") private authService: AuthService,
     private snackBarService: SnackbarService,) {
@@ -71,6 +72,7 @@ export class BookingComponent implements OnInit {
     this.message = '';
     console.log('Submit action')
     if (form.valid) {
+      this.submit=true;
       console.log('datos del booking', this.booking, this.datePipe.transform(this.booking.time, 'HH:mm'))
       this.booking.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
       this.booking.userId = "60bcce599be50f3518cf7490"; //id 60bcce599be50f3518cf7490
@@ -85,6 +87,7 @@ export class BookingComponent implements OnInit {
         }*/
         (resp) => {
           console.log('respuesta del booking', resp)
+          this.submit=false;
           this.snackBarService.openSnackBar(resp.message);
           //this.message = resp.message
           /*setTimeout(function () {
