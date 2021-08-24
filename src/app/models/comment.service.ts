@@ -16,7 +16,14 @@ export class CommentService {
   private unsubscribe$ = new Subject<void>();
 
   constructor(private db: AngularFirestore) { 
-    const comments = this.db.collection<Comments>('comments',
+        this.loadData().subscribe(result => {
+          this.list=result;
+          console.log("getAllComments", this.list)
+        });
+  }
+
+  loadData(){
+    return this.db.collection<Comments>('comments',
     ref => ref.orderBy('commentDate','desc'))
         .snapshotChanges().pipe(
         map(actions => {
@@ -25,20 +32,19 @@ export class CommentService {
               commentId: c.payload.doc.id,
               ...c.payload.doc.data()
             }));
-        })).subscribe(result => {
-          this.list=result;
-          console.log("getAllComments", this.list)
-        });;
+        }))
   }
 
-  saveComment(comment: Comments) {
+  async saveComment(comment: Comments) {
     
     comment.menu="menus/"+comment.menuId;
-    //comment.commentedBy.photoURL=user.photoURL;
     const commentData = JSON.parse(JSON.stringify(comment));
-    return this.db.collection('comments').add(commentData).then(ref => {    
-      console.log("Saved object: ", ref)
-   });
+    let entity = (await  this.db.collection('comments').add(commentData))
+    return of({
+      statusCode: 200,
+      message: 'Su comentario se ha registrado correctamente',
+      entity: entity,
+    })
   }
 
   updateComment(Id: string, comment: Comments) {

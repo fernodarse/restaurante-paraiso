@@ -1,5 +1,17 @@
-<!-- Section Content -->
-<section id="gallery" class="g-bg-primary g-pt-100" (window:resize)="onResize($event)">
+<!-- Section Content  g-bg-primary-->
+<section id="gallery" class="g-pt-100 ">
+    <!-- SVG Background 
+    <svg class="g-pos-rel g-top-minus-120" version="1.1" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="140px" viewBox="20 -20 300 100">
+        <path d="M30.913,43.944c0,0,42.911-34.464,87.51-14.191c77.31,35.14,113.304-1.952,146.638-4.729
+    c48.654-4.056,69.94,16.218,69.94,16.218v54.396H30.913V43.944z" opacity="0.4" fill="#2979ff" />
+        <path d="M-35.667,44.628c0,0,42.91-34.463,87.51-14.191c77.31,35.141,113.304-1.952,146.639-4.729
+    c48.653-4.055,69.939,16.218,69.939,16.218v54.396H-35.667V44.628z" opacity="0.4" fill="#2979ff" />
+        <path d="M43.415,98.342c0,0,48.283-68.927,109.133-68.927c65.886,0,97.983,67.914,97.983,67.914v3.716
+    H42.401L43.415,98.342z" opacity="0" fill="#2979ff" />
+        <path d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428
+    c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" fill="#2979ff" />
+      </svg>
+       End SVG Background 
     <div class="container g-max-width-780 text-center g-mb-60">
         <div
             class="text-center text-uppercase u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
@@ -11,270 +23,69 @@
                 Look at these moment
             </h2>
         </div>
+    </div>-->
+
+
+    <div class="container g-max-width-780 text-center g-mb-20 g-mb-60--md">
+        <div
+            class="text-center text-uppercase u-heading-v5-3 u-heading-v5-color-primary u-heading-v5-rounded-50x g-mb-20">
+            <h4 class="g-font-weight-700 g-font-size-12 g-color-primary g-mb-15">Moment's gallery</h4>
+            <h2
+                class="u-heading-v5__title g-line-height-1_2 g-font-weight-700 g-font-size-32 g-font-size-40--md g-bg-primary--before g-pb-40">
+                Look at these moment</h2>
+        </div>
     </div>
 
-    <div class="cbp" data-layout="grid" data-animation="slideLeft" data-caption-animation="fadeIn" data-x-gap="0"
-        data-y-gap="0" data-media-queries='[
-           {"width": 1600, "cols": 5},
-           {"width": 1200, "cols": 5},
-           {"width": 800, "cols": 5},
-           {"width": 500, "cols": 2},
-           {"width": 320, "cols": 1}
-         ]' >
-        <div  class="cbp-item"  *ngFor="let evento of eventos();let index=index" >
-            <a class="cbp-caption cbp-lightbox" href="{{ imagenEvento(evento) }}" data-title="{{evento.name}}"
-             ><!-- style="width: 191px; height: 191px;"  (load)="onImageLoad($event)" width="400" [style.height.px]="height"-->
-                <div class="cbp-caption-defaultWrap">
-                    <img  class="img-f" src="{{ imagenEvento(evento) }}"  [style.height.px]="height"  alt="{{evento.name}}" >
-                </div>
 
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <p
-                                class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
-                                Fish</p>
-                            <h2
-                                class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
-                                {{evento.name}}</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">
-                                {{ evento.descripcion}}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <!--<div class="cbp-item">
-            <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img1.jpg" data-title="Custom Title 7">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="../../../assets/img-temp/560x560/img1.jpg" alt="Image description">
-                </div>
+    <!-- <button (click)="cambiarPagina(pagina+1,$event)"  class="btn btn-md u-btn-inset u-btn-inset--rounded u-btn-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2 g-rounded-50 g-mr-10 g-mb-15">
+        <i class="fa fa-check-circle g-mr-3"></i>
+        More
+      </button>
+      <button (click)="remove()"  class="btn btn-md u-btn-inset u-btn-inset--rounded u-btn-primary g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2 g-rounded-50 g-mr-10 g-mb-15">
+        <i class="fa fa-check-circle g-mr-3"></i>
+       Remove
+      </button> fa-angle-left
+    btn g-bg-primary--hover g-color-gray-dark-v5 g-ml-10 g-mr-10 g-theme-bg-gray-light-v2 g-transition-0_2 g-transition--ease-in fa fa-chevron-left -->
 
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <p
-                                class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
-                                Fish</p>
-                            <h2
-                                class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
-                                Tim Burton</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">Nam ullamcorper mauris
-                                ex, ut efficitur est convallis nec</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-         <div class="cbp-item">
-            <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img2.jpg" data-title="Custom Title 2">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="../../../assets/img-temp/560x560/img2.jpg" alt="Image description">
-                </div>
-
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <p
-                                class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
-                                Fish</p>
-                            <h2
-                                class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
-                                Tim Burton</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">Nam ullamcorper mauris
-                                ex, ut efficitur est convallis nec</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="cbp-item">
-            <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img3.jpg" data-title="Custom Title 3">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="../../../assets/img-temp/560x560/img3.jpg" alt="Image description">
-                </div>
-
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <p
-                                class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
-                                Fish</p>
-                            <h2
-                                class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
-                                Tim Burton</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">Nam ullamcorper mauris
-                                ex, ut efficitur est convallis nec</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="cbp-item">
-            <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img4.jpg" data-title="Custom Title 4">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="../../../assets/img-temp/560x560/img4.jpg" alt="Image description">
-                </div>
-
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <p
-                                class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
-                                Fish</p>
-                            <h2
-                                class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
-                                Tim Burton</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">Nam ullamcorper mauris
-                                ex, ut efficitur est convallis nec</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="cbp-item">
-            <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img5.jpg" data-title="Custom Title 5">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="../../../assets/img-temp/560x560/img5.jpg" alt="Image description">
-                </div>
-
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <p
-                                class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
-                                Fish</p>
-                            <h2
-                                class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
-                                Tim Burton</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">Nam ullamcorper mauris
-                                ex, ut efficitur est convallis nec</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="cbp-item">
-            <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img6.jpg" data-title="Custom Title 6">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="../../../assets/img-temp/560x560/img6.jpg" alt="Image description">
-                </div>
-
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <p
-                                class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
-                                Fish</p>
-                            <h2
-                                class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
-                                Tim Burton</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">Nam ullamcorper mauris
-                                ex, ut efficitur est convallis nec</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="cbp-item">
-            <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img7.jpg" data-title="Custom Title 7">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="../../../assets/img-temp/560x560/img7.jpg" alt="Image description">
-                </div>
-
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <p
-                                class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
-                                Fish</p>
-                            <h2
-                                class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
-                                Tim Burton</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">Nam ullamcorper mauris
-                                ex, ut efficitur est convallis nec</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="cbp-item">
-            <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img8.jpg" data-title="Custom Title 8">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="../../../assets/img-temp/560x560/img8.jpg" alt="Image description">
-                </div>
-
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <p
-                                class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
-                                Fish</p>
-                            <h2
-                                class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
-                                Tim Burton</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">Nam ullamcorper mauris
-                                ex, ut efficitur est convallis nec</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="cbp-item">
-            <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img9.jpg" data-title="Custom Title 9">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="../../../assets/img-temp/560x560/img9.jpg" alt="Image description">
-                </div>
-
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <p
-                                class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
-                                Fish</p>
-                            <h2
-                                class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
-                                Tim Burton</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">Nam ullamcorper mauris
-                                ex, ut efficitur est convallis nec</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="cbp-item">
-            <a class="cbp-caption cbp-lightbox" href="../../../assets/img-temp/560x560/img10.jpg" data-title="Custom Title 10">
-                <div class="cbp-caption-defaultWrap">
-                    <img src="../../../assets/img-temp/560x560/img10.jpg" alt="Image description">
-                </div>
-
-                <div class="cbp-caption-activeWrap">
-                    <div class="cbp-l-caption-alignCenter">
-                        <div class="cbp-l-caption-body">
-                            <p
-                                class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
-                                Fish</p>
-                            <h2
-                                class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
-                                Tim Burton</h2>
-                            <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">Nam ullamcorper mauris
-                                ex, ut efficitur est convallis nec</p>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
-    -->
+    <div class="text-center">
+        <button (click)="cambiarPagina(pagina-1,$event)" [disabled]="pagina-1<1" [class]="getClasses(pagina-1)"
+            class="btn g-color-white--hover g-bg-white g-bg-primary--hover g-transition-0_2 g-transition--ease-in fa fa-chevron-left slick-arrow  g-mb-15 rounded-0 u-arrow-v1 g-width-60 g-height-60">
+        </button>
+        <!-- btn u-btn-outline-white  g-mr-10 g-mb-15  fa-angle-right-->
+        <button (click)="cambiarPagina(pagina+1,$event)" [disabled]="pagina+1>cantidadPagina()"
+            [class]="getClasses(pagina+1)"
+            class="btn g-color-white--hover g-bg-white g-bg-primary--hover g-transition-0_2 g-transition--ease-in fa fa-chevron-right  slick-arrow g-mr-10 g-mb-15 rounded-0 u-arrow-v1 g-width-60 g-height-60">
+        </button>
     </div>
+    <!-- <app-portafolio1 [eventos]="eventos()"></app-portafolio1>-->
+    <app-portafolio2 [eventos]="eventos(pagina)"></app-portafolio2>
+
+    <!-- SVG Background g-top-minus-120-->
+    <svg class="g-pos-rel " version="1.1" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="140px" viewBox="20 -20 300 100">
+        <path d="M30.913,43.944c0,0,42.911-34.464,87.51-14.191c77.31,35.14,113.304-1.952,146.638-4.729
+    c48.654-4.056,69.94,16.218,69.94,16.218v54.396H30.913V43.944z" opacity="0.4" fill="#2979ff" />
+        <path d="M-35.667,44.628c0,0,42.91-34.463,87.51-14.191c77.31,35.141,113.304-1.952,146.639-4.729
+    c48.653-4.055,69.939,16.218,69.939,16.218v54.396H-35.667V44.628z" opacity="0.4" fill="#2979ff" />
+        <path d="M43.415,98.342c0,0,48.283-68.927,109.133-68.927c65.886,0,97.983,67.914,97.983,67.914v3.716
+    H42.401L43.415,98.342z" opacity="0" fill="#2979ff" />
+        <path d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428
+    c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" fill="#2979ff" />
+    </svg>
+    <!-- End SVG Background -->
+
+    <!-- SVG Background 
+       <svg class="g-pos-rel g-top-minus-120" version="1.1" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="140px" viewBox="20 -20 300 100">
+        <path d="M30.913,43.944c0,0,42.911-34.464,87.51-14.191c77.31,35.14,113.304-1.952,146.638-4.729
+    c48.654-4.056,69.94,16.218,69.94,16.218v54.396H30.913V43.944z" opacity="0.4" fill="#f0f1f3" />
+        <path d="M-35.667,44.628c0,0,42.91-34.463,87.51-14.191c77.31,35.141,113.304-1.952,146.639-4.729
+    c48.653-4.055,69.939,16.218,69.939,16.218v54.396H-35.667V44.628z" opacity="0.4" fill="#f0f1f3" />
+        <path d="M43.415,98.342c0,0,48.283-68.927,109.133-68.927c65.886,0,97.983,67.914,97.983,67.914v3.716
+    H42.401L43.415,98.342z" opacity="0" fill="#fafbfc" />
+        <path d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428
+    c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" fill="#fafbfc" />
+      </svg>
+     End SVG Background -->
+
 </section>
 <!-- End Section Content -->

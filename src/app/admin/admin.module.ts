@@ -8,7 +8,7 @@ import { FormMenuComponent } from './menu/form/form-menu.component';
 import { SharedState, SHARED_STATE } from '../models/sharedState.model';
 import { Subject } from 'rxjs';
 import { NgMaterialModule } from '../ng-material/ng-material.module';
-import { ListCategoriaMenu } from '../models/staticts';
+import { ListCategoriaMenu, Role } from '../models/staticts';
 import { EventoComponent } from './evento/evento.component';
 import { TableEventoComponent } from './evento/table/table.component';
 import { FormEventoComponent } from './evento/form/form.component';
@@ -48,16 +48,55 @@ import { BookingService } from '../models/booking.service';
 import { BookingRestService } from '../models/booking-rest.service';
 import { TableBookingComponent } from './booking/table/table.component';
 import { FormBookingComponent } from './booking/form/form-booking.component';
+import { AdminAuthGuard } from '../guards/admin-auth.guard';
+import { DirectivaModule } from '../directiva/directiva.module';
+import { OcultarNombrePipe } from '../pipe/ocultar-nombre.pipe';
 
 const childRoutes: Routes = [
   /*{ path: "", component: IntroComponent, pathMatch: "full" },
   { path: "sku", component: DemoFormSkuComponent, pathMatch: "full" },*/
-  { path: "", redirectTo: "booking" },
-  { path: "evento", component: EventoComponent, pathMatch: "full" },
-  { path: "comentario", component: CommentsComponent, pathMatch: "full" },
-  { path: "usuario", component: UserComponent, pathMatch: "full" },
-  { path: "booking", component: BookingComponent, pathMatch: "full" }, 
-  { path: "menu", component: MenuComponent, pathMatch: "full" }, 
+  {
+    path: "", redirectTo: "booking",
+    canActivate: [AdminAuthGuard],
+    data: {
+      expectedRole: Role.Admin
+    }
+  },
+  {
+    path: "evento", component: EventoComponent, pathMatch: "full"/*,
+    canActivate: [AdminAuthGuard],
+    data: {
+      expectedRole: Role.Admin
+    }*/
+  },
+  {
+    path: "comentario", component: CommentsComponent, pathMatch: "full"/*,
+    canActivate: [AdminAuthGuard],
+    data: {
+      expectedRole: Role.Admin
+    }*/
+  },
+  {
+    path: "usuario", component: UserComponent, pathMatch: "full"/*,
+    canActivate: [AdminAuthGuard],
+    data: {
+      expectedRole: Role.Admin
+    }*/
+  },
+  {
+    path: "booking", component: BookingComponent, pathMatch: "full",
+    canActivate: [AdminAuthGuard],
+    data: {
+      expectedRole: Role.Admin
+    }
+  },
+  {
+    path: "menu", component: MenuComponent, pathMatch: "full"/*,
+    canActivate: [AdminAuthGuard],
+    data: {
+      expectedRole: Role.Admin
+    }*/
+  },
 ];
 
 let routes = RouterModule.forChild([
@@ -69,7 +108,7 @@ let routes = RouterModule.forChild([
   declarations: [
     MenuComponent, TableMenuComponent, FormMenuComponent,
     EventoComponent, TableEventoComponent, FormEventoComponent, CommentsComponent, TableComponent,
-    DocPipe, TruncateTextPipe,
+    DocPipe, TruncateTextPipe, OcultarNombrePipe,
     CardComponent,
     UserComponent, TableUserComponent, FormUserComponent,
     PasswordPatternDirective,
@@ -77,10 +116,11 @@ let routes = RouterModule.forChild([
     ValidateUserNameDirective,
     AdminComponent,
     LoginComponent,
-    BookingComponent, TableBookingComponent,FormBookingComponent,
+    BookingComponent, TableBookingComponent, FormBookingComponent,    
+    
   ],
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule, routes, NgMaterialModule, HttpClientModule, ComponentModule
+    CommonModule, FormsModule, ReactiveFormsModule, routes, NgMaterialModule, HttpClientModule, ComponentModule, DirectivaModule
   ],
   providers: [
     { provide: SHARED_STATE, useValue: new Subject<SharedState>() },
@@ -95,10 +135,10 @@ let routes = RouterModule.forChild([
     FileService,
     EventoService,
     UserService,
-    BookingService,*/   
-    
-    { provide: MenuService, useClass: MenuRestService }, 
-    { provide: FileService, useClass: FileRestService }, 
+    BookingService,*/
+
+    { provide: MenuService, useClass: MenuRestService },
+    { provide: FileService, useClass: FileRestService },
     { provide: EventoService, useClass: EventoRestService },
     { provide: UserService, useClass: UserRestService },
     { provide: CommentService, useClass: CommentRestService },
@@ -108,8 +148,8 @@ let routes = RouterModule.forChild([
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
   ],
-  exports:[]
+  exports: []
 })
 export class AdminModule { }

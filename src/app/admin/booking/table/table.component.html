@@ -1,61 +1,89 @@
 <button class="btn btn-primary m-1" (click)="createBooking()">
-    Crear Booking
+  Crear Booking
 </button>
 <mat-form-field class="col-3">
-    <mat-label>Buscar x fecha</mat-label>
-    <input matInput name="filterDate" [matDatepicker]="pickerFilter" [(ngModel)]="filterDate" class="" 
+  <mat-label>Buscar x fecha</mat-label>
+  <input matInput name="filterDate" [matDatepicker]="pickerFilter" [(ngModel)]="filterDate" class=""
     (dateInput)="filtrarFecha($event)">
-    <!--  -->
-    <mat-datepicker-toggle matSuffix [for]="pickerFilter"></mat-datepicker-toggle>
-    <mat-datepicker #pickerFilter></mat-datepicker>
+  <!--  -->
+  <mat-datepicker-toggle matSuffix [for]="pickerFilter"></mat-datepicker-toggle>
+  <mat-datepicker #pickerFilter></mat-datepicker>
 </mat-form-field>
-<table class="table table-sm table-bordered table-striped" matSort (matSortChange)="changeSort($event)"><!--  -->
-    <thead>
-        <tr>
-            <th mat-sort-header="name">Nombre</th>
-            <th mat-sort-header="date">Fecha Reserva</th>
-            <th mat-sort-header="cliente"># Clientes</th>
-            <th mat-sort-header="fCreada">Creada</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngIf="length==-1">
-            <td colspan="4">
-                <mat-card class="spiner-tabla wrapper">
-                    <mat-card-content style="align-content: center;padding-left: 40%;">
-                        <mat-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value">
-                        </mat-progress-spinner>
-                    </mat-card-content>
-                </mat-card>
-            </td>
-        </tr>
-        <tr *ngIf="length==0">
-            <td colspan="5">
-                <h5>No hay resultados</h5>
-            </td>
-        </tr>
-        <tr *ngFor="let item of getBookingList() | paginate : {
+
+<!--<div class="btn-group" appDropdown>
+  <button type="button" class="btn btn-primary dropdown-toggle">Dropdown menu<span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li class="dropdown-item"><a href="#">Item One</a></li>
+    <li class="dropdown-item"><a href="#">Item Two</a></li>
+    <li class="dropdown-item"><a href="#">Item Three</a></li>
+  </ul>
+</div>-->
+
+<table class="table u-table--v3 u-editable-table--v1 g-color-black table-sm table-striped" matSort (matSortChange)="changeSort($event)">
+  <thead>
+    <tr>
+      <th class="col-3" mat-sort-header="name">Nombre</th>
+      <th class="col-3" mat-sort-header="date">Fecha</th>
+      <th class="col-1" mat-sort-header="cliente">Clientes</th>
+      <th class="col-3" mat-sort-header="fCreada">Creada</th>
+      <th class="col-1"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="length==-1">
+      <td colspan="4">
+        <mat-card class="spiner-tabla wrapper">
+          <mat-card-content style="align-content: center;padding-left: 40%;">
+            <mat-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value">
+            </mat-progress-spinner>
+          </mat-card-content>
+        </mat-card>
+      </td>
+    </tr>
+    <tr class="" *ngIf="length==0">
+      <td colspan="5">
+        <h5>No hay resultados</h5>
+      </td>
+    </tr>
+    <tr *ngFor="let item of getBookingList() | paginate : {
         itemsPerPage: pageSize,
         currentPage: currentPage,
         totalItems: length
       };let i = index" [class.active]="i == currentIndex">
-            <td>{{ item.name }}</td>
-            <td>{{ item.date | date }} - {{ item.time | date:'shortTime'}}</td>
-            <td>{{ item.cantPersonas }}</td>
-            <td>{{ item.createdDate | date }}</td>
-            <td class="text-center">
-                <button class="btn btn-danger btn-sm mr-1" (click)="deleteBooking(item.bookingId)">
-                    Delete
-                </button>
-                <button class="btn btn-warning btn-sm" (click)="editBooking(item.bookingId)">
-                    Edit
-                </button>
-            </td>
-        </tr>
-    </tbody>
+      <td class="text-center col-3">{{ item.name }}</td>
+      <td class="text-center col-3">{{ item.date | date }} - {{ item.time | date:'shortTime'}}</td>
+      <td class="text-center col-1">{{ item.cantPersonas }}</td>
+      <td class="text-center col-3">{{ item.createdDate | date }}</td>
+      <td class="text-right col-1">
+        <div class="g-pos-rel g-top-3 d-inline-block" appDropdown>
+                    <a [attr.id] ="'dropDownInvoker'+i"  (click)="$event.preventDefault()" 
+                    class="u-link-v5 g-line-height-0 g-font-size-24 g-color-gray-light-v6 g-color-secondary--hover" href="#" 
+                     aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" >
+                      <i class="hs-admin-more-alt"></i>
+                    </a>
+
+                    <div [attr.id] ="'dropDown'+i" class="dropdown-menu1 u-shadow-v31 g-pos-abs g-right-0 g-z-index-2 g-bg-white u-dropdown--css-animation u-dropdown--hidden u-dropdown" >
+                      <ul class="list-unstyled g-nowrap mb-0">
+                        <li>
+                          <a (click)="editBooking(item.bookingId);$event.preventDefault()"class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14" href="#">
+                            <i class="hs-admin-pencil g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
+                            Edit
+                          </a>
+                        </li>
+                        <li>
+                          <a (click)="deleteBooking(item.bookingId);$event.preventDefault()" class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14" href="#">
+                            <i class="hs-admin-trash g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
+                            Delete
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
 </table>
 <!-- (page)="pageEvent($event)" -->
-<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)"
-    itemsPerPageLabel='Elmentos x página'>
+<mat-paginator [length]="length" [pageIndex]="currentPage" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)"
+  itemsPerPageLabel='Elmentos x página'>
 </mat-paginator>

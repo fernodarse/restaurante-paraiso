@@ -1,0 +1,155 @@
+<!-- Cube Portfolio Blocks - Content  quicksand g-mb-100-->
+<div class="cbp" id="grid-container"
+    data-caption-animation="fadeIn"     
+    data-animation="slideLeft" 
+    data-layout="grid" 
+
+    data-controls="#filterControls1"
+    data-x-gap="5" 
+    data-y-gap="5"
+    data-media-queries='[
+    {"width": 1500, "cols": 3},
+    {"width": 1100, "cols": 3},
+    {"width": 800, "cols": 3}, 
+    {"width": 480, "cols": 2}, 
+    {"width": 300, "cols": 1}]'>
+
+    <!-- Cube Portfolio Blocks - Item -->
+    <div class="cbp-item" *ngFor="let evento of eventos();let index=index">
+        <!-- <div class="u-block-hover g-parent">
+            <img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
+                src="{{ imagenEvento(evento) }}" alt="Image description">
+            <div class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
+                <div class="align-items-end flex-column mt-auto ml-auto">
+                    <a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
+                        href="{{ imagenEvento(evento) }}">
+                        <i class="icon-communication-017 u-line-icon-pro"></i>
+                    </a>
+                </div>
+            </div>
+        </div> -->
+        <a class="cbp-caption cbp-lightbox" href="{{ imagenEvento(evento) }}" data-title="{{evento.name}}">
+            <div class="cbp-caption-defaultWrap">
+                <img class="img-f" src="{{ imagenEvento(evento) }}" [style.height.px]="height" alt="{{evento.name}}">
+            </div>
+
+            <div class="cbp-caption-activeWrap g-bg-blue-opacity-0_7">
+                <div class="cbp-l-caption-alignCenter    g-pa-5">
+                    <div class="cbp-l-caption-body   g-brd-around g-brd-white-opacity-0_2">
+                        <p
+                            class="cbp-l-caption-pretitle text-uppercase g-font-size-11 g-color-white-opacity-0_7 g-mb-15">
+                            Fish1</p>
+                        <h2
+                            class="cbp-l-caption-title text-uppercase g-font-weight-700 g-font-size-16 g-color-white g-mb-15">
+                            {{evento.name}}</h2>
+                        <p class="g-font-size-default g-color-white-opacity-0_7 mb-0 g-px-10">
+                            {{ evento.descripcion}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>    
+    <!-- 
+    <div class="cbp-item design">
+        <div class="u-block-hover g-parent">
+            <img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
+                src="../../assets/img-temp/738x678/img1.jpg" alt="Image description">
+            <div
+                class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
+                <div class="align-items-end flex-column mt-auto ml-auto">
+                    <a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
+                        href="../../assets/img-temp/738x678/img1.jpg">
+                        <i class="icon-communication-017 u-line-icon-pro"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="cbp-item graphic identity">
+        <div class="u-block-hover g-parent">
+            <img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
+                src="../../assets/img-temp/810x600/img1.jpg" alt="Image description">
+            <div
+                class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
+                <div class="align-items-end flex-column mt-auto ml-auto">
+                    <a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
+                        href="../../assets/img-temp/810x600/img6.jpg">
+                        <i class="icon-communication-017 u-line-icon-pro"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <div class="cbp-item graphic">
+        <div class="u-block-hover g-parent">
+            <img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
+                src="../../assets/img-temp/810x1350/img4.jpg" alt="Image description">
+            <div
+                class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
+                <div class="align-items-end flex-column mt-auto ml-auto">
+                    <a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
+                        href="../../assets/img-temp/810x1350/img4.jpg">
+                        <i class="icon-communication-017 u-line-icon-pro"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
+    <div class="cbp-item graphic">
+        <div class="u-block-hover g-parent">
+            <img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
+                src="../../assets/img-temp/738x678/img2.jpg" alt="Image description">
+            <div
+                class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
+                <div class="align-items-end flex-column mt-auto ml-auto">
+                    <a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
+                        href="../../assets/img-temp/738x678/img2.jpg">
+                        <i class="icon-communication-017 u-line-icon-pro"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cbp-item identity">
+        <div class="u-block-hover g-parent">
+            <img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
+                src="../../assets/img-temp/900x1164/img1.jpg" alt="Image description">
+            <div
+                class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
+                <div class="align-items-end flex-column mt-auto ml-auto">
+                    <a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
+                        href="../../assets/img-temp/900x1164/img3.jpg">
+                        <i class="icon-communication-017 u-line-icon-pro"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cbp-item identity">
+        <div class="u-block-hover g-parent">
+            <img class="img-fluid g-transform-scale-1_1--parent-hover g-transition-0_5 g-transition--ease-in-out"
+                src="../../assets/img-temp/560x560/img1.jpg" alt="Image description">
+            <div
+                class="d-flex w-100 h-100 g-bg-black-opacity-0_6 opacity-0 g-opacity-1--parent-hover g-pos-abs g-top-0 g-left-0 g-transition-0_3 g-transition--ease-in u-block-hover__additional--fade u-block-hover__additional--fade-in g-pa-20">
+                <div class="align-items-end flex-column mt-auto ml-auto">
+                    <a class="cbp-lightbox u-icon-v2 u-icon-size--sm g-brd-white g-color-black g-bg-white rounded-circle"
+                        href="../../assets/img-temp/560x560/img1.jpg">
+                        <i class="icon-communication-017 u-line-icon-pro"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+   -->
+
+</div>

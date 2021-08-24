@@ -22,7 +22,7 @@ export class SpecialComponent implements OnInit {
     this.menuServices.loadData()
     .subscribe(() => {
       // initialization of carousel
-    $.HSCore.components.HSCarousel.init('.js-carousel');
+    $.HSCore.components.HSCarousel.init('.js-carousel2');
     })
   }
 

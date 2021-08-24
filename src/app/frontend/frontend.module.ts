@@ -33,6 +33,11 @@ import { ComentComponent } from '../component/coment/coment.component';
 import { TestimonioComponent } from '../component/coment/testimonio/testimonio.component';
 import { EventoService } from '../models/evento.service';
 import { EventoRestService } from '../models/evento-rest.service';
+import { Portafolio1Component } from './gallery/portafolio1/portafolio1.component';
+import { Portafolio2Component } from './gallery/portafolio2/portafolio2.component';
+import { CommentsFormComponent } from './about/comments-form/comments-form.component';
+import { ParallaxDirective } from '../directiva/parallax.directive';
+import { DirectivaModule } from '../directiva/directiva.module';
 
 
 let routes= RouterModule.forChild([
@@ -42,11 +47,12 @@ let routes= RouterModule.forChild([
 
 @NgModule({  
   imports: [
-    CommonModule,routes, NgMaterialModule,FormsModule,HttpClientModule,ComponentModule,ReactiveFormsModule
+    CommonModule,routes, NgMaterialModule,FormsModule,HttpClientModule,ComponentModule,ReactiveFormsModule,DirectivaModule
   ],
   declarations: [FrontendComponent, 
-    MenuComponent, GalleryComponent, BookingComponent, ContactComponent, AboutComponent, MainSliderComponent,SpecialComponent, ComentComponent, TestimonioComponent,
-    
+    MenuComponent, GalleryComponent, BookingComponent, ContactComponent, AboutComponent, MainSliderComponent,SpecialComponent
+    , ComentComponent, TestimonioComponent, CommentsFormComponent, Portafolio1Component, Portafolio2Component,
+    ParallaxDirective,
   ],
   providers: [    
     ListCategoriaMenu,

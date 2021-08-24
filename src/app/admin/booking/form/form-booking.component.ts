@@ -32,33 +32,38 @@ export class FormBookingComponent implements OnInit {
     @Inject("autenticar") private authService: AuthService,) {
 
     stateEvents.subscribe((update) => {
-      this.booking = new Booking();
-      console.log('recibiendo en form', update);
-      if (update.id != undefined) {
-        this.bookingServices.getBookingbyId(update.id).subscribe(result => {
-          console.log('busqueda x id', result)
-          Object.assign(this.booking, result);
-          this.booking.bookingId = update.id;
-          //this.booking.time=this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm:ss');
-          console.log("tiempo ", this.booking.time)
-          this.timeV = new Date(this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm:ss'))
-          console.log("time ", this.timeV)
-        });
-      } else {
-        this.timeV = null
+      if (update.mode != MODES.FIND) {
+        this.booking = new Booking();
+        console.log('recibiendo en form', update);
+        if (update.id != undefined) {
+          this.bookingServices.getBookingbyId(update.id)
+            .subscribe(result => {
+              console.log('busqueda x id', result)
+              Object.assign(this.booking, result);
+              this.booking.bookingId = update.id;
+              //this.booking.time=this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm:ss');
+              console.log("tiempo ", this.booking.time.getHours)
+              let time = new Date(this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm:ss'))
+              this.timeV = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate(), time.getHours(), time.getMinutes(), time.getSeconds())
+              console.log("time ", this.timeV)
+            },
+              e => {
+                this.bookingServices.checkErrorAccses(e)
+                /*if((e as string).includes('Access Denied')){
+                  console.error('Access Denied',e)
+                  this.router.navigateByUrl('/login');
+                }
+                console.error('error en services',e)*/
+              });
+        } else {
+          this.timeV = null
+        }
+        console.log('nuvo time', this.booking.time)
+        this.editing = update.mode == MODES.EDIT;
       }
-      console.log('nuvo time', this.booking.time)
-      this.editing = update.mode == MODES.EDIT;
     });
 
-    this.minDate.setDate(this.today.getDate() + 1);
-    this.today.getFullYear
-    let year = this.today.getFullYear();
-    let month = this.today.getMonth();
-    let day = this.today.getDate()
-    this.maxDate = new Date(year + 1, month, day)
-    this.minTime = new Date(2000, month, day, 8, 0, 0,)
-    this.maxTime = new Date(year, month, day, 20, 0, 0,)
+
 
   }
 
@@ -68,37 +73,38 @@ export class FormBookingComponent implements OnInit {
     if (form.valid) {
       console.log('submit menu', this.booking);
       if (this.editing) {
-        this.bookingServices.updateBooking(this.booking.bookingId, this.booking).then(
-          () => {
-            this.snackBarService.openSnackBar('El booking se modificó correctamente');
-          }
-        );
+        (await this.bookingServices.updateBooking(this.booking.bookingId, this.booking)).subscribe(
+          (resp) => {
+            console.log('respuesta del booking', resp)
+            this.snackBarService.openSnackBar(resp.message);
+            this.resetForm(form);
+          })
       } else {
         this.booking.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
-        let userData:any=this.authService.getUserData();
-        this.booking.userId =  userData.sub//"60bcce599be50f3518cf7490";
-        console.log('booking datos user',);
-        /*this.bookingServices.create(this.booking)
-        .then(
-          () => {
-          this.snackBarService.openSnackBar('El booking se creo satifactioramente');
-          }
-          );;*/
         (await this.bookingServices.create(this.booking)).subscribe(
           (resp) => {
             console.log('respuesta del booking', resp)
             this.snackBarService.openSnackBar(resp.message);
+            this.resetForm(form);
           })
       }
-      //form.reset();
-      //this.resetForm();
+
     }
   }
-  resetForm() {
+  resetForm(form: NgForm) {
     this.booking = new Booking();
+    form.reset();
   }
 
   ngOnInit(): void {
+    this.minDate.setDate(this.today.getDate() + 1);
+    this.today.getFullYear
+    let year = this.today.getFullYear();
+    let month = this.today.getMonth();
+    let day = this.today.getDate()
+    this.maxDate = new Date(year + 1, month, day)
+    this.minTime = new Date(year, month, day, 8, 0, 0,)
+    this.maxTime = new Date(year, month, day, 20, 0, 0,)
   }
 
   timeChangeHandler(event) {

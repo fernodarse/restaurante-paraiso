@@ -17,7 +17,7 @@ export class SnackbarService {
         });
     }
 
-    openSnackBar(message: string, action: string = 'Cerrar') {
+    openSnackBar(message: string, action: string = 'X') {
         this.snackBar.open(message, action);
     }
 

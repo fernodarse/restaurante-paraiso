@@ -27,7 +27,7 @@ import { TruncateTextPipe } from './pipe/truncatetext.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-   // NavBarComponent,  
+   // NavBarComponent,    
   ],
   imports: [
     BrowserModule,
@@ -55,6 +55,7 @@ import { TruncateTextPipe } from './pipe/truncatetext.pipe';
    { provide: 'autenticar', useClass: AuthRestService },
    { provide: UserService, useClass: UserRestService },
   ], 
+  exports: [],
   bootstrap: [AppComponent] 
 })
 export class AppModule { }

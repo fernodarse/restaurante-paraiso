@@ -1,7 +1,10 @@
 import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observer } from 'rxjs';
 import { AppUser } from '../models/appuser';
+import { MODES, SharedState, SHARED_STATE } from '../models/sharedState.model';
 import { AuthService } from '../services/auth.service';
+import { NgForm } from "@angular/forms";
 declare var $: any
 
 @Component({
@@ -11,7 +14,9 @@ declare var $: any
 })
 export class AdminComponent implements OnInit {
 
-  constructor(@Inject("autenticar")private authService: AuthService) { }
+  key:string=''
+  constructor(@Inject("autenticar")private authService: AuthService,
+  @Inject(SHARED_STATE) public observer: Observer<SharedState>) { }
 
   ngOnInit(): void {
     //this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
@@ -83,5 +88,10 @@ export class AdminComponent implements OnInit {
     //localStorage.removeItem('token');
     this.authService.logout()
    // this.router.navigate(['/']);
+  }
+
+  find(){
+    console.log('buscando', this.key)
+    this.observer.next(new SharedState(MODES.FIND, this.key))
   }
 }

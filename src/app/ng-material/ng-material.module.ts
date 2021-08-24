@@ -23,6 +23,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTimepickerModule } from 'mat-timepicker';
 import { MatSortModule } from '@angular/material/sort';
 
+import { NgxParallaxModule } from '@yoozly/ngx-parallax';
+
 
 @NgModule({
     declarations: [],
@@ -53,6 +55,7 @@ import { MatSortModule } from '@angular/material/sort';
         NgxMatNativeDateModule,
         MatNativeDateModule,
         MatTimepickerModule,
+        NgxParallaxModule,
     ],
     exports: [
         CommonModule,
@@ -81,6 +84,7 @@ import { MatSortModule } from '@angular/material/sort';
         NgxMatNativeDateModule,
         MatNativeDateModule,
         MatTimepickerModule,
+        NgxParallaxModule,
 
     ]
 })

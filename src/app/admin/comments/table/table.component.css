@@ -13,9 +13,9 @@ ul{
 /*}*/
 
 li{
-    float: left;
-    width: 50%;/*helps to determine number of columns, for instance 33.3% displays 3 columns*/
-    min-width: 300px;
+    /*float: left;
+    width: 50%;*//*helps to determine number of columns, for instance 33.3% displays 3 columns*/
+    /*min-width: 300px;*/
     list-style:none
 }
 ul{

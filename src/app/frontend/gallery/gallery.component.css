@@ -9,3 +9,7 @@
         height:160px
     }
 }*/
+.u-arrow-v1:before{
+    left: 0;
+    top:10%;
+}

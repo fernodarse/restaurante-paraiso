@@ -16,25 +16,52 @@ export class GalleryComponent implements OnInit {
     console.log('Constructor Galery');
 
   }
-
   ngOnInit(): void {
     this.eventoServices.loadData()
       .subscribe(() => {
         console.log('initialization of cubeportfolio');
         // initialization of cubeportfolio
         $.HSCore.components.HSCubeportfolio.init('.cbp');
+
         console.log('OnSubscribe Evento');
       })
     this.initHeight();
     console.log('OnInit Evento');
   }
 
-  eventos() {
-    let list = this.eventoServices.getEventosActivos();
-    //console.log('eventos recibidos',list)
-    return list;
+  pagina: number = 1;
+  tamanoPagina: number = 10
+  listLengt: number= 0
+
+  cambiarPagina(page: number, event) {
+    this.pagina = page; 
+    $("#grid-container").cubeportfolio('destroy');
+    setTimeout(() => {
+      $.HSCore.components.HSCubeportfolio.init('.cbp');
+    }, 2000);
   }
 
+  remove() {
+    $("#grid-container").cubeportfolio('remove', $(`.grupo${this.pagina}`));//$(".cbp-item")
+  }
+
+  eventos(pagina: number) {
+    let list = this.eventoServices.getAllEventos()//getEventosActivos();
+    this.listLengt=list.length;
+    //console.log('posiciones', pagina * this.tamanoPagina - this.tamanoPagina, pagina * this.tamanoPagina)
+    //if(this.pagina>0 && this.pagina<=list.length/this.tamanoPagina)
+    let result = list.slice(pagina * this.tamanoPagina - this.tamanoPagina, pagina * this.tamanoPagina);
+    //.log('mostrando ', result.length)
+    return result  
+  }
+
+  getClasses(pagina:number){
+    return pagina < 1 || pagina > this.cantidadPagina() ? 'g-color-gray-dark-v5' : 'g-color-primary'
+  }
+  
+  cantidadPagina(){
+    return this.listLengt%this.tamanoPagina == 0 ? this.listLengt/this.tamanoPagina : (this.listLengt/this.tamanoPagina) + 1
+  }
   imagenEvento(evento: Evento): String {
     return evento.photoURL != "" ? evento.photoURL : "../../../assets/img-temp/560x560/img1.jpg"
   }

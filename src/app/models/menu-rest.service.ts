@@ -4,6 +4,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Observable, of, Subject } from 'rxjs';
 import { RestDataSource, REST_URL } from './rest.datasource';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class MenuRestService extends RestDataSource {
   private menuList: Menu[] = [];
   private unsubscribe$ = new Subject<void>();
 
-  constructor(http: HttpClient, @Inject(REST_URL) private url: string) {
-    super(http);
+  constructor(http: HttpClient, @Inject(REST_URL) private url: string,public router: Router) {
+    super(http,router);
     this.url = url + "menu/";
     console.log('iniciado');
     

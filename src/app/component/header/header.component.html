@@ -1,13 +1,16 @@
 <!-- Header v1 -->
-<header id="js-header" class="u-header u-header--sticky-top u-header--change-appearance g-z-index-9999" data-header-fix-moment="100">
-    <div class="u-header__section g-bg-white g-transition-0_3 u-shadow-v27 g-py-6 js-header-change-moment" data-header-fix-moment-exclude="g-py-16" data-header-fix-moment-classes="u-shadow-v27 g-py-6">
-      <nav class="navbar navbar-expand-lg g-py-0">
-        <div class="container g-pos-rel">
+<header id="js-header" class="u-header u-header--sticky-top u-header--change-appearance g-z-index-9999"
+    data-header-fix-moment="100">
+    <div class="u-header__section g-bg-white g-transition-0_3 u-shadow-v27 g-py-6 js-header-change-moment"
+        data-header-fix-moment-exclude="g-py-16" data-header-fix-moment-classes="u-shadow-v27 g-py-6">
+        <nav class="navbar navbar-expand-lg g-py-0">
+            <div class="container g-pos-rel">
                 <!-- Logo -->
-                <a href="#" class="js-go-to navbar-brand u-header__logo" data-type="static" 
-                  style="display: inline-block;">
-                    <img class="u-header__logo-img u-header__logo-img--main g-width-140" src="assets/img/logo.png" alt="Image description">
-                  </a>
+                <a href="#" class="js-go-to navbar-brand u-header__logo" data-type="static"
+                    style="display: inline-block;">
+                    <img class="u-header__logo-img u-header__logo-img--main g-width-140" src="assets/img/logo.png"
+                        alt="Image description">
+                </a>
                 <!-- End Logo -->
 
                 <!-- Navigation -->
@@ -26,24 +29,76 @@
                         </li>
                         <li class="nav-item g-mx-10--lg g-mb-7 g-mb-0--lg">
                             <a href="#menu" class="nav-link p-0">Menu</a>
-                        </li>                        
+                        </li>
                         <li class="nav-item g-mx-10--lg g-mb-7 g-mb-0--lg">
                             <a href="#gallery" class="nav-link p-0">Gallery</a>
                         </li>
                         <li class="nav-item g-mx-10--lg g-mb-7 g-mb-0--lg">
                             <a href="#bookingForm" class="nav-link p-0">Booking</a>
                         </li>
-                        <li class="nav-item g-ml-10--lg">
+                        <li class="nav-item g-ml-10--lg g-mb-7 g-mb-0--lg">
                             <a href="#contact" class="nav-link p-0">Contact</a>
+                        </li>
+                        <li class="nav-item g-ml-10--lg">
+                            <ng-template #anonymousUser>
+                                <!-- <button mat-button (click)="login()">Login with Google</button>-->
+                                <a class="nav-link p-0" (click)="login()">Login with Google</a>
+                            </ng-template>
+                            <ng-container >
+                               <div class="btn-group" *ngIf="appUser; else anonymousUser">
+                                    <a href="#"
+                                        class="btn u-btn-content g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2"
+                                        id="navbarScrollingDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <img mat-card-avatar
+                                            class="rounded-circle g-width-50 g-brd-around g-brd-3 g-brd-white pull-left g-font-size-42 g-mr-10"
+                                            src={{appUser.photoURL}} style="min-height: 50px;" alt="{{appUser.name}}">
+                                       
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item g-font-weight-700 g-color-blue--hover"
+                                            (click)=logout()>Logout</a>
+                                    </div>
+                                </div>                                
+                                <!--<div class="g-pos-rel g-top-3 d-inline-block" appDropdown>
+                                    <a [attr.id] ="'dropDownInvoker'"  (click)="$event.preventDefault()" 
+                                    class="u-link-v5 g-line-height-0 g-font-size-24 g-color-gray-light-v6 g-color-secondary--hover" href="#" 
+                                     aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" >
+                                      <i class="hs-admin-more-alt"></i>
+                                    </a>
+                
+                                    <div [attr.id] ="'dropDown'" 
+                                    class="dropdown-menu1 u-shadow-v31 g-pos-abs g-right-0 g-z-index-2 g-bg-white u-dropdown--css-animation u-dropdown--hidden u-dropdown" 
+                                    >
+                                      <ul class="list-unstyled g-nowrap mb-0">
+                                        <li>
+                                          <a (click)="$event.preventDefault()"class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14" href="#">
+                                            <i class="hs-admin-pencil g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
+                                            Edit
+                                          </a>
+                                        </li>
+                                        <li>
+                                          <a (click)="$event.preventDefault()" class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14" href="#">
+                                            <i class="hs-admin-trash g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
+                                            Delete
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>-->
+                           
+                            </ng-container>
                         </li>
                     </ul>
                 </div>
                 <!-- End Navigation -->
+                
+                
 
                 <!-- Responsive Toggle Button -->
-                <button class="navbar-toggler btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-right-0"
-                    type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar"
-                    data-toggle="collapse" data-target="#navBar">
+                <button class="navbar-toggler btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-right-0" type="button"
+                    aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse"
+                    data-target="#navBar">
                     <span class="hamburger hamburger--slider">
                         <span class="hamburger-box">
                             <span class="hamburger-inner"></span>

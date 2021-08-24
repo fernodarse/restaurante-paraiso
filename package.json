@@ -26,6 +26,7 @@
     "@auth0/angular-jwt": "^5.0.2",
     "@popperjs/core": "^2.9.2",
     "@types/crypto-js": "^4.0.1",
+    "@yoozly/ngx-parallax": "^0.3.0",
     "angular-material-fileupload": "^3.0.2",
     "bootstrap": "^4.4.1",
     "crypto-js": "^4.0.0",
@@ -35,6 +36,7 @@
     "jquery": "^3.6.0",
     "mat-timepicker": "^5.1.4",
     "ngx-pagination": "^5.1.0",
+    "ngx-parallax-scroll": "^1.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

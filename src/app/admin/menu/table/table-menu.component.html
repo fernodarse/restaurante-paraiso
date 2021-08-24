@@ -3,26 +3,27 @@
 </button>
 <mat-form-field class="col-3 ">
     <mat-label>Buscar x categoria</mat-label>
-    <mat-select name="categoria" [(ngModel)]="categoria">
+    <mat-select name="categoria" [(ngModel)]="categoria" (selectionChange)="filtrar()">
         <mat-option [value]="''">Todas</mat-option>
         <mat-option *ngFor="let categoria of categoriaMenu()" [value]="categoria.id">
             {{categoria.nombre}}
         </mat-option>
     </mat-select>
 </mat-form-field>
-<table class="table table-sm table-bordered table-striped">
+<table class="table u-table--v3 u-editable-table--v1 g-color-black table-sm table-striped"
+     matSort (matSortChange)="changeSort($event)" >
     <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Categoria</th>
-            <th>Precio</th>
-            <th></th>
+            <th class="col-5" mat-sort-header="name" >Nombre</th>
+            <th class="col-4">Categoria</th>
+            <th class="col-2" mat-sort-header="precio" >Precio</th>
+            <th class="col-1"></th>
         </tr>
     </thead>
 
 
     <tbody>
-        <tr *ngIf="length==0">
+        <tr *ngIf="length==-1">
             <td colspan="4">
                 <mat-card class="spiner-tabla wrapper">
                     <mat-card-content style="align-content: center;padding-left: 40%;">
@@ -32,26 +33,65 @@
                 </mat-card>
             </td>
         </tr>
+        <tr class="" *ngIf="length==0">
+          <td colspan="5">
+            <h5>No hay resultados</h5>
+          </td>
+        </tr>
         <tr *ngFor="let item of getMenuList() | paginate : {
         itemsPerPage: pageSize,
         currentPage: currentPage,
         totalItems: length
       };let i = index" [class.active]="i == currentIndex">
             <td>{{ item.nombre }}</td>
-            <td>{{ categoriaXId(item.categoria) }}</td>
+            <td> 
+               
+                <div class="d-inline-block">
+                    <span [class.g-bg-white]="i % 2 == 0" [class.g-bg-gray-light-v8]="i % 2 != 0" class="d-flex align-items-center justify-content-center u-tags-v1 g-brd-around g-font-size-default g-color-gray-dark-v6 g-rounded-50 g-py-4 g-px-15">
+                    <span [class]="categoriaClases(item.categoria)" class="u-badge-v2--md g-pos-stc g-transform-origin--top-left g-mr-8"></span>
+                    {{ categoriaXId(item.categoria) }}
+                    </span>
+                  </div>
+             </td>
             <td>{{ item.precio | currency:"USD" }}</td>
             <td class="text-center">
-                <button class="btn btn-danger btn-sm mr-1" (click)="deleteMenu(item.menuId)">
+              <!-- <button class="btn btn-danger btn-sm mr-1" (click)="deleteMenu(item.menuId)">
                     Delete
                 </button>
                 <button class="btn btn-warning btn-sm" (click)="editMenu(item.menuId)">
                     Edit
-                </button>
+                </button>-->
+                <div class="g-pos-rel g-top-3 d-inline-block" appDropdown>
+                    <a [attr.id] ="'dropDownInvoker'+i"  (click)="$event.preventDefault()" 
+                    class="u-link-v5 g-line-height-0 g-font-size-24 g-color-gray-light-v6 g-color-secondary--hover" href="#" 
+                     aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" >
+                      <i class="hs-admin-more-alt"></i>
+                    </a>
+
+                    <div [attr.id] ="'dropDown'+i" 
+                    class="dropdown-menu1 u-shadow-v31 g-pos-abs g-right-0 g-z-index-2 g-bg-white u-dropdown--css-animation u-dropdown--hidden u-dropdown" 
+                    >
+                      <ul class="list-unstyled g-nowrap mb-0">
+                        <li>
+                          <a (click)="editMenu(item.menuId);$event.preventDefault()"class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14" href="#">
+                            <i class="hs-admin-pencil g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
+                            Edit
+                          </a>
+                        </li>
+                        <li>
+                          <a (click)="deleteMenu(item.menuId);$event.preventDefault()" class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14" href="#">
+                            <i class="hs-admin-trash g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
+                            Delete
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
             </td>
         </tr>
     </tbody>
 </table>
 <!-- (page)="pageEvent($event)" -->
-<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)"
+<mat-paginator [length]="length" [pageIndex]="currentPage" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)"
     itemsPerPageLabel='Elmentos x página'>
 </mat-paginator>

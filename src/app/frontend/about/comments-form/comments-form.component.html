@@ -1,0 +1,80 @@
+<!-- <form #commentForm="ngForm" (ngSubmit)="commentForm.form.valid && onCommentPost(commentForm)" novalidate>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Name" name="commentedBy" [(ngModel)]="comments.commentedBy" #commentedBy="ngModel"
+            required>
+        <mat-error *ngIf="commentForm.submitted && commentedBy.errors?.required">Name is required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Email" name="email" [(ngModel)]="comments.email" #email="ngModel" email required>
+        <mat-error *ngIf="commentForm.submitted && email.errors?.required">Email is required</mat-error>
+        <mat-error *ngIf="commentForm.submitted && email.errors?.email">Invalid email</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <textarea matInput placeholder="Comment" name="content" [(ngModel)]="comments.content" #content="ngModel"
+            required></textarea>
+        <mat-error *ngIf="commentForm.submitted && content.errors?.required">Comment is required</mat-error>
+    </mat-form-field>
+    <mat-card-actions>
+        <button type="submit" mat-raised-button color="primary">Post Comment</button>
+    </mat-card-actions>
+</form> -->
+
+<form #commentForm="ngForm" (ngSubmit)="commentForm.form.valid && onCommentPost(commentForm)" novalidate>
+    <div class="from-group g-mb-30">
+        <mat-form-field appearance="fill"
+            class="form-control g-font-size-default g-color-gray-dark-v3 g-bg-transparent g-bg-transparent--focus g-brd-transparent g-brd-gray-light-v4-bottom g-brd-gray-light-v4--focus rounded-0 g-brd-none">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Name" name="commentedBy" [(ngModel)]="comments.commentedBy"
+                #commentedBy="ngModel" required>
+
+            <mat-icon class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-primary pl-4">
+                <i class="fa fa-ticket fa-male fa-1 fa-fw" aria-hidden="true"></i>
+            </mat-icon>
+            <mat-error *ngIf="commentForm.submitted && commentedBy.errors?.required">Name is required</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="from-group g-mb-30">
+        <mat-form-field appearance="fill"
+            class="form-control g-font-size-default g-color-gray-dark-v3 g-bg-transparent g-bg-transparent--focus g-brd-transparent g-brd-gray-light-v4-bottom g-brd-gray-light-v4--focus rounded-0 g-brd-none">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Email" name="email" [(ngModel)]="comments.email" #email="ngModel" email
+                required>
+                <mat-hint>We'll never share your email with anyone else.</mat-hint>
+            <mat-icon class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-primary pl-4">
+                <i class="fa fa-at fa-1 fa-fw" aria-hidden="true"></i>
+            </mat-icon>
+            <mat-error *ngIf="commentForm.submitted && email.errors?.required">Email is required</mat-error>
+            <mat-error *ngIf="commentForm.submitted && email.errors?.email">Invalid email</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="from-group g-mb-30">
+        <mat-form-field class="form-control g-font-size-default g-color-gray-dark-v3 g-bg-transparent g-bg-transparent--focus g-brd-transparent g-brd-gray-light-v4-bottom g-brd-gray-light-v4--focus rounded-0 g-brd-none">
+            <mat-label>Comment</mat-label>
+            <textarea matInput placeholder="Comment" name="content" [(ngModel)]="comments.content" #content="ngModel"
+            required ></textarea>
+            <mat-hint>Your comment</mat-hint>
+            <mat-icon class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-primary pl-3">
+                <i class="fa fa-comment fa-1 fa-fw pt-3" aria-hidden="true"></i>
+            </mat-icon>
+            <mat-error *ngIf="commentForm.submitted && content.errors?.required">Comment is required</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="row justify-content-center">
+        <ng-template #anonymousUser>
+            <mat-card class="comment-card mat-elevation-z2">
+                <a (click)="login()">Login with Google</a> to post comments
+            </mat-card>
+        </ng-template> 
+            <button *ngIf="appUser; else anonymousUser"
+                class="btn u-btn-primary  text-uppercase g-font-weight-700 g-font-size-default g-color-primary--hover g-bg-transparent--hover g-brd-3 rounded-0 g-pa-20 mb-0 g-px-30 g-py-25"
+                type="submit" role="button" [disabled]="commentForm.invalid">
+                Post Comment
+                <span *ngIf="submit==true" class="g-pos-abs g-right-10" >
+                    <mat-spinner diameter=15></mat-spinner>
+                </span>
+            </button>
+    </div>
+</form>

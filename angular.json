@@ -44,6 +44,9 @@
               "src/assets/vendor/chartist-js/chartist.min.css",
               "src/assets/vendor/chartist-js-tooltip/chartist-plugin-tooltip.css",
               "src/assets/vendor/fancybox/jquery.fancybox.min.css"
+
+              
+
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

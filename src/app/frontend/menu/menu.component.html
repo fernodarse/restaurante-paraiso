@@ -15,26 +15,10 @@
             role="tablist" data-target="days" data-tabs-mobile-type="slide-up-down"
             data-btn-classes="btn btn-md btn-block text-uppercase g-font-weight-700 u-btn-outline-primary">
             <li class="nav-item g-mx-10--md" *ngFor="let categoria of categoriaMenu();let first = first">
-                <a class="nav-link g-theme-color-gray-dark-v1 g-covariablelor-primary--hover g-pb-25--md "
+                <a class="nav-link g-theme-color-gray-dark-v1 g-color-primary--hover g-pb-25--md "
                     [class.active]="first == true" data-toggle="tab" href="#{{categoria.nombre | lowercase }}"
                     role="tab" aria-selected="{{ first  }}">{{categoria.nombre}}</a>
             </li>
-            <li class="nav-item g-mx-10--md">
-                <a class="nav-link g-theme-color-gray-dark-v1 g-color-primary--hover g-pb-25--md" data-toggle="tab"
-                    href="#breakfast" role="tab" aria-selected="false">Breakfast</a>
-            </li>
-            <!-- <li class="nav-item g-mx-10--md">
-                <a class="nav-link g-theme-color-gray-dark-v1 g-color-primary--hover g-pb-25--md active"
-                    data-toggle="tab" href="#breakfast" role="tab" aria-selected="true">Breakfast</a>
-            </li>
-            <li class="nav-item g-mx-10--md">
-                <a class="nav-link g-theme-color-gray-dark-v1 g-color-primary--hover g-pb-25--md" data-toggle="tab"
-                    href="#lunch" role="tab" aria-selected="false">Lunch</a>
-            </li>
-            <li class="nav-item g-mx-10--md">
-                <a class="nav-link g-theme-color-gray-dark-v1 g-color-primary--hover g-pb-25--md" data-toggle="tab"
-                    href="#dinner" role="tab" aria-selected="false">Dinner</a>
-            </li>-->
         </ul>
         <!-- End Nav tabs -->
     </div>
@@ -72,139 +56,5 @@
                     </div>
                 </div>-->
             </div>
-
-            <!-- active show -->
-            <div class="tab-pane fade " id="breakfast" role="tabpanel">
-                <!-- Products Block -->
-                <div class="row">
-                    <div class="col-md-6 g-mb-50">
-                        <!-- Article -->
-                        <article class="media">
-                            <!-- Article Image -->
-                            <a class="g-width-100" href="#">
-                                <img class="img-fluid g-rounded-50x" src="assets/img-temp/500x500/img9.jpg"
-                                    alt="Image description">
-                            </a>
-                            <!-- End Article Image -->
-
-                            <!-- Article Content -->
-                            <div class="media-body align-self-center g-pl-10">
-                                <div
-                                    class="d-flex justify-content-between u-heading-v1-4 g-bg-main g-theme-brd-gray-light-v1 g-mb-8">
-                                    <h3
-                                        class="align-self-center u-heading-v1__title g-color-black g-font-weight-700 g-font-size-13 text-uppercase mb-0">
-                                        Croissants</h3>
-
-                                    <div class="align-self-center g-pos-rel g-bg-main g-pl-15">
-                                        <strong
-                                            class="g-font-weight-700 g-font-size-13 g-color-white g-bg-primary g-rounded-3 g-py-4 g-px-12">$1.20</strong>
-                                    </div>
-                                </div>
-
-                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <!-- End Article Content -->
-                        </article>
-                        <!-- End Article -->
-                    </div>
-
-                    <div class="col-md-6 g-mb-50">
-                        <!-- Article -->
-                        <article class="media">
-                            <!-- Article Image -->
-                            <a class="g-width-100" href="#">
-                                <img class="img-fluid g-rounded-50x" src="assets/img-temp/500x500/img10.jpg"
-                                    alt="Image description">
-                            </a>
-                            <!-- End Article Image -->
-
-                            <!-- Article Content -->
-                            <div class="media-body align-self-center g-pl-10">
-                                <div
-                                    class="d-flex justify-content-between u-heading-v1-4 g-bg-main g-theme-brd-gray-light-v1 g-mb-8">
-                                    <h3
-                                        class="align-self-center u-heading-v1__title g-color-black g-font-weight-700 g-font-size-13 text-uppercase mb-0">
-                                        Croissants</h3>
-
-                                    <div class="align-self-center g-pos-rel g-bg-main g-pl-15">
-                                        <strong
-                                            class="g-font-weight-700 g-font-size-13 g-color-white g-bg-primary g-rounded-3 g-py-4 g-px-12">$1.20</strong>
-                                    </div>
-                                </div>
-
-                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <!-- End Article Content -->
-                        </article>
-                        <!-- End Article -->
-                    </div>
-                </div>
-                <!-- End Products Block -->
-
-                <!-- Products Block -->
-                <div class="row">
-                    <div class="col-md-6 g-mb-50">
-                        <!-- Article -->
-                        <article class="media">
-                            <!-- Article Image -->
-                            <a class="g-width-100" href="#">
-                                <img class="img-fluid g-rounded-50x" src="assets/img-temp/500x500/img11.jpg"
-                                    alt="Image description">
-                            </a>
-                            <!-- End Article Image -->
-
-                            <!-- Article Content -->
-                            <div class="media-body align-self-center g-pl-10">
-                                <div
-                                    class="d-flex justify-content-between u-heading-v1-4 g-bg-main g-theme-brd-gray-light-v1 g-mb-8">
-                                    <h3
-                                        class="align-self-center u-heading-v1__title g-color-black g-font-weight-700 g-font-size-13 text-uppercase mb-0">
-                                        Croissants</h3>
-
-                                    <div class="align-self-center g-pos-rel g-bg-main g-pl-15">
-                                        <strong
-                                            class="g-font-weight-700 g-font-size-13 g-color-white g-bg-primary g-rounded-3 g-py-4 g-px-12">$1.20</strong>
-                                    </div>
-                                </div>
-
-                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <!-- End Article Content -->
-                        </article>
-                        <!-- End Article -->
-                    </div>
-
-                    <div class="col-md-6">
-                        <!-- Article -->
-                        <article class="media">
-                            <!-- Article Image -->
-                            <a class="g-width-100" href="#">
-                                <img class="img-fluid g-rounded-50x" src="assets/img-temp/500x500/img12.jpg"
-                                    alt="Image description">
-                            </a>
-                            <!-- End Article Image -->
-
-                            <!-- Article Content -->
-                            <div class="media-body align-self-center g-pl-10">
-                                <div
-                                    class="d-flex justify-content-between u-heading-v1-4 g-bg-main g-theme-brd-gray-light-v1 g-mb-8">
-                                    <h3
-                                        class="align-self-center u-heading-v1__title g-color-black g-font-weight-700 g-font-size-13 text-uppercase mb-0">
-                                        Croissants</h3>
-
-                                    <div class="align-self-center g-pos-rel g-bg-main g-pl-15">
-                                        <strong
-                                            class="g-font-weight-700 g-font-size-13 g-color-white g-bg-primary g-rounded-3 g-py-4 g-px-12">$1.20</strong>
-                                    </div>
-                                </div>
-
-                                <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            </div>
-                            <!-- End Article Content -->
-                        </article>
-                        <!-- End Article -->
-                    </div>
-                </div>
-                <!-- End Products Block -->
-            </div>
+            
         </div>

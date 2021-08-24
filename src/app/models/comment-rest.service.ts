@@ -9,6 +9,7 @@ import { AppUser } from './appuser';
 import { RestDataSource, REST_URL } from './rest.datasource';
 import { HttpClient } from '@angular/common/http';
 import { Evento } from './evento';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +19,10 @@ export class CommentRestService extends RestDataSource{
   private list: Comments[] = [];
   private unsubscribe$ = new Subject<void>();
 
-  constructor(http: HttpClient, @Inject(REST_URL) private url: string) {
-    super(http);
+  constructor(http: HttpClient, @Inject(REST_URL) private url: string,public router: Router) {
+    super(http,router);
     this.url = url + "coment/"; 
-    super.sendRequest<Comments[]>("GET", this.url)
+    this.loadData()
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe(result => {
       this.list = result;
@@ -29,8 +30,31 @@ export class CommentRestService extends RestDataSource{
     });
   }
 
-  saveComment(comment: Comments) {
-   let data = super.sendRequest<Comments>("POST", this.url, comment)
+  loadData(){
+    return super.sendRequest<Comments[]>("GET", this.url)
+  }
+
+  async saveComment(comment: Comments) {
+    let data = new Observable((observer) => {
+      super.sendRequest<Comments>("POST", this.url, comment)
+        .subscribe(respuesta => {
+          observer.next(respuesta)
+          console.log('subscribe services data ', respuesta)
+          if ((respuesta as any).statusCode == 200) {
+            let entity = (respuesta as any).entity
+            if (entity) {
+              comment.commentId = entity._id;
+            }
+            comment.commentDate = entity.commentDate
+            console.log('comentario recibido', entity)
+            Object.assign(comment, entity)
+            console.log('comentario salvado', comment)
+            //this.list.unshift(comment)
+          }
+        })
+    })
+    return data;
+  /* let data = super.sendRequest<Comments>("POST", this.url, comment)
     .subscribe(e => {
       if((e as any)._id) {
         comment.commentId=(e as any)._id;
@@ -42,7 +66,8 @@ export class CommentRestService extends RestDataSource{
       this.list.unshift(comment)   
     })  
 
-    return of(comment).toPromise() ;
+    return of(comment).toPromise() ;*/
+    
   }
 
   updateComment(Id: string, comment: Comments) {
@@ -65,7 +90,7 @@ export class CommentRestService extends RestDataSource{
   }
 
   getActiveComments(){    
-    return this.list;
+    return this.list.filter((coment) => coment.activo==true);
   }
 
   getAllCommentsForMenu(menuId: string): Observable<Comments[]> {

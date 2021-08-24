@@ -10,19 +10,20 @@
         </mat-option>
     </mat-select>
 </mat-form-field> -->
-<table class="table table-sm table-bordered table-striped">
+<table class="table u-table--v3 u-editable-table--v1 g-color-black table-sm table-striped"
+    matSort (matSortChange)="changeSort($event)">
     <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Rol</th>
-            <th>email</th>
+            <th mat-sort-header="name">Nombre</th>
+            <th mat-sort-header="rol">Rol</th>
+            <th mat-sort-header="email">email</th>
             <th></th>
         </tr>
     </thead>
 
 
     <tbody>
-        <tr *ngIf="length==0">
+        <tr *ngIf="length==-1">
             <td colspan="4">
                 <mat-card class="spiner-tabla wrapper">
                     <mat-card-content style="align-content: center;padding-left: 40%;">
@@ -31,6 +32,11 @@
                     </mat-card-content>
                 </mat-card>
             </td>
+        </tr>
+        <tr class="" *ngIf="length==0">
+          <td colspan="5">
+            <h5>No hay resultados</h5>
+          </td>
         </tr>
         <tr *ngFor="let item of getUserList() | paginate : {
         itemsPerPage: pageSize,
@@ -41,17 +47,42 @@
             <td>{{ item.rol }}</td>
             <td>{{ item.email }}</td>
             <td class="text-center">
-                <button class="btn btn-danger btn-sm mr-1" (click)="deleteUser(item.userId)">
+              <!--  <button class="btn btn-danger btn-sm mr-1" (click)="deleteUser(item.userId)">
                     Delete
                 </button>
                 <button class="btn btn-warning btn-sm" (click)="editUser(item.userId)">
                     Edit
-                </button>
+                </button>-->
+                <div class="g-pos-rel g-top-3 d-inline-block" appDropdown>
+                    <a [attr.id] ="'dropDownInvoker'+i"  (click)="$event.preventDefault()" 
+                    class="u-link-v5 g-line-height-0 g-font-size-24 g-color-gray-light-v6 g-color-secondary--hover" href="#" 
+                     aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" >
+                      <i class="hs-admin-more-alt"></i>
+                    </a>
+
+                    <div [attr.id] ="'dropDown'+i" 
+                    class="dropdown-menu1 u-shadow-v31 g-pos-abs g-right-0 g-z-index-2 g-bg-white u-dropdown--css-animation u-dropdown--hidden u-dropdown" >
+                      <ul class="list-unstyled g-nowrap mb-0">
+                        <li>
+                          <a (click)="editUser(item.userId);$event.preventDefault()"class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14" href="#">
+                            <i class="hs-admin-pencil g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
+                            Edit
+                          </a>
+                        </li>
+                        <li>
+                          <a (click)="deleteUser(item.userId);$event.preventDefault()" class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14" href="#">
+                            <i class="hs-admin-trash g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
+                            Delete
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
             </td>
         </tr>
     </tbody>
 </table>
 <!-- (page)="pageEvent($event)" -->
-<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)"
+<mat-paginator [length]="length" [pageIndex]="currentPage" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)"
     itemsPerPageLabel='Elmentos x página'>
 </mat-paginator>

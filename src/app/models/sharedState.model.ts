@@ -1,7 +1,7 @@
 import { InjectionToken } from "@angular/core";
 
 export enum MODES {
-    CREATE, EDIT
+    CREATE, EDIT, FIND
 }
 export const SHARED_STATE = new InjectionToken("shared_state");
 

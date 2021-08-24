@@ -28,3 +28,21 @@
         line-height: $line-height;
     }
 }
+
+.u-blockquote-v1:before{
+    content: "\201C";
+    position: absolute;
+    width: 60px;
+    color: #2979ff;
+    font-size: 60px;
+    margin: -25px 0 0 -20px;
+}
+
+.ocultar{
+    display: none;
+}
+
+.u-arrow-v1:before{
+    left: 0;
+    top:10%;
+}

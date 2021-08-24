@@ -29,7 +29,7 @@ export class TableBookingComponent implements OnInit {
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   config: any;
-  currentPage = 1;
+  currentPage = 0;
 
   //spiner
   color: ThemePalette = 'warn';
@@ -38,14 +38,25 @@ export class TableBookingComponent implements OnInit {
 
   filterDate;//=new Date()
   sort:Sort;
+  find:string='';
 
   constructor(private bookingServices: BookingService,
-    @Inject(SHARED_STATE) public observer: Observer<SharedState>,
+    @Inject(SHARED_STATE) public observer: Subject<SharedState>,
     private snackBarService: SnackbarService,) {
     this.config = {
       currentPage: this.currentPage,
       itemsPerPage: this.pageSize
-    };    
+    };
+    observer.subscribe((update) => {
+      console.log('recibiendo para buscar', update.id)
+      if (update.mode == MODES.FIND) {
+        if (update.id != undefined ) {
+          this.find=update.id.toLowerCase();
+          this.currentPage = 0; 
+        }
+          
+      }
+    });
   }
 
   pageChange(pageEvent: PageEvent) {
@@ -59,11 +70,15 @@ export class TableBookingComponent implements OnInit {
   }
 
   getBookingList(): Booking[] {
+    //console.log('this.find',this.find)
     let list = this.bookingServices.getAllBookings()
-    list = list.filter((reserva) => this.filterDate == undefined || this.compararFechas(new Date(reserva.date), this.filterDate));
+    list = list.filter(
+      (reserva) => 
+      (this.filterDate == undefined || this.compararFechas(new Date(reserva.date), this.filterDate)) );
+    
+    list = list.filter((reserva) =>  reserva.name.toLowerCase().indexOf(this.find) !== -1 )  
     this.length = list.length;    
     list=this.sortData(this.sort,list)
-    //console.log('this.filterDate',this.filterDate)
     return list;
   }
 
@@ -71,12 +86,17 @@ export class TableBookingComponent implements OnInit {
     return fecha1.getFullYear() == fecha2.getFullYear() && fecha1.getMonth() == fecha2.getMonth() && fecha1.getDate() == fecha2.getDate()
   }
 
-  deleteBooking(key: string) {
-    this.bookingServices.deleteBooking(key).then(
+  async deleteBooking(key: string) {
+    /* this.bookingServices.deleteBooking(key).then(
       () => {
         this.snackBarService.openSnackBar('El booking se eliminó correctamente');
       }
-    );
+    );*/
+    (await this.bookingServices.deleteBooking(key)).subscribe(
+      (resp) => {
+        console.log('respuesta del booking', resp)
+        this.snackBarService.openSnackBar(resp.message);
+      })
   }
   editBooking(key: string) {
     this.observer.next(new SharedState(MODES.EDIT, key));
@@ -86,22 +106,19 @@ export class TableBookingComponent implements OnInit {
   }
 
   filtrarFecha(event: MatDatepickerInputEvent<Date>) {
-    this.filterDate = event.value    
+    this.filterDate = event.value;
+    this.currentPage = 0;    
   }
 
   ngOnInit(): void {
+    this.list = this.bookingServices.getAllBookings()
   }
 
   changeSort(sort: Sort){
     this.sort=sort;
   }
   sortData(sort: Sort, data:Booking[]) {
-   // const data = this.desserts.slice();
-      /*if(!sort){
-
-      }*/
       if (!sort || !sort.active || sort.direction === '') {
-        //this.sortedData = data;
         return data;
       }
   

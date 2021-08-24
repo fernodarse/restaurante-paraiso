@@ -72,31 +72,36 @@ export class BookingComponent implements OnInit {
     this.message = '';
     console.log('Submit action')
     if (form.valid) {
-      this.submit=true;
+      this.submit = true;
       console.log('datos del booking', this.booking, this.datePipe.transform(this.booking.time, 'HH:mm'))
       this.booking.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
-      this.booking.userId = "60bcce599be50f3518cf7490"; //id 60bcce599be50f3518cf7490
-      (await this.bookingService.create(this.booking)).subscribe(
-        /*() => {//para firebase
-          this.message ='La reserva se ha registrado correctamente'
-        setTimeout(function () {
-          this.message = '';
-        }.bind(this), 9500);
-        this.resetForm()
-        form.resetForm()
-        }*/
-        (resp) => {
-          console.log('respuesta del booking', resp)
-          this.submit=false;
-          this.snackBarService.openSnackBar(resp.message);
-          //this.message = resp.message
-          /*setTimeout(function () {
+      try {
+        (await this.bookingService.create(this.booking)).subscribe(
+          /*() => {//para firebase
+            this.message ='La reserva se ha registrado correctamente'
+          setTimeout(function () {
             this.message = '';
-          }.bind(this), 9500); */ 
-          this.resetForm()        
-          
-        }
-      );
+          }.bind(this), 9500);
+          this.resetForm()
+          form.resetForm()
+          }*/
+          (resp) => {
+            console.log('respuesta del booking', resp)
+            this.submit = false;
+            this.snackBarService.openSnackBar(resp.message);
+            //this.message = resp.message
+            /*setTimeout(function () {
+              this.message = '';
+            }.bind(this), 9500); */
+            this.resetForm()
+
+          }
+        );
+      } catch (Error) {
+        console.log('error', Error)
+        this.submit = false;
+        this.snackBarService.openSnackBar('Se ha producido un error, intentelo más tarde');
+      }
     }
   }
 
@@ -123,6 +128,9 @@ export class BookingComponent implements OnInit {
           case "matDatepickerMax":
             messages.push(`Maximum  date should be ${this.datePipe.transform(this.maxDate, 'dd-MMM-yyyy')}`);
             break;
+          case "pattern":
+            messages.push(`Please provide a valid email address`);
+            break;            
         }
       }
     }

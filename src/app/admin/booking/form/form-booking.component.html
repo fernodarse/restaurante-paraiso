@@ -1,7 +1,7 @@
 <mat-card class="bg-primary text-white p-2 mb-2" [class.bg-warning]="editing">
     {{editing ? "Modificar" : "Crear"}} Reserva
 </mat-card>
-<form novalidate #form="ngForm" (ngSubmit)="submitForm(form)" (reset)="resetForm()" class="">
+<form novalidate #form="ngForm" (ngSubmit)="submitForm(form)" (reset)="resetForm(form)" class="">
     <div class="row">
         <mat-form-field class="col-8">
             <mat-label>Nombre</mat-label>
@@ -28,10 +28,9 @@
     <div class="row">
         <mat-form-field class="col-7">
             <mat-label>Fecha</mat-label>
-            <input matInput  name="date" [matDatepicker]="picker"
-                [(ngModel)]="booking.date" #date="ngModel" required [min]="minDate" [max]="maxDate"
-                class="" readonly><!-- [ngModelOptions]="{standalone: true}" -->
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <input matInput name="date" [matDatepicker]="picker" [(ngModel)]="booking.date" #date="ngModel" required
+                [min]="minDate" [max]="maxDate" class="" readonly><!-- [ngModelOptions]="{standalone: true}" -->
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngFor="let error of getValidationMessages(date)">
                 <span [innerHTML]="error"></span>
@@ -41,23 +40,40 @@
         <mat-form-field class="col-5">
             <mat-label i18n="Timepicker 1 Title">Hora</mat-label>
             <input matTimepicker #t1="matTimepicker" i18n-okLabel="Timepicker 1 Ok Label" okLabel="Ok"
-                i18n-cancelLabel="Timepicker 1 Cancel Label" cancelLabel="Cancel" #time="ngModel" [minDate]="minTime"
-                [maxDate]="maxTime" id="timepicker-example-1" mode="24h" ngModel placeholder="Please select time"
-                name="time" [ngModel]="timeV" (timeChange)="timeChangeHandler($event)"  required>
-            <mat-icon matSuffix (click)="t1.showDialog()">access_time</mat-icon>
+                i18n-cancelLabel="Timepicker 1 Cancel Label" cancelLabel="Cancel" #time="ngModel" 
+                [minDate]="minTime" [maxDate]="maxTime" id="timepicker-example-1" mode="24h" ngModel placeholder="Please select time"
+                name="time" [ngModel]="timeV" (timeChange)="timeChangeHandler($event)" required>
+            <mat-icon matSuffix (click)="t1.showDialog()">
+                <i class="fa fa-clock-o"></i>
+            </mat-icon>
             <mat-error *ngIf="time.touched && time.invalid">Formato incorrecto</mat-error>
         </mat-form-field>
+    </div>
 
-
-    </div>    
+    <div class="row pb-2">
+            <mat-form-field 
+                class="col-12">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="Responsable del booking" name="email" [(ngModel)]="booking.email"
+                    #email="ngModel" required pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" >
+                <mat-icon class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white pl-4">
+                    <i class="fa fa-envelope"></i>
+                </mat-icon>
+                <mat-hint>Email of client</mat-hint>
+                <mat-error *ngFor="let error of getValidationMessages(email)">
+                    <span [innerHTML]="error"></span>
+                </mat-error>
+            </mat-form-field>
+    </div>
 
     <mat-form-field class="form-control">
         <mat-label>Nota de la reserva</mat-label>
-        <textarea matInput placeholder="Aditional booking's information " name="mensaje" [(ngModel)]="booking.mensaje" #mensaje="ngModel"></textarea>
+        <textarea matInput placeholder="Aditional booking's information " name="mensaje" [(ngModel)]="booking.mensaje"
+            #mensaje="ngModel"></textarea>
         <mat-hint>Notas adicionales para la reserva</mat-hint>
         <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
             <i class="fa fa-comment"></i>
-        </div> 
+        </div>
         <mat-error *ngFor="let error of getValidationMessages(mensaje)">
             <span [innerHTML]="error"></span>
         </mat-error>

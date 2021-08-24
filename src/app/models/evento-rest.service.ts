@@ -4,6 +4,7 @@ import { map, takeUntil } from 'rxjs/operators';
 import { Observable, of, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { RestDataSource, REST_URL } from './rest.datasource';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class EventoRestService extends RestDataSource {
   private list: Evento[] = [];
   private unsubscribe$ = new Subject<void>();
   
-  constructor(http: HttpClient, @Inject(REST_URL) private url: string) {
-    super(http);
+  constructor(http: HttpClient, @Inject(REST_URL) private url: string,public router: Router) {
+    super(http,router);
     this.url = url + "evento/";
     this.loadData()
     .pipe(takeUntil(this.unsubscribe$))

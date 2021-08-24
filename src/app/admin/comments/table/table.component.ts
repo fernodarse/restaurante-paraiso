@@ -23,7 +23,7 @@ export class TableComponent implements OnInit {
   selectedMenuId:String='';
 
   //paginado
-  length = 0;
+  length = -1;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   config: any;
@@ -36,15 +36,26 @@ export class TableComponent implements OnInit {
 
   myControl = new FormControl();
   filteredOptions: Observable<Menu[]>;
+  find:string='';
 
   constructor(private commentServices: CommentService,
-    @Inject(SHARED_STATE) public observer: Observer<SharedState>,
+    @Inject(SHARED_STATE) public observer: Subject<SharedState>,
     private snackBarService: SnackbarService,
     private menuServices: MenuService,) {
     this.config = {
       currentPage: this.currentPage,
       itemsPerPage: this.pageSize
     };
+    observer.subscribe((update) => {
+      console.log('recibiendo para buscar', update.id)
+      if (update.mode == MODES.FIND) {
+        if (update.id != undefined ) {
+          this.find=update.id.toLowerCase();
+          this.currentPage = 0; 
+        }
+          
+      }
+    });
   }
 
   pageChange(pageEvent: PageEvent) {
@@ -82,8 +93,20 @@ export class TableComponent implements OnInit {
 
   getCommentList() {
     let list=this.commentServices.getAllComments()
+    list = list.filter((comment) =>  comment.commentedBy.toLowerCase().indexOf(this.find) !== -1 )
     this.length=list.length;
     return list.filter((c) => this.selectedMenuId == '' || c.menuId == this.selectedMenuId);
+  }
+
+  getCommentList2() {
+    let list = this.getCommentList();
+    let result: any []=[];
+    for (let i = 0; i < list.length; i+=2) {
+      let aux=list.slice(i,i+2)
+      result.push(aux)
+     }
+     console.log('arreglo', result)
+     return result;
   }
 
   deleteComment(key: string) {

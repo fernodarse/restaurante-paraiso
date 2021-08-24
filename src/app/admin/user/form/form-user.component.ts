@@ -18,38 +18,40 @@ export class FormUserComponent implements OnInit {
   user: AppUser = new AppUser();
   editing: boolean = false;
 
-  cambiarPas='';
-  cambiarRepitPas='';
+  cambiarPas = '';
+  cambiarRepitPas = '';
 
   constructor(private userService: UserService,
     @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>,
     private snackBarService: SnackbarService,) {
     stateEvents.subscribe((update) => {
-      this.user = new AppUser();
-      console.log('recibiendo en form', update);
-      if (update.id != undefined) {
-        this.userService.getUserbyId(update.id).subscribe(result => {
-          console.log('busqueda x id', result)
-          Object.assign(this.user, result);
-        });
+      if (update.mode != MODES.FIND) {
+        this.user = new AppUser();
+        console.log('recibiendo en form', update);
+        if (update.id != undefined) {
+          this.userService.getUserbyId(update.id).subscribe(result => {
+            console.log('busqueda x id', result)
+            Object.assign(this.user, result);
+          });
+        }
+        this.editing = update.mode == MODES.EDIT;
       }
-      this.editing = update.mode == MODES.EDIT;
     });
 
   }
 
   submitForm(form: NgForm) {
-    console.log('submit form',form.valid);
+    console.log('submit form', form.valid);
     if (form.valid) {
       console.log('submit usuario', this.user);
-      console.log('nuevo pas', this.cambiarPas,this.cambiarRepitPas);
+      console.log('nuevo pas', this.cambiarPas, this.cambiarRepitPas);
       if (this.editing) {
-        let msg='El usuario se modificó correctamente';
-        if(this.cambiarPas!=''){
-          this.user.password=this.cambiarPas;
-          msg='La contraseña se guardó correctamente'
+        let msg = 'El usuario se modificó correctamente';
+        if (this.cambiarPas != '') {
+          this.user.password = this.cambiarPas;
+          msg = 'La contraseña se guardó correctamente'
         }
-        this.userService.updateUser(this.user.userId, this.user,this.cambiarPas!='').then(
+        this.userService.updateUser(this.user.userId, this.user, this.cambiarPas != '').then(
           () => {
             this.snackBarService.openSnackBar(msg);
           }
@@ -104,7 +106,7 @@ export class FormUserComponent implements OnInit {
             messages.push(`El password no es fuerte`);
             break;
 
-            
+
 
         }
       }

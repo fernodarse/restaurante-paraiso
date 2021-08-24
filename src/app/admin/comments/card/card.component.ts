@@ -35,6 +35,10 @@ export class CardComponent implements OnInit {
     return  (this.comment.activo ? "btn-danger" : "btn-warning");
   }
 
+  getClassesActivo(){
+    return  (this.comment.activo ? "hs-admin-thumb-down" : "hs-admin-thumb-up");
+  }
+
   setShowContent(){
     this.showContent= !this.showContent;
   }

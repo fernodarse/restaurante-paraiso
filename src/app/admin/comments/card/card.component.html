@@ -1,4 +1,4 @@
-<mat-card class="comment-card mat-elevation-z2 example-card">
+<!-- <mat-card class="comment-card mat-elevation-z2 example-card">
     <mat-card-header>
         <div mat-card-avatar class="example-header-image" ><img src="{{comment.photoURL}}"> </div>
         <mat-card-title>{{comment.commentedBy}}</mat-card-title>
@@ -16,13 +16,79 @@
             (click)="deleteComment()">
             <mat-icon>delete</mat-icon>
         </button>
-       <!--  <button [class]="getClasses()" class="btn btn-sm mr-1" (click)="cambiarEstado()">
-            {{ comment.activo ? "Desactivar" : "Activar"}}
-        </button> -->
         <button mat-icon-button matTooltip="{{ comment.activo ? 'Desactivar' : 'Activar'}} comment" matTooltipPosition="before"
          color="{{ comment.activo ? 'accent' : 'primary'}}" (click)="cambiarEstado()">
          <mat-icon>  {{ comment.activo ? "thumb_down" : " thumb_up"}}        </mat-icon>
         </button>
     </mat-card-actions>
 
-</mat-card>
+</mat-card>-->
+<!-- Panel -->
+<div class="card g-brd-gray-light-v7 g-rounded-3 g-mb-30">
+    <header class="card-header g-bg-transparent g-brd-bottom-none g-pa-15 g-pa-30--sm">
+      <div class="media">
+        <div class="d-flex align-self-center">
+          <div class="media">
+            <a class="d-flex align-self-center g-mr-10 g-mr-15--md" href="#">
+              <img class="g-width-40 g-width-50--md g-height-40 g-height-50--md rounded-circle" src="{{comment.photoURL}}" alt="Image Description">
+            </a>
+
+            <div class="media-body align-self-center">
+              <h3  [innerHTML]=" comment.commentedBy | ocultarnombre "  class="g-font-weight-300 g-font-size-default g-font-size-16--md g-color-black mb-0">
+                  <!-- V<span class="g-hidden-md-up">.</span><span class="g-hidden-md-down">ernon&nbsp;</span>Douglas -->
+                  
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="media-body d-flex align-self-center justify-content-end">
+          <div id="datepickerWrapper" class="u-datepicker-right u-datepicker--v3">
+            {{ comment.commentDate | date  }}
+          </div>
+
+          <div class="g-pos-rel g-z-index-2" appDropdown >
+            <a id="dropDown2Invoker" (click)="$event.preventDefault()" class="u-link-v5 g-line-height-0 g-font-size-24 g-color-gray-light-v6 g-color-secondary--hover g-ml-10 g-ml-20--md-no" href="#" aria-controls="dropDown2" aria-haspopup="true" aria-expanded="false" data-dropdown-event="click" data-dropdown-target="#dropDown2"
+            data-dropdown-type="jquery-slide">
+              <i class="hs-admin-more-alt"></i>
+            </a>
+
+            <div id="dropDown2" class="dropdown-menu1 u-shadow-v31 g-pos-abs g-right-0 g-z-index-2 g-bg-white u-dropdown--css-animation u-dropdown--hidden" aria-labelledby="dropDown2Invoker">
+              <ul class="list-unstyled g-nowrap mb-0">                
+                <li>
+                  <a (click)="cambiarEstado();$event.preventDefault()" class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14" href="#">
+                    <i  [class]="getClassesActivo()" class="g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
+                    
+                    {{ comment.activo ? "Deshactivar" : "Activar"}} 
+                  </a>
+                  <!--<button mat-icon-button matTooltip="{{ comment.activo ? 'Desactivar' : 'Activar'}} comment" matTooltipPosition="before"
+         color="{{ comment.activo ? 'accent' : 'primary'}}" >
+         <mat-icon>  {{ comment.activo ? "thumb_down" : " thumb_up"}}        </mat-icon>
+        </button>-->
+                </li>
+                <li>
+                  <a (click)="deleteComment();$event.preventDefault()" class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14" href="#">
+                    <i class="hs-admin-trash g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
+                    Delete
+                  </a>
+                </li>
+                
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <hr class="d-flex g-brd-gray-light-v7 g-mx-15 g-mx-30--sm my-0">
+
+    <div class="card-block g-pa-15 g-px-30--sm g-py-20--sm">
+      <h4 class="g-font-weight-300 g-font-size-18 g-font-size-22--md g-color-black g-mb-10">
+        {{ comment.email }}
+        </h4>
+      <p class="g-font-weight-300 g-color-gray-dark-v6 mb-0">
+        {{ comment.content }}  
+      </p>
+    </div>
+  </div>
+  <!-- End Panel -->

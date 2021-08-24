@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppUser } from 'src/app/models/appuser';
+import { AuthService } from 'src/app/services/auth.service';
 declare var $: any
 
 @Component({
@@ -7,8 +10,11 @@ declare var $: any
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+ 
+  appUser: AppUser;
 
-  constructor() {
+  constructor(@Inject("autenticar")private authService: AuthService,
+              private router: Router,) {
   }
 
   ngOnInit(): void {
@@ -34,6 +40,16 @@ export class HeaderComponent implements OnInit {
       }, 200);
     });
 
+    this.authService.appUser$.subscribe(appUser => this.appUser = appUser);
+
+  }
+
+  login() {
+    this.authService.login();
+  }
+  
+  logout() {
+    this.authService.logout();
   }
 
 }

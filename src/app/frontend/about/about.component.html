@@ -1,5 +1,5 @@
-<!-- Section Content -->
-<section id="about">
+<!--Section Content -->
+<section id="about" class="g-z-index-1 g-pos-rel">
   <div class="container-fluid px-0">
     <div class="row no-gutters">
       <div class="col-lg-6 g-flex-centered g-bg-primary g-pa-40">
@@ -29,7 +29,7 @@
 
       <div class="col-lg-6">
         <!-- Carousel v20 -->
-        <div class="js-carousel" data-infinite="true"
+        <div class="js-carousel js-carousel1" data-infinite="true"
           data-arrows-classes="u-arrow-v1 g-pos-abs g-left-0 g-absolute-centered--y g-width-60 g-height-60 g-color-primary g-bg-white g-opacity-1 g-opacity-0_8--hover g-transition-0_2 g-transition--ease-in"
           data-arrow-left-classes="fa fa-chevron-left g-ml-15" data-arrow-right-classes="fa fa-chevron-right g-ml-75">
           <div class="js-slide g-bg-cover g-bg-black-opacity-0_3--after">
@@ -46,22 +46,58 @@
   </div>
 </section>
 <!-- End Section Content -->
-<section class="g-bg-gray-light-v5 g-pt-100 g-pb-50">
-  <div class="container">
-    <div class="row justify-content-center g-mb-60">
+<section class="g-bg-gray-light-v5 g-pt-100">
+  <div class="">
+    <!-- container-->
+    <div class="row justify-content-center g-mb-60 g-z-index-1 g-pos-rel">
       <div class="col-lg-7">
         <!-- Heading -->
         <div class="text-center">
           <h2 class="h3 g-color-black text-uppercase mb-2">What people say about Restaurant Paradise?</h2>
           <div class="d-inline-block g-width-35 g-height-2 g-bg-primary mb-2"></div>
           <p class="mb-0">Somos un resturante de comida cubana, utilizamos mayormente los cultivos cosechados en la
-            propia finca. Aqui puede interactuar con la finca y difrutar de una hermosa vista.
+            propia finca. Aquí puede interactuar con la finca y difrutar de una hermosa vista.
           </p>
         </div>
         <!-- End Heading -->
       </div>
     </div>
+    <!-- ul: g-mb-80--md   -->
+    <ul
+      class="g-z-index-1 g-pos-rel g-bg-gray-light-v5 nav justify-content-around text-uppercase u-nav-v5-3 u-nav-primary g-line-height-1_4 g-font-weight-700 g-font-size-default g-brd-bottom--md g-brd-gray-light-v4 "
+      role="tablist" data-target="days" data-tabs-mobile-type="slide-up-down"
+      data-btn-classes="btn btn-md btn-block text-uppercase g-font-weight-700 u-btn-outline-primary  ">
+      <li class="nav-item g-mx-10--md">
+        <a class="nav-link g-theme-color-gray-dark-v1 g-color-primary--hover g-pb-25--md active" data-toggle="tab"
+          href="#comment" role="tab" aria-selected="true"> Comments</a>
+      </li>
+      <li class="nav-item g-mx-10--md">
+        <a class="nav-link g-theme-color-gray-dark-v1 g-color-primary--hover g-pb-25--md" data-toggle="tab"
+          href="#writeUs" role="tab" aria-selected="false">Write us</a>
+      </li>
+    </ul>
+    <div id="contactTabs" class="tab-content  mx-auto"> <!-- g-pt-10-->
+      <div id="comment" class="tab-pane fade in active show g-pos-rel g-bg-cover g-bg-black-opacity-0_3--after" role="tabpanel">
 
-    <app-coment></app-coment>
+        <div class="image w-100">
+          <img src="../../assets/img-temp/atardecer.png" ngx-parallax />
+        </div>
+        <app-coment class="" ></app-coment>
+      </div>
+      <div id="writeUs" class="tab-pane fade in container" role="tabpanel">
+        <div class="g-max-width-700 mx-auto g-pt-10 g-pb-50">
+          <app-comments-form></app-comments-form>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+<!--<div class="shortcode-html" style="height: 200px;">
+  <div class="dzsparallaxer auto-init height-is-based-on-content use-loading g-bg-cover g-bg-black-opacity-0_7--after mode-scroll loaded dzsprx-readyall" style="height: 200px;">
+    <div class="divimage dzsparallaxer--target w-100" style="height: 200px;">
+      <img src="../../assets/img-temp/1500x1000/img1.jpg" class="parallax-img galaxy__center" alt="parallax-img"
+        ngxParallaxScroll [parallaxSpeed]='0.5' [parallaxSmoothness]='1' [parallaxDirection]='"reverse"'
+        [parallaxTimingFunction]='"linear"' [parallaxThrottleTime]='0'>
+    </div>    
+  </div>
+</div> -->

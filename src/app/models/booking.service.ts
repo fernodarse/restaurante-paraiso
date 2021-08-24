@@ -16,22 +16,22 @@ export class BookingService {
 
   constructor(private db: AngularFirestore) {
     this.loadData().subscribe(result => {
-          this.list = result;
-          console.log("getAllBookings", this.list)
-        });
+      this.list = result;
+      console.log("getAllBookings", this.list)
+    });
   }
 
-  loadData(){
+  loadData() {
     return this.db.collection<Booking>('bookings', ref =>
-    ref.orderBy('date', 'desc')) //createdDate
-    .snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(
-          c => ({
-            bookingId: c.payload.doc.id,
-            ...c.payload.doc.data()
-          }));
-      }))
+      ref.orderBy('date', 'desc')) //createdDate
+      .snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(
+            c => ({
+              bookingId: c.payload.doc.id,
+              ...c.payload.doc.data()
+            }));
+        }))
   }
 
   async create(booking: Booking) {
@@ -56,13 +56,29 @@ export class BookingService {
     return bookingDetails;
   }
 
-  deleteBooking(bookingId: string) {
-    return this.db.doc('bookings/' + bookingId).delete();
+  async deleteBooking(bookingId: string) {
+    (await this.db.doc('bookings/' + bookingId).delete());
+    return of({
+      statusCode: 200,
+      message: 'La reserva se ha modificado correctamente'
+    });
   }
 
-  updateBooking(Id: string, booking: Booking) {
+  async updateBooking(Id: string, booking: Booking) {
     const putData = JSON.parse(JSON.stringify(booking));
-    return this.db.doc('bookings/' + Id).update(putData);
+    (await this.db.doc('bookings/' + Id).update(putData));
+    return of({
+      statusCode: 200,
+      message: 'La reserva se ha modificado correctamente'
+    })
+  }
+
+  public checkErrorAccses(error: string) {
+    if (error.includes('Access Denied')) {
+      console.error('Access Denied', error)
+      //this.router.navigateByUrl('/login');
+    }
+    console.error('error en services', error)
   }
 
   ngOnDestroy() {

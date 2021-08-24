@@ -24,25 +24,15 @@
             <div class="row g-mb-40">
                 <div class="col-md-4 pb-2">
                     <div class="form-group g-pos-rel">
-                        <!--<input name="name" [(ngModel)]="booking.name" #name="ngModel" required
-                            class="form-control h-100 u-theme-shadow-v1 g-font-size-default g-color-white g-placeholder-inherit g-theme-bg-primary-dark-v1 g-brd-none rounded-0 g-px-25 g-py-13"
-                            type="text" placeholder="Reservation name">
-
-                        <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
-                            <i class="fa fa-calendar"></i>
-                        </div>-->
                         <mat-form-field appearance="fill"
                             class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
                             <mat-label>Reservation name</mat-label>
                             <input matInput placeholder="Responsable del booking" name="name" [(ngModel)]="booking.name"
                                 #name="ngModel" required>
 
-                            <!-- <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
-                                <i class="fa fa-ticket fa-male"></i>
-                            </div>-->
                             <mat-icon
                                 class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white pl-4">
-                                <i class="fa fa-ticket fa-male"></i>
+                                <i class="fa fa-ticket fa-male fa-1 fa-fw" aria-hidden="true"></i>
                             </mat-icon>
                             <mat-hint>Responsable del booking</mat-hint>
                             <mat-error *ngFor="let error of getValidationMessages(name)">
@@ -65,12 +55,10 @@
                             <!--  [ngModelOptions]="{standalone: true}"-->
 
                             <mat-datepicker-toggle matSuffix [for]="picker">
-                                <mat-icon matDatepickerToggleIcon>
-                                    <div
-                                        class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
-                                        <i class="fa fa-calendar" style="padding-bottom: 0px;
-                                        padding-left: 15px;"></i>
-                                    </div>
+                                <mat-icon matDatepickerToggleIcon
+                                    class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white pl-3">
+                                    <i class="fa fa-calendar fa-lg fa-fw" aria-hidden="true"></i>
+
                                 </mat-icon>
                             </mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -97,8 +85,12 @@
                                 i18n-cancelLabel="Timepicker 1 Cancel Label" cancelLabel="Cancel" #time="ngModel"
                                 [minDate]="minTime" [maxDate]="maxTime" id="timepicker-example-1" mode="24h"
                                 placeholder="Please select time" name="time" [(ngModel)]="booking.time" required>
-                            <mat-icon matSuffix (click)="t1.showDialog()">
-                                <i class="fa fa-clock-o"></i>
+                            <!--<mat-icon matSuffix (click)="t1.showDialog()">
+                                <i class="fa fa-clock-o fa-lg fa-fw" aria-hidden="true"></i>
+                            </mat-icon>-->
+                            <mat-icon matSuffix (click)="t1.showDialog()"
+                                class="g-top-5 g-right-0 g-flex-centered g-width-40 h-100 g-color-white pl-3">
+                                <i class="fa fa-clock-o fa-lg fa-fw" aria-hidden="true"></i>
                             </mat-icon>
                             <mat-error *ngIf="time.touched && time.invalid">Invalid Date</mat-error>
                         </mat-form-field>
@@ -106,6 +98,24 @@
                 </div>
             </div>
             <div class="row g-mb-40">
+                <div class="col-md-4 pb-2">
+                    <div class="form-group g-pos-rel">
+                        <mat-form-field appearance="fill"
+                            class="form-control u-theme-shadow-v1 g-theme-bg-primary-dark-v1 g-color-white g-brd-none">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email"  placeholder="Responsable del booking" name="email"
+                                [(ngModel)]="booking.email" #email="ngModel" required pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" >
+                            <mat-icon                                                 
+                                class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white pl-4">
+                                <i class="fa fa-envelope fa-1 fa-fw" aria-hidden="true"></i>
+                            </mat-icon>
+                            <mat-hint>We'll never share your email with anyone else.</mat-hint>
+                            <mat-error *ngFor="let error of getValidationMessages(email)">
+                                <span [innerHTML]="error"></span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
                 <div class="col-md-4 pb-2">
                     <div class="form-group g-pos-rel">
                         <!--<input name="cantPersonas" [(ngModel)]="booking.cantPersonas" #cantPersonas="ngModel" required
@@ -128,7 +138,7 @@
                             </div>-->
                             <mat-icon
                                 class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white pl-4">
-                                <i class="fa fa-users"></i>
+                                <i class="fa fa-users fa-1 fa-fw"></i>
                             </mat-icon>
                             <mat-error *ngFor="let error of getValidationMessages(cantPersonas)">
                                 <span [innerHTML]="error"></span>
@@ -137,7 +147,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-4">
                     <div class="form-group g-pos-rel">
                         <!--<textarea placeholder="Aditional booking's information " name="mensaje"
                             [(ngModel)]="booking.mensaje" #mensaje="ngModel"
@@ -149,9 +159,10 @@
                             <textarea matInput placeholder="Aditional booking's information " name="mensaje"
                                 [(ngModel)]="booking.mensaje" #mensaje="ngModel"></textarea>
                             <mat-hint>Notas adicionales para la cena</mat-hint>
-                            <div class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white">
-                                <i class="fa fa-comment"></i>
-                            </div>
+                            <mat-icon
+                                class="g-pos-abs g-top-0 g-right-0 g-flex-centered g-width-40 h-100 g-color-white pl-3">
+                                <i class="fa fa-comment fa-1 fa-fw pt-3" aria-hidden="true"></i>
+                            </mat-icon>
                             <mat-error *ngFor="let error of getValidationMessages(mensaje)">
                                 <span [innerHTML]="error"></span>
                             </mat-error>
@@ -162,11 +173,11 @@
             </div>
             <!-- *ngIf="appUser; else anonymousUser"-->
             <button
-                class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2 g-brd-none rounded-0 g-px-30 g-py-25"
+                class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2  g-brd-none rounded-0 g-px-30 g-py-25 g-color-primary--hover"
                 type="submit" role="button" [disabled]="form.invalid">
                 Book now
-                <span *ngIf="submit==true" class="g-pos-abs g-right-10"> 
-                        <mat-spinner diameter=15 ></mat-spinner>
+                <span *ngIf="submit==true" class="g-pos-abs g-right-10">
+                    <mat-spinner diameter=15></mat-spinner>
                 </span>
             </button>
         </form>

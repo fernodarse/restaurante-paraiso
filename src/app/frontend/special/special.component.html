@@ -1,7 +1,7 @@
 <!-- Section Content -->
-<section id="special" class="g-bg-primary g-py-100">
+<section id="special" class="g-bg-primary g-py-100 g-pos-rel">
     <div class="container"  > <!-- *ngIf="getSpeciales().length != 0 " -->
-        <section  class="js-carousel"  data-vertical="true" data-pagi-classes="u-carousel-indicators-v7 text-center" >  <!-- [innerHTML]="getSpecial()" -->
+        <section  class="js-carousel js-carousel2"  data-vertical="true" data-pagi-classes="u-carousel-indicators-v7 text-center" >  <!-- [innerHTML]="getSpecial()" -->
           <div class="js-slide" *ngFor="let especial of getSpeciales()" >       
                 <article class="row flex-items-middle text-center">
                     <div class="col-lg-6 align-self-center g-mb-50">
@@ -22,7 +22,7 @@
 
                         <strong class="d-block g-color-white g-font-size-26 g-mb-30"> {{ especial.precio  | currency:"USD":"symbol":"1.2-2" }}</strong>
                         <button
-                            class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2 g-brd-none rounded-0 g-px-30 g-py-25"
+                            class="btn text-uppercase u-btn-white g-font-weight-700 g-font-size-11 g-theme-color-gray-dark-v2 g-brd-none rounded-0 g-px-30 g-py-25 g-color-primary--hover"
                             type="submit">Book now</button>
                     </div>
 

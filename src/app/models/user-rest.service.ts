@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { RestDataSource, REST_URL } from './rest.datasource';
 import { AppUser } from './appuser';
 import { Role } from './staticts';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class UserRestService extends RestDataSource {
   private urlAut:string;
   private urlProfile:string;
   
-  constructor(http: HttpClient, @Inject(REST_URL) private url: string) {
-    super(http);
+  constructor(http: HttpClient, @Inject(REST_URL) private url: string,public router: Router) {
+    super(http,router);
     this.urlAut=url+'auth/login/'
     this.urlProfile=url+'profile/'
     this.url = url + "user/";
