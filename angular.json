@@ -65,6 +65,7 @@
               "src/assets/js/components/hs.carousel.js",
               "src/assets/js/components/hs.cubeportfolio.js",
               "src/assets/js/components/gmap/hs.map.js",
+
               "src/assets/js/components/hs.go-to.js",
               "src/assets/vendor/cookiejs/jquery.cookie.js",
               "src/assets/vendor/jquery-ui/ui/widget.js",

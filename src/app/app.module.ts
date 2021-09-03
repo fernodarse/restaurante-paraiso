@@ -45,8 +45,8 @@ import { TruncateTextPipe } from './pipe/truncatetext.pipe';
         }
       }}) */
   ],
-  providers: [
-    { provide: REST_URL, useValue: `http://${location.hostname}:3000/` },
+  providers: [             
+    { provide: REST_URL, useValue: `https://frozen-fjord-03752.herokuapp.com/` },//http://${location.hostname}:3000/
     AdminAuthGuard,
 
    /*{ provide: 'autenticar', useClass: AuthService},    

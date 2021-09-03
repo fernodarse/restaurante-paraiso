@@ -56,11 +56,11 @@ const childRoutes: Routes = [
   /*{ path: "", component: IntroComponent, pathMatch: "full" },
   { path: "sku", component: DemoFormSkuComponent, pathMatch: "full" },*/
   {
-    path: "", redirectTo: "booking",
+    path: "", redirectTo: "booking"/*,
     canActivate: [AdminAuthGuard],
     data: {
       expectedRole: Role.Admin
-    }
+    }*/
   },
   {
     path: "evento", component: EventoComponent, pathMatch: "full"/*,
@@ -84,11 +84,11 @@ const childRoutes: Routes = [
     }*/
   },
   {
-    path: "booking", component: BookingComponent, pathMatch: "full",
+    path: "booking", component: BookingComponent, pathMatch: "full"/*,
     canActivate: [AdminAuthGuard],
     data: {
       expectedRole: Role.Admin
-    }
+    }*/
   },
   {
     path: "menu", component: MenuComponent, pathMatch: "full"/*,
