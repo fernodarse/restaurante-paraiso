@@ -29,18 +29,26 @@ export class RestDataSource {
     }
 
     private getServerErrorMessage(error: Response): string {
+        console.log('error recibido',error )
         switch (error.status) {
             case 404: {
                 return `Not Found: ${error.statusText}`;
+                break;
             }
             case 401: {//403
                 return `Access Denied: ${error.statusText}`;
+                break;
             }
             case 500: {
                 return `Internal Server Error: ${error.statusText}`;
+                break;
+            }
+            case 0: {
+                return `No Response: ${error.statusText}`;
+                break;
             }
             default: {
-                return `Unknown Server Error: ${error.statusText}`;
+                return `Unknown Server Error: ${error.statusText}`;                
             }
 
         }

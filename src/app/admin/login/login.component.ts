@@ -17,6 +17,8 @@ export class LoginComponent {
 
   user: AppUser = new AppUser();
 
+  submit: boolean = false;
+
   constructor(@Inject("autenticar")private authService: AuthService, public router: Router) {
     this.message = '';
   }
@@ -24,9 +26,11 @@ export class LoginComponent {
   async onSubmit(form: NgForm): Promise<void> {
     this.message = '';
     if (form.valid) {
+      this.submit = true;
       this.authService.loginUser(this.user.userName, this.user.password)
         .subscribe((result) => {
           //"auth/invalid-email"
+          this.submit = false;
           console.log('result', result);
           if(result==true){
             console.log('entro');

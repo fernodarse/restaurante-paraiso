@@ -79,13 +79,20 @@ export class AuthRestService {
         console.log('error',error)
         let resp= error.toString().split(':')
         console.log(resp)
-        if(resp[1].indexOf("Unauthorized")>-1){
+        if(resp[0].indexOf("Access Denied")>-1){
           newError= {
             code: "auth/wrong-password",
             message:'Usuario y contraseña incorrectos.'
           }
         }
-        // Network Error: Unauthorized (401)
+        if(resp[0].indexOf("No Response")>-1){
+          newError= {
+            code: "no-response",
+            message:'No se ha establecido conexión con el servidor.'
+          }
+        }
+
+        // Network Error: Unauthorized (401) No Response
         return of(newError);
       }
       ))

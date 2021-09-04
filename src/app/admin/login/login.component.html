@@ -5,7 +5,10 @@
       <mat-card>
         <mat-card-content>
           <form class="custom-form" #form="ngForm" (ngSubmit)="onSubmit(form)">
-            <h2 class="h2 g-color-black g-font-weight-600">Finca Agroecológica El Paraiso</h2>
+            <h2 class="h2 g-color-black g-font-weight-600">
+              <img class="u-header__logo-img u-header__logo-img--main g-width-200" src="assets/img/logo.png"
+              alt="Image description">
+            </h2>
 
             <mat-error *ngIf="message!='' ">
               {{ message }}
@@ -27,7 +30,12 @@
               </mat-error>
             </mat-form-field>
 
-            <button [disabled]="form.invalid" class="btn btn-md u-btn-primary rounded g-py-13 g-px-25">Login</button>
+            <button [disabled]="form.invalid" class="btn btn-md u-btn-primary g-font-size-default g-color-primary--hover g-bg-transparent--hover g-brd-3 rounded-0 g-pa-20 mb-0 rounded g-py-13 g-px-25">
+              Login
+              <span *ngIf="submit==true" class="g-pos-abs g-right-10" >
+                <mat-spinner diameter=15></mat-spinner>
+              </span>
+            </button>
           </form>
         </mat-card-content>
       </mat-card>

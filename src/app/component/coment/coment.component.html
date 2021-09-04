@@ -82,7 +82,7 @@
         <div *ngFor="let testimonio of getCommentList(pagina)" class="js-slide text-center">
             <blockquote class="g-color-white g-font-size-default g-font-size-18--md g-mb-60">{{testimonio.content }}</blockquote>
             <h4 class="g-color-white g-font-weight-700 g-font-size-15 g-mb-1">{{ testimonio.commentedBy }}</h4>
-            <span class="g-font-weight-700 d-block g-font-size-13">Febrero 2020</span>
+            <span class="g-font-weight-700 d-block g-font-size-13">{{ testimonio.commentDate | date:'MMM yyyy' }}</span>
         </div>
     </div>
     <!-- End Carousel -->
