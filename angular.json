@@ -65,7 +65,6 @@
               "src/assets/js/components/hs.carousel.js",
               "src/assets/js/components/hs.cubeportfolio.js",
               "src/assets/js/components/gmap/hs.map.js",
-
               "src/assets/js/components/hs.go-to.js",
               "src/assets/vendor/cookiejs/jquery.cookie.js",
               "src/assets/vendor/jquery-ui/ui/widget.js",
@@ -94,7 +93,7 @@
               "src/assets/js/components/hs.bar-chart.js",
               "src/assets/js/helpers/hs.focus-state.js",
               "src/assets/js/components/hs.popup.js",
-              "node_modules/crypto-js/crypto-js.js" 
+              "node_modules/crypto-js/crypto-js.js"
             ]
           },
           "configurations": {

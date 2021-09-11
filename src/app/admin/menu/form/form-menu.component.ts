@@ -8,6 +8,8 @@ import { DatePipe } from '@angular/common';
 import { FileService } from 'src/app/models/file.service';
 import { CategoriaMenu, ListCategoriaMenu } from 'src/app/models/staticts';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { Utils } from 'src/app/services/utils';
+import { FileDropboxService } from 'src/app/models/file-dropbox.service';
 
 @Component({
   selector: 'form-menu',
@@ -25,10 +27,21 @@ export class FormMenuComponent implements OnInit {
   porcentage = 0;
   fileAttr = 'Choose File';
 
+  static books: any[];
+  CLIENT_ID: string = 'xiwj9otkq6ohsga';// App key from Dropbox; : xiwj9otkq6ohsga
+  FILE_NAME: string = "/BookList.txt"; // Or whatever you want the file to be named where the data is stored
+  authUrl: string;
+  dropboxToken: string
+  isAuthenticated: boolean
+  static isLoading: boolean;
+  localUrl: string;
+  localDataFile: string;
+
   constructor(private menuServices: MenuService,
     @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>,
     private datePipe: DatePipe,
     private uploadService: FileService,
+    private uploadDropboxService: FileDropboxService,
     private listCategoriaMenu: ListCategoriaMenu,
     private snackBarService: SnackbarService,) {
 
@@ -90,7 +103,9 @@ export class FormMenuComponent implements OnInit {
     this.selectedFile = file;
     this.porcentage = 0;
     this.fileAttr = file.name;
-    this.upload();
+    //this.upload();
+    this.uploadDropbox()
+
   }
 
   upload() {
@@ -105,17 +120,21 @@ export class FormMenuComponent implements OnInit {
         }
       );
     }
-    /* if (this.selectedFile) {
-       this.uploadService.pushFileToBackend(this.selectedFile,this.menu.datosImg).subscribe(
-         percentage => {
-           console.log('porcentage subido', percentage)
-           this.porcentage = Math.round(percentage ? percentage : 0);
-         },
-         error => {
-           console.log(error);
-         }
-       );
-     }  */
+  }
+
+  uploadDropbox() {
+    if (this.selectedFile) {
+      this.uploadDropboxService.pushFileToStorage(this.selectedFile, this.menu.datosImg).subscribe(
+        percentage => {
+          this.porcentage = Math.round(percentage ? percentage : 0);
+          //console.log('subido url', this.menu.datosImg)
+        },
+        error => {
+          console.log(error);
+        }
+      );
+
+    }
   }
 
   hayImagen() {
