@@ -5,6 +5,7 @@ import { AppUser } from '../models/appuser';
 import { MODES, SharedState, SHARED_STATE } from '../models/sharedState.model';
 import { AuthService } from '../services/auth.service';
 import { NgForm } from "@angular/forms";
+import { AuthRestService } from '../services/auth-rest.service';
 declare var $: any
 
 @Component({
@@ -15,7 +16,7 @@ declare var $: any
 export class AdminComponent implements OnInit {
 
   key:string=''
-  constructor(@Inject("autenticar")private authService: AuthService,
+  constructor(@Inject("autenticar")private authService: AuthRestService,
   @Inject(SHARED_STATE) public observer: Observer<SharedState>) { }
 
   ngOnInit(): void {

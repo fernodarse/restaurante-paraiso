@@ -9,6 +9,8 @@ import { Role } from '../models/staticts';
 import { UserRestService } from '../models/user-rest.service';
 import { UserService } from '../models/user.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +19,16 @@ export class AuthRestService {
 
   appUser$: Observable<AppUser>;
   public jwtHelper: JwtHelperService
+  socialUser: SocialUser;
+  public loggedIn: boolean = false;
 
-  constructor(public afAuth: AngularFireAuth,
+  constructor(//public afAuth: AngularFireAuth,
     private route: ActivatedRoute,
     private router: Router,
-    /*private userService: UserRestService*/
-    private userService: UserService) {
+    private userService: UserService,
+     private socialAuthService: SocialAuthService) {
 
-    this.appUser$ = this.afAuth.authState.pipe(
+    /*this.appUser$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
           console.log('uid inicio', user.uid)
@@ -33,23 +37,62 @@ export class AuthRestService {
           return of(null);
         }
       })
-    );
+    );*/
+    this.appUser$ =this.socialAuthService.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          console.log('uid inicio', user.id)
+         return this.updateUserData(user)
+        } else {
+          return of(null);
+        }
+      })
+    )
     this.jwtHelper= new JwtHelperService();
   }
-  private updateUserData(user) {
-      console.log('creado')
-      return this.userService.createRed(user)
+  private  updateUserData(user): Observable<AppUser> {
+    return new Observable<AppUser>(resolve => {
+    this.userService.getUserbyRedId(user.id)
+    .subscribe((findUser)=>{
+      console.log('findUser updateUserData',findUser)
+      if(findUser != null){
+        resolve.next(findUser);
+      } else{
+        console.log('creando user')
+      this.userService.createRed(user).subscribe((result)=> {
+        console.log('createRed updateUserData',result) 
+        resolve.next(result)
+      })
+      } 
+    });  
+  })
+    
   }
 
   public getUserData(){
     return this.decode();
   }
 
+  public signInWithGoogle() {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) => {
+      this.socialUser = user;
+      console.log('usuario', user)
+    }); 
+  }
+
+  public signInWithFB(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then((user) => {
+      this.socialUser = user;
+      console.log('usuario', user)
+      //this.loggedIn = (user != null);
+      this.updateUserData(user);
+    }); 
+  }
   /**
-   * autenticarse en las redes sociales
+   * autenticarse en las redes sociales con Firebase
    * @returns Entidad Usuario del sistema con los datos del user de la red
    */
-  async login() {
+  /*async login() {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || this.router.url;
     localStorage.setItem('returnUrl', returnUrl);
     const credential = await this.afAuth.signInWithPopup(
@@ -58,16 +101,17 @@ export class AuthRestService {
     let userCreado= this.updateUserData(credential.user);
     console.log(userCreado);
     return userCreado;
-  }
+  }*/
 
   /**
    * Cierra session a los usuarios de la red
    */
   async logout() {
     localStorage.removeItem('token');
-    await this.afAuth.signOut().then(() => {
+    this.socialAuthService.signOut();
+    /*await this.afAuth.signOut().then(() => {
       this.router.navigate(['/']);
-    });
+    });*/
   }
 
   loginUser(username:string,password:string):Observable<any> {

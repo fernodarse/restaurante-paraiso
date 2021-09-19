@@ -33,7 +33,7 @@ export class UserRestService extends RestDataSource {
     
    }  
 
-  create(user: AppUser) {
+  create(user: AppUser):Observable<AppUser> {
 
     let data = super.sendRequest<AppUser>("POST", this.url, user)
     .subscribe(u => {
@@ -47,16 +47,16 @@ export class UserRestService extends RestDataSource {
       this.list.unshift(user)   
     })  
 
-    return of(user).toPromise() ;
+    return of(user) ;
   }
 
-  createRed(user: any) {
+  createRed(user: any) :Observable<AppUser>{
     let userData=new AppUser();
-    userData.userName=user.uid;
-    userData.redId=user.uid;
+    userData.userName=user.id;
+    userData.redId=user.id;
     userData.email=user.email;
-    userData.name= user.displayName,
-    userData.photoURL=user.photoURL;
+    userData.name= user.name,
+    userData.photoURL=user.photoUrl;
     userData.rol=Role.User
     return this.create(userData);
   }

@@ -1,15 +1,14 @@
 <!-- Header v1 -->
 <header id="js-header" class="u-header u-header--sticky-top u-header--change-appearance g-z-index-9999"
-    data-header-fix-moment="100">           <!-- u-shadow-v27 js-header-change-moment -->
-    <div class="u-header__section g-bg-white g-transition-0_3 g-py-6 "
-        data-header-fix-moment-exclude="g-py-16" 
+    data-header-fix-moment="100">
+    <!-- u-shadow-v27 js-header-change-moment -->
+    <div class="u-header__section g-bg-white g-transition-0_3 g-py-6 " data-header-fix-moment-exclude="g-py-16"
         data-header-fix-moment-classes="u-shadow-v27 g-py-6">
         <nav class="navbar navbar-expand-lg g-py-0" id="navEle">
             <div class="container g-pos-rel">
                 <!-- Logo -->
-                <a href="#" class="js-go-to navbar-brand u-header__logo" 
-                data-type="static"
-                    ><!--  style="display: inline-block;" -->
+                <a href="#" class="js-go-to navbar-brand u-header__logo" data-type="static">
+                    <!--  style="display: inline-block;" -->
                     <img class="u-header__logo-img u-header__logo-img--main g-width-140" src="assets/img/logo.png"
                         alt="Image description">
                 </a>
@@ -43,25 +42,45 @@
                         </li>
                         <li class="nav-item g-ml-10--lg">
                             <ng-template #anonymousUser>
-                                <!-- <button mat-button (click)="login()">Login with Google</button>-->
-                                <a class="nav-link p-0" (click)="login()">Login with Google</a>
+                                <!-- <button mat-button (click)="login()">Login with Google</button>
+                                <a class="nav-link p-0 " #loginfirebase (click)="signInWithGoogle()" >Login with Google</a>-->
+                                <!--<a class="nav-link p-0 " #loginfirebase (click)="signInWithFB()" >Login with Facebook</a>-->
+                                <a class="nav-link p-0 " href="#modal21" data-modal-target="#modal21"
+                                    data-modal-effect="swell">
+                                    Login
+                                </a>
+                                <div id="modal21" class="text-left g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20"
+                                    style="display: none;">
+                                    <button type="button" class="close" onclick="Custombox.modal.close();">
+                                        <i class="hs-icon hs-icon-close"></i>
+                                    </button>
+                                    <h6 class="g-mb-10 g-mt-30">Sign in with your social media account</h6>
+                                    <div class="social-icon">
+                                        <button (click)="signInWithGoogle()" type="button" class="g-bg-primary"><i
+                                                class="fa fa-google"></i></button>
+                                        <button (click)="signInWithFB()" type="button" class="g-bg-primary"><i
+                                                class="fa fa-facebook"></i></button>
+                                    </div>
+                                </div>
+
                             </ng-template>
-                            <ng-container >
-                               <div class="btn-group" *ngIf="appUser; else anonymousUser">
+                            <ng-container>
+                                <div class="btn-group" *ngIf="isLoging(); else anonymousUser">
                                     <a href="#"
                                         class="btn u-btn-content g-font-weight-600 g-letter-spacing-0_5 text-uppercase g-brd-2"
                                         id="navbarScrollingDropdown" data-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <img mat-card-avatar
                                             class="rounded-circle g-width-50 g-brd-around g-brd-3 g-brd-white pull-left g-font-size-42 g-mr-10"
-                                            src={{appUser.photoURL}} style="min-height: 50px;" alt="{{appUser.name}}">
-                                       
+                                            src={{appUser.photoURL}} style="min-height: 50px;">
+                                        <!-- alt="{{appUser.name}}"-->
+
                                     </a>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item g-font-weight-700 g-color-blue--hover"
                                             (click)=logout()>Logout</a>
                                     </div>
-                                </div>                                
+                                </div>
                                 <!--<div class="g-pos-rel g-top-3 d-inline-block" appDropdown>
                                     <a [attr.id] ="'dropDownInvoker'"  (click)="$event.preventDefault()" 
                                     class="u-link-v5 g-line-height-0 g-font-size-24 g-color-gray-light-v6 g-color-secondary--hover" href="#" 
@@ -88,22 +107,19 @@
                                       </ul>
                                     </div>
                                   </div>-->
-                           
+
                             </ng-container>
                         </li>
                     </ul>
                 </div>
                 <!-- End Navigation -->
-                
-                
+
+
 
                 <!-- Responsive Toggle Button -->
-                <button class="navbar-toggler btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-30 g-right-0" type="button"
-                    aria-label="Toggle navigation" 
-                    aria-expanded="false" 
-                    aria-controls="navBar" 
-                    data-toggle="collapse"
-                    data-target="#navBar">
+                <button class="navbar-toggler btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-30 g-right-0"
+                    type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar"
+                    data-toggle="collapse" data-target="#navBar">
                     <span class="hamburger hamburger--slider">
                         <span class="hamburger-box">
                             <span class="hamburger-inner"></span>

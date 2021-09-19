@@ -14,16 +14,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     
     let token: string = localStorage.getItem('token');
     
-    /*let headerOut=req.headers;
-    let accesKey=headerOut.get("Access-Key")
-    
-    console.log('Access-Key interceptor', accesKey);
-    if(accesKey=='dropbox'){
-      console.log('Access-Key interceptor', accesKey);
-      token=localStorage.getItem('token-dropbox');
-      console.log('token', token);
-      localStorage.removeItem('token-dropbox')
-    }*/
+    //Access-Control-Allow-Origin
 
     let request = req;
 
@@ -34,6 +25,12 @@ export class AuthInterceptorService implements HttpInterceptor {
         }
       });
     }
+
+    /*request = req.clone({
+      setHeaders: {
+        "Access-Control-Allow-Origin": "*"
+      }
+    });*/
 
     return next.handle(request);
   }

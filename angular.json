@@ -43,7 +43,8 @@
               "src/assets/vendor/bootstrap-select/css/bootstrap-select.min.css",
               "src/assets/vendor/chartist-js/chartist.min.css",
               "src/assets/vendor/chartist-js-tooltip/chartist-plugin-tooltip.css",
-              "src/assets/vendor/fancybox/jquery.fancybox.min.css"
+              "src/assets/vendor/fancybox/jquery.fancybox.min.css",
+              "src/assets/vendor/custombox/custombox.min.css"
 
               
 
@@ -93,7 +94,9 @@
               "src/assets/js/components/hs.bar-chart.js",
               "src/assets/js/helpers/hs.focus-state.js",
               "src/assets/js/components/hs.popup.js",
-              "node_modules/crypto-js/crypto-js.js"
+              "node_modules/crypto-js/crypto-js.js",
+              "src/assets/vendor/custombox/custombox.min.js",
+              "src/assets/js/components/hs.modal-window.js"
             ]
           },
           "configurations": {
@@ -129,7 +132,10 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "restaurante-paraiso:build"
+            "browserTarget": "restaurante-paraiso:build",
+            "ssl": true,
+            "sslKey": "ssl/server.key",
+            "sslCert": "ssl/server.crt"
           },
           "configurations": {
             "production": {

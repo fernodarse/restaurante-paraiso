@@ -82,8 +82,12 @@ export class CommentsFormComponent implements OnInit {
     }
   }
 
-  login() {
-    this.authService.login();
+  signInWithGoogle(): void {
+    this.authService.signInWithGoogle()
+  }
+
+  signInWithFB(): void {
+    this.authService.signInWithFB()
   }
 
   ngOnDestroy() {
@@ -94,6 +98,10 @@ export class CommentsFormComponent implements OnInit {
   resetForm(ngForm) {
     this.comments = new Comments();
     ngForm.resetForm();
+  }
+
+  isLoging(){
+    return this.appUser != null
   }
 
 }

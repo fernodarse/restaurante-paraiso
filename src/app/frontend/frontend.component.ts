@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { AuthRestService } from '../services/auth-rest.service';
 
 @Component({
   selector: 'app-frontend',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class FrontendComponent implements OnInit {
 
   constructor(
-    private authService: AuthService,
+    private authService: AuthRestService,
     private router: Router
   ) { }
 

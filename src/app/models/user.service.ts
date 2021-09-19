@@ -39,16 +39,17 @@ export class UserService {
     return this.db.collection('appusers').add(objData);
   }
 
-  createRed(user: any, rol = Role.User) {
-    const userRef = this.db.doc(`appusers/${user.uid}`);
+  createRed(user: any, rol = Role.User):Observable<AppUser> {
+    const userRef = this.db.doc(`appusers/${user.id}`);
     const data = {
-      name: user.displayName ? user.displayName : user.email,
+      name: user.name ? user.name : user.email,
       email: user.email,
       photoURL: user.photoURL,
       rol: rol,
       username: user.email,
     };
-    return userRef.set(data, { merge: true });
+    //return userRef.set(data, { merge: true });
+    return of(null)
   }
 
   getAllUser(): AppUser[] {

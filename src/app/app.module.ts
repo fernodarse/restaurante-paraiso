@@ -23,6 +23,12 @@ import { UserService } from './models/user.service';
 import { UserRestService } from './models/user-rest.service';
 import { DocPipe } from './pipe/doc.pipe';
 import { TruncateTextPipe } from './pipe/truncatetext.pipe';
+
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from 'angularx-social-login';
  
 @NgModule({
   declarations: [
@@ -31,13 +37,14 @@ import { TruncateTextPipe } from './pipe/truncatetext.pipe';
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    /*AngularFireModule.initializeApp(environment.firebaseConfig), 
     AngularFirestoreModule,
-    AngularFireAuthModule,
+    AngularFireAuthModule,*/
     BrowserAnimationsModule,
     NgMaterialModule, 
     routing,    
     HttpClientModule,
+    SocialLoginModule,
     /*JwtModule.forRoot({
       config: {
         tokenGetter: function  tokenGetter() { 
@@ -54,6 +61,24 @@ import { TruncateTextPipe } from './pipe/truncatetext.pipe';
 
    { provide: 'autenticar', useClass: AuthRestService },
    { provide: UserService, useClass: UserRestService },
+   {
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(
+            '107470416652-8a3iglgg4v80ccfibbvos0tvips5sdva.apps.googleusercontent.com'
+          )
+        },
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider('1782485098619430')
+        }
+      ]
+    } as SocialAuthServiceConfig,
+  }
   ], 
   exports: [],
   bootstrap: [AppComponent] 

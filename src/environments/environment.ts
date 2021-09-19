@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   firebaseConfig : {
     apiKey: "AIzaSyAdy6T_w9TX0ElBUhD3P7kqpX34v2FHQKk",
-    authDomain: "finca-paraiso.firebaseapp.com",
+    authDomain: "127.0.0.1",
     projectId: "finca-paraiso",
     storageBucket: "finca-paraiso.appspot.com",
     messagingSenderId: "358207456339",

@@ -65,14 +65,22 @@
     <div class="row justify-content-center">
         <ng-template #anonymousUser>
             <mat-card class="comment-card mat-elevation-z2">
-                <a (click)="login()">Login with Google</a> to post comments
+               <!--  <mat-card-header>
+                    <mat-card-title>Login to post comments</mat-card-title>
+                  </mat-card-header>-->
+                  <h2 class="h3 g-color-black text-uppercase mb-2 g-font-size-default">Login to post comments</h2>
+                <!-- <a (click)="signInWithGoogle()">Login with Google</a> to post comments-->
+                <div class="social-icon">
+                    <button (click)="signInWithGoogle()" type="button" class="g-bg-primary"><i class="fa fa-google"></i></button>
+                    <button (click)="signInWithFB()" type="button" class="g-bg-primary" ><i class="fa fa-facebook"></i></button>
+                  </div>
             </mat-card>
         </ng-template> 
-            <button *ngIf="appUser; else anonymousUser"
+            <button *ngIf="isLoging(); else anonymousUser"
                 class="btn u-btn-primary  text-uppercase g-font-weight-700 g-font-size-default g-color-primary--hover g-bg-transparent--hover g-brd-3 rounded-0 g-pa-20 mb-0 g-px-30 g-py-25"
                 type="submit" role="button" [disabled]="commentForm.invalid">
                 Post Comment
-                <span *ngIf="submit==true" class="g-pos-abs g-right-10" >
+                <span  *ngIf="submit==true" class="g-pos-abs g-right-7" >
                     <mat-spinner diameter=15></mat-spinner>
                 </span>
             </button>

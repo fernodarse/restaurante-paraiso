@@ -17,14 +17,15 @@ export class AuthService {
   appUser$: Observable<AppUser>;
   userData: AppUser;
   findUser: AppUser;
+  public loggedIn: boolean;
 
-  constructor(public afAuth: AngularFireAuth,
+  constructor(/*public afAuth: AngularFireAuth,*/
     private route: ActivatedRoute,
     private router: Router,
     /*private db: AngularFirestore*/
     private userService: UserService) {
 
-    this.appUser$ = this.afAuth.authState.pipe(
+    /*this.appUser$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
           //return this.db.doc<AppUser>(`appusers/${user.uid}`).valueChanges();
@@ -35,7 +36,7 @@ export class AuthService {
           return of(null);
         }
       })
-    );
+    );*/
     this.appUser$.subscribe((data)=>{
       console.log('datos de usuario', data)
       this.userData=data;      
@@ -49,20 +50,26 @@ export class AuthService {
       return this.userService.createRed(user,rol)
   }
 
+  public signInWithGoogle(): Observable<AppUser> {
+    return of(null)
+  }
+
+  public signInWithFB(): void {}
+  
   async login() {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || this.router.url;
     localStorage.setItem('returnUrl', returnUrl);
-    const credential = await this.afAuth.signInWithPopup(
+    const credential=null/* = await this.afAuth.signInWithPopup(
       new firebase.default.auth.GoogleAuthProvider()
       //this.afAuth.
-      );
+      );*/
     return this.updateUserData(credential.user,Role.User);
   }
 
   async logout() {
-    await this.afAuth.signOut().then(() => {
+    /*await this.afAuth.signOut().then(() => {
       this.router.navigate(['/']);
-    });
+    });*/
   }
 
    // Sign in with email/password
