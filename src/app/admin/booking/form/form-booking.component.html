@@ -41,7 +41,7 @@
             <mat-label i18n="Timepicker 1 Title">Hora</mat-label>
             <input matTimepicker #t1="matTimepicker" i18n-okLabel="Timepicker 1 Ok Label" okLabel="Ok"
                 i18n-cancelLabel="Timepicker 1 Cancel Label" cancelLabel="Cancel" #time="ngModel" 
-                [minDate]="minTime" [maxDate]="maxTime" id="timepicker-example-1" mode="24h" ngModel placeholder="Please select time"
+                [minDate]="minTime" [maxDate]="maxTime" id="timepicker-example-1" mode="12h" ngModel placeholder="Please select time"
                 name="time" [ngModel]="timeV" (timeChange)="timeChangeHandler($event)" required>
             <mat-icon matSuffix (click)="t1.showDialog()">
                 <i class="fa fa-clock-o"></i>

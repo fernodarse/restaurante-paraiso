@@ -23,7 +23,7 @@ export const PICK_FORMATS = {
 class PickDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
     if (displayFormat === 'input') {
-      return formatDate(date, 'dd-MMM-yyyy', this.locale);
+      return formatDate(date, 'dd-MMM-yyyy', this.locale,'-0400');
     } else {
       return date.toDateString();
     }
@@ -44,7 +44,7 @@ export class BookingComponent implements OnInit {
   appUser: AppUser;
   booking: Booking = new Booking();
   message: string;
-  today = new Date()
+  today = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}))
   minDate = new Date(this.today);
   maxDate = new Date();
   minTime;
@@ -64,8 +64,8 @@ export class BookingComponent implements OnInit {
     let month = this.today.getMonth();
     let day = this.today.getDate()
     this.maxDate = new Date(year + 1, month, day)
-    this.minTime = new Date(year, month, day, 8, 0, 0,)//this.datePipe.transform(Date.now(), 'HH:mm');
-    this.maxTime = new Date(year, month, day, 20, 0, 0,)//this.datePipe.transform(Date.now(), 'HH:mm');
+    this.minTime = new Date(new Date(year, month, day, 8, 0, 0,).toLocaleString("en-US", {timeZone: "America/New_York"}))
+    this.maxTime = new Date(new Date(year, month, day, 20, 0, 0,).toLocaleString("en-US", {timeZone: "America/New_York"}))
   }
 
   async onSubmit(form: NgForm): Promise<void> {
@@ -73,8 +73,9 @@ export class BookingComponent implements OnInit {
     console.log('Submit action')
     if (form.valid) {
       this.submit = true;
-      console.log('datos del booking', this.booking, this.datePipe.transform(this.booking.time, 'HH:mm'))
-      this.booking.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
+      //console.log('time',this.booking.time.getTime())
+      console.log('datos del booking', this.booking, this.datePipe.transform(this.booking.time, 'HH:mm',"America/New_York"))
+      this.booking.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm',"America/New_York");
       try {
         (await this.bookingService.create(this.booking)).subscribe(
           /*() => {//para firebase

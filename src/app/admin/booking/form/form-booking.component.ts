@@ -18,7 +18,7 @@ export class FormBookingComponent implements OnInit {
 
   booking: Booking = new Booking();
 
-  today = new Date()
+  today = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}))
   minDate = new Date(this.today);
   maxDate = new Date();
   minTime;
@@ -43,7 +43,7 @@ export class FormBookingComponent implements OnInit {
               this.booking.bookingId = update.id;
               //this.booking.time=this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm:ss');
               console.log("tiempo ", this.booking.time.getHours)
-              let time = new Date(this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm:ss'))
+              let time = new Date(this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm:ss',"America/New_York"))
               this.timeV = new Date(this.today.getFullYear(), this.today.getMonth(), this.today.getDate(), time.getHours(), time.getMinutes(), time.getSeconds())
               console.log("time ", this.timeV)
             },
@@ -80,7 +80,7 @@ export class FormBookingComponent implements OnInit {
             this.resetForm(form);
           })
       } else {
-        this.booking.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
+        this.booking.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm',"America/New_York");
         (await this.bookingServices.create(this.booking)).subscribe(
           (resp) => {
             console.log('respuesta del booking', resp)
@@ -103,8 +103,8 @@ export class FormBookingComponent implements OnInit {
     let month = this.today.getMonth();
     let day = this.today.getDate()
     this.maxDate = new Date(year + 1, month, day)
-    this.minTime = new Date(year, month, day, 8, 0, 0,)
-    this.maxTime = new Date(year, month, day, 20, 0, 0,)
+    this.minTime = new Date(new Date(year, month, day, 8, 0, 0,).toLocaleString("en-US", {timeZone: "America/New_York"}))
+    this.maxTime = new Date(new Date(year, month, day, 20, 0, 0,).toLocaleString("en-US", {timeZone: "America/New_York"}))
   }
 
   timeChangeHandler(event) {

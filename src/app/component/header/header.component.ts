@@ -4,6 +4,7 @@ import { AppUser } from 'src/app/models/appuser';
 import { AuthRestService } from 'src/app/services/auth-rest.service';
 import { AuthService } from 'src/app/services/auth.service';
 declare var $: any
+declare var Custombox: any
 
 @Component({
   selector: 'app-header',
@@ -75,10 +76,12 @@ export class HeaderComponent implements OnInit,AfterViewInit {
 
   signInWithGoogle(): void {
     this.authService.signInWithGoogle()
+    Custombox.modal.close();
   }
 
   signInWithFB(): void {
     this.authService.signInWithFB()
+    Custombox.modal.close();
   }
 
   isLoging(){
