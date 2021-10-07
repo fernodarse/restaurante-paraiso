@@ -22,7 +22,7 @@ export class EventoRestService extends RestDataSource {
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe(result => {
       this.list = result;
-      console.log("getAllEventos", this.list)
+      //console.log("getAllEventos", this.list)
     });
    }
 

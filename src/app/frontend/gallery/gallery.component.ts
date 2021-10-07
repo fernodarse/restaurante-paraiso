@@ -13,20 +13,16 @@ export class GalleryComponent implements OnInit {
 
   height: number;
   constructor(private eventoServices: EventoService, private elementRef: ElementRef,) {
-    console.log('Constructor Galery');
-
+    //console.log('Constructor Galery');
   }
   ngOnInit(): void {
     this.eventoServices.loadData()
       .subscribe(() => {
-        console.log('initialization of cubeportfolio');
         // initialization of cubeportfolio
         $.HSCore.components.HSCubeportfolio.init('.cbp');
-
-        console.log('OnSubscribe Evento');
       })
     this.initHeight();
-    console.log('OnInit Evento');
+    //console.log('OnInit Evento');
   }
 
   pagina: number = 1;

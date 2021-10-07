@@ -1,10 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Observable, Observer, Subject } from 'rxjs';
 import { distinctUntilChanged, map, startWith, takeUntil } from 'rxjs/operators';
+import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
 import { Comments } from 'src/app/models/comment';
 import { CommentService } from 'src/app/models/comment.service';
 import { Menu } from 'src/app/models/menu';
@@ -41,7 +43,8 @@ export class TableComponent implements OnInit {
   constructor(private commentServices: CommentService,
     @Inject(SHARED_STATE) public observer: Subject<SharedState>,
     private snackBarService: SnackbarService,
-    private menuServices: MenuService,) {
+    private menuServices: MenuService,
+    public dialog: MatDialog) {
     this.config = {
       currentPage: this.currentPage,
       itemsPerPage: this.pageSize
@@ -107,6 +110,18 @@ export class TableComponent implements OnInit {
      }
      console.log('arreglo', result)
      return result;
+  }
+
+  openDialog(key: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {msg: "¿Desea eliminar completamente el comentario?"}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.deleteComment(key);
+      }
+    });
   }
 
   deleteComment(key: string) {

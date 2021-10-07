@@ -23,15 +23,18 @@ export class UserRestService extends RestDataSource {
     super(http,router);
     this.urlAut=url+'auth/login/'
     this.urlProfile=url+'profile/'
-    this.url = url + "user/";
+    this.url = url + "user/"; 
+    
+   }  
+
+   init(){
     super.sendRequest<AppUser[]>("GET", this.url)
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe(result => {
       this.list = result;
-      console.log("getAllUser", this.list)
+      //console.log("getAllUser", this.list)
     });
-    
-   }  
+   }
 
   create(user: AppUser):Observable<AppUser> {
 

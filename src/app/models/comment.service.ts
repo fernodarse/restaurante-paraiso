@@ -18,7 +18,7 @@ export class CommentService {
   constructor(private db: AngularFirestore) { 
         this.loadData().subscribe(result => {
           this.list=result;
-          console.log("getAllComments", this.list)
+          //console.log("getAllComments", this.list)
         });
   }
 
@@ -97,6 +97,11 @@ export class CommentService {
     return this.db.doc('comments/' + commentId).delete();
   }
 
+  getLastComments(): Observable<Comments[]>{
+    return of(new Array());
+  }
+
+  compararFechas(fecha1: Date, fecha2: Date, dia: Number) {}
   //metodos de prueba
   getAllCommentsMenu() {
     let menu;

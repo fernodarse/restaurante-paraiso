@@ -1,22 +1,40 @@
+<button class="btn btn-primary m-1" (click)="createBooking()">
+  Crear Booking
+</button>
+<mat-form-field class="col-3">
+  <mat-label>Buscar x fecha</mat-label>
+  <input matInput name="filterDate" [matDatepicker]="pickerFilter" [(ngModel)]="filterDate" class=""
+    (dateInput)="filtrarFecha($event)">
+  <!--  -->
+  <mat-datepicker-toggle matSuffix [for]="pickerFilter"></mat-datepicker-toggle>
+  <mat-datepicker #pickerFilter></mat-datepicker>
+</mat-form-field>
 
-  <button class="btn btn-primary m-1" (click)="createBooking()">
-    Crear Booking
-  </button>
-  <mat-form-field class="col-3">
-    <mat-label>Buscar x fecha</mat-label>
-    <input matInput name="filterDate" [matDatepicker]="pickerFilter" [(ngModel)]="filterDate" class=""
-      (dateInput)="filtrarFecha($event)">
-    <!--  -->
-    <mat-datepicker-toggle matSuffix [for]="pickerFilter"></mat-datepicker-toggle>
-    <mat-datepicker #pickerFilter></mat-datepicker>
-  </mat-form-field>
-
-  <button class="btn btn-success float-right" (click)="openPDF()" [class.g-width-60]="submit==true">
-    PDF
-    <span *ngIf="submit==true" class="g-pos-abs g-top-7" >
-      <mat-spinner diameter=15 [color]="color"></mat-spinner>
-    </span>
-  </button>
+<button class="btn btn-success float-right" (click)="openPDF()" [class.g-width-60]="submit==true">
+  PDF
+  <span *ngIf="submit==true" class="g-pos-abs g-top-7">
+    <mat-spinner diameter=15 [color]="color"></mat-spinner>
+  </span>
+</button>
+<!--<a class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14"
+[attr.href]="'#modal123'" [attr.data-modal-target]="'#modal123'" 
+data-modal-effect="swell">
+<i class="hs-admin-trash g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
+Delete
+</a>
+<div [attr.id]="'modal123'" class="text-left g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20"
+            style="display: none;">
+            <button type="button" class="close" onclick="Custombox.modal.close();">
+              <i class="hs-icon hs-icon-close"></i>
+            </button>
+            <h6 class="g-mb-10 g-mt-30">Sign in with your social media account</h6>
+            <div class="social-icon">
+              <button  type="button"
+                class="g-color-blue g-bg-blue-opacity-0_1 g-bg-blue--hover g-color-white--hover">Si</button>
+              <button onclick="Custombox.modal.close();" type="button"
+                class="g-bg-primary g-color-blue g-bg-blue-opacity-0_1 g-bg-blue--hover g-color-white--hover">No</button>
+            </div>
+          </div>-->
 <div class="" id="htmlData" #htmlData>
   <table class="table u-table--v3 u-editable-table--v1 g-color-black table-sm table-striped" matSort
     (matSortChange)="changeSort($event)">
@@ -26,7 +44,7 @@
         <th class="col-3" mat-sort-header="date">Fecha</th>
         <th class="col-1" mat-sort-header="cliente">Clientes</th>
         <th class="col-3" mat-sort-header="fCreada">Creada</th>
-        <th class="col-1" ></th>
+        <th class="col-1"></th>
       </tr>
     </thead>
     <tbody>
@@ -70,20 +88,19 @@
                     class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14"
                     href="#">
                     <i class="hs-admin-pencil g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
-                    Edit
+                    Editar
                   </a>
                 </li>
                 <li>
-                  <a (click)="deleteBooking(item.bookingId);$event.preventDefault()"
-                    class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14"
-                    href="#">
+                  <a  (click)="openDialog(item.bookingId);$event.preventDefault()" class="d-flex align-items-center u-link-v5 g-bg-gray-light-v8--hover g-font-size-12 g-font-size-default--md g-color-gray-dark-v6 g-px-25 g-py-14">
                     <i class="hs-admin-trash g-font-size-18 g-color-gray-light-v6 g-mr-10 g-mr-15--md"></i>
-                    Delete
+                    Eliminar
                   </a>
                 </li>
               </ul>
             </div>
           </div>
+          
         </td>
       </tr>
     </tbody>

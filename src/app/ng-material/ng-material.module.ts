@@ -22,6 +22,7 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerMod
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTimepickerModule } from 'mat-timepicker';
 import { MatSortModule } from '@angular/material/sort';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { NgxParallaxModule } from '@yoozly/ngx-parallax';
 
@@ -48,6 +49,7 @@ import { NgxParallaxModule } from '@yoozly/ngx-parallax';
         MatTabsModule,
         MatAutocompleteModule,
         MatSortModule,
+        MatDialogModule,
 
         MatDatepickerModule,
         NgxMatDatetimePickerModule,
@@ -77,6 +79,7 @@ import { NgxParallaxModule } from '@yoozly/ngx-parallax';
         MatTabsModule,
         MatAutocompleteModule,
         MatSortModule,
+        MatDialogModule,
         
         MatDatepickerModule,
         NgxMatDatetimePickerModule,

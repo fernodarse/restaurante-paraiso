@@ -39,7 +39,7 @@
     currentPage: currentPage,
     totalItems: length
   };let i = index" >
-    <card-comment  [class.active]="i == currentIndex" class="comment-card mat-elevation-z2 " [comment]=" comment " (eliminar)="deleteComment($event)" (estado)="cambiarEstado($event)" >
+    <card-comment  [class.active]="i == currentIndex" class="comment-card mat-elevation-z2 " [comment]=" comment " (eliminar)="openDialog($event)" (estado)="cambiarEstado($event)" >
     </card-comment>    
   </li>
   <li  *ngIf="length==0" class="col-md-12">

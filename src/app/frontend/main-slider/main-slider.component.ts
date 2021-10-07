@@ -12,8 +12,6 @@ export class MainSliderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("Frontend init");
-
     //JS Plugins Init.
     var promoSlider = new MasterSlider();
 

@@ -49,6 +49,8 @@ export class BookingComponent implements OnInit {
   maxDate = new Date();
   minTime;
   maxTime;
+  timeDate: Date;
+
   @ViewChild('form') ngForm;
   submit: boolean = false;
   constructor(private bookingService: BookingService, private datePipe: DatePipe,
@@ -73,8 +75,12 @@ export class BookingComponent implements OnInit {
     console.log('Submit action')
     if (form.valid) {
       this.submit = true;
-      //console.log('time',this.booking.time.getTime())
+      let time=  this.datePipe.transform(this.booking.date, 'MM-dd-yyyy',"America/New_York") + ' ' + this.datePipe.transform(this.timeDate, 'HH:mm',"America/New_York");
+      this.booking.time = new Date(time);
+      console.log('time +fecha', time/*this.datePipe.transform(time, 'MM-dd-yyyy HH:mm',"America/New_York")*/)
+      
       console.log('datos del booking', this.booking, this.datePipe.transform(this.booking.time, 'HH:mm',"America/New_York"))
+      console.log('datos del booking', this.booking, this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm',"America/New_York"))
       this.booking.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm',"America/New_York");
       try {
         (await this.bookingService.create(this.booking)).subscribe(

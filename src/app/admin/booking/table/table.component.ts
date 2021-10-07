@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { PageEvent } from '@angular/material/paginator';
@@ -12,13 +12,16 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
+declare var $: any
 
 @Component({
   selector: 'table-booking',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableBookingComponent implements OnInit {
+export class TableBookingComponent implements OnInit,AfterViewInit {
 
 
   list: Booking[];
@@ -42,7 +45,7 @@ export class TableBookingComponent implements OnInit {
   constructor(private bookingServices: BookingService,
     @Inject(SHARED_STATE) public observer: Subject<SharedState>,
     private snackBarService: SnackbarService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,public dialog: MatDialog) {
     this.config = {
       currentPage: this.currentPage,
       itemsPerPage: this.pageSize
@@ -86,12 +89,19 @@ export class TableBookingComponent implements OnInit {
     return fecha1.getFullYear() == fecha2.getFullYear() && fecha1.getMonth() == fecha2.getMonth() && fecha1.getDate() == fecha2.getDate()
   }
 
-  async deleteBooking(key: string) {
-    /* this.bookingServices.deleteBooking(key).then(
-      () => {
-        this.snackBarService.openSnackBar('El booking se eliminó correctamente');
+  openDialog(key: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {msg: "¿Desea eliminar completamente la reserva?"}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result){
+        this.deleteBooking(key);
       }
-    );*/
+    });
+  }
+  async deleteBooking(key: string) {
     (await this.bookingServices.deleteBooking(key)).subscribe(
       (resp) => {
         console.log('respuesta del booking', resp)
@@ -111,7 +121,13 @@ export class TableBookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.bookingServices.init()
     this.list = this.bookingServices.getAllBookings()
+  }
+
+  ngAfterViewInit() {
+    console.log('init booking table')
+      $.HSCore.components.HSModalWindow.init('[data-modal-target]');
   }
 
   changeSort(sort: Sort) {

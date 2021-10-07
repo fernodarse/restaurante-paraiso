@@ -1,11 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ThemePalette } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Sort } from '@angular/material/sort';
 import { Observable, Observer, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
 import { Evento } from 'src/app/models/evento';
 import { EventoService } from 'src/app/models/evento.service';
 import { MODES, SharedState, SHARED_STATE } from 'src/app/models/sharedState.model';
@@ -38,7 +40,7 @@ export class TableEventoComponent implements OnInit {
 
   constructor(private eventoServices: EventoService,
     @Inject(SHARED_STATE) public observer: Subject<SharedState>,
-    private snackBarService: SnackbarService,) {
+    private snackBarService: SnackbarService,public dialog: MatDialog) {
     this.config = {
       currentPage: this.currentPage,
       itemsPerPage: this.pageSize //? +this.pageSize : this.pageSizeOptions[0]
@@ -91,6 +93,19 @@ export class TableEventoComponent implements OnInit {
         console.log("getAllMenus", this.list)
         console.log("cantidad de elementos", this.length)
       });*/
+  }
+
+  openDialog(key: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {msg: "¿Desea eliminar completamente el Evento?"}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result){
+        this.deleteEvento(key);
+      }
+    });
   }
 
   deleteEvento(key: string) {

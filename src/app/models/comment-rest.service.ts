@@ -18,6 +18,8 @@ export class CommentRestService extends RestDataSource{
 
   private list: Comments[] = [];
   private unsubscribe$ = new Subject<void>();
+  today = new Date(new Date().toLocaleString("en-US", {timeZone: "America/New_York"}))
+  private lastComents: Comments[] = [];
 
   constructor(http: HttpClient, @Inject(REST_URL) private url: string,public router: Router) {
     super(http,router);
@@ -26,8 +28,8 @@ export class CommentRestService extends RestDataSource{
     .pipe(takeUntil(this.unsubscribe$))
     .subscribe(result => {
       this.list = result;
-      console.log("getAllComments", this.list)
-    });
+      //console.log("getAllComments", this.list)
+    });    
   }
 
   loadData(){
@@ -119,6 +121,15 @@ export class CommentRestService extends RestDataSource{
       this.list.splice(index,1); 
     });
   } 
+
+  getLastComments(){    
+    return super.sendRequest<Comments[]>("GET", `${this.url}last/7`)    
+  }
+
+  compararFechas(fecha1: Date, fecha2: Date, dia: Number) {
+    return fecha1.getFullYear() == fecha2.getFullYear() && fecha1.getMonth() == fecha2.getMonth() && (fecha1.getDate() - fecha2.getDate() <= dia )
+  }
+  
 
   ngOnDestroy() {
     this.unsubscribe$.next();

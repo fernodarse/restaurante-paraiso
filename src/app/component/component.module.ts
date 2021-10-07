@@ -8,14 +8,15 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { TableOpcionComponent } from './table-opcion/table-opcion.component';
 import { DirectivaModule } from '../directiva/directiva.module';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 
 @NgModule({
-  declarations: [NavBarComponent,HeaderComponent, TableOpcionComponent],
+  declarations: [NavBarComponent,HeaderComponent, TableOpcionComponent, ConfirmDialogComponent],
   imports: [
     CommonModule,NgMaterialModule ,FormsModule,RouterModule,DirectivaModule
   ],
-  exports: [NavBarComponent,HeaderComponent, TableOpcionComponent]
+  exports: [NavBarComponent,HeaderComponent, TableOpcionComponent, ConfirmDialogComponent]
 })
 export class ComponentModule { }

@@ -10,6 +10,8 @@ import { ThemePalette } from '@angular/material/core';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { Sort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'table-menu',
@@ -38,7 +40,7 @@ export class TableMenuComponent implements OnInit {
   constructor(private menuServices: MenuService,
     @Inject(SHARED_STATE) public observer: Subject<SharedState>,
     private listCategoriaMenu: ListCategoriaMenu,
-    private snackBarService: SnackbarService,) {
+    private snackBarService: SnackbarService,public dialog: MatDialog) {
     this.config = {
       currentPage: this.currentPage,
       itemsPerPage: this.pageSize //? +this.pageSize : this.pageSizeOptions[0]
@@ -90,6 +92,19 @@ export class TableMenuComponent implements OnInit {
       });*/
       //this.menuList=this.menuServices.getAllMenus();
      // console.log("getAllMenus comp", this.menuList)
+  }
+
+  openDialog(key: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {msg: "¿Desea eliminar completamente el Menu?"}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result){
+        this.deleteMenu(key);
+      }
+    });
   }
 
   deleteMenu(key: string) {

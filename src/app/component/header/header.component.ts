@@ -47,7 +47,6 @@ export class HeaderComponent implements OnInit,AfterViewInit {
     $.HSCore.components.HSGoTo.init('.js-go-to');
 
     $(window).on('load', function () {
-      console.log("load from header")
       // initialization of HSScrollNav
       $.HSCore.components.HSScrollNav.init($('#js-scroll-nav'), {
         duration: 700

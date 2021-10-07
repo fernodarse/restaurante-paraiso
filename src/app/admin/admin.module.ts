@@ -51,6 +51,8 @@ import { FormBookingComponent } from './booking/form/form-booking.component';
 import { AdminAuthGuard } from '../guards/admin-auth.guard';
 import { DirectivaModule } from '../directiva/directiva.module';
 import { OcultarNombrePipe } from '../pipe/ocultar-nombre.pipe';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { TiempoAtrasPipe } from '../pipe/tiempoatras.pipe';
 
 const childRoutes: Routes = [
   /*{ path: "", component: IntroComponent, pathMatch: "full" },
@@ -108,7 +110,7 @@ let routes = RouterModule.forChild([
   declarations: [
     MenuComponent, TableMenuComponent, FormMenuComponent,
     EventoComponent, TableEventoComponent, FormEventoComponent, CommentsComponent, TableComponent,
-    DocPipe, TruncateTextPipe, OcultarNombrePipe,
+    DocPipe, TruncateTextPipe, OcultarNombrePipe, TiempoAtrasPipe,
     CardComponent,
     UserComponent, TableUserComponent, FormUserComponent,
     PasswordPatternDirective,
@@ -120,7 +122,7 @@ let routes = RouterModule.forChild([
     
   ],
   imports: [
-    CommonModule, FormsModule, ReactiveFormsModule, routes, NgMaterialModule, HttpClientModule, ComponentModule, DirectivaModule
+    CommonModule, FormsModule, ReactiveFormsModule, routes, NgMaterialModule, ScrollingModule, HttpClientModule, ComponentModule, DirectivaModule
   ],
   providers: [
     { provide: SHARED_STATE, useValue: new Subject<SharedState>() },

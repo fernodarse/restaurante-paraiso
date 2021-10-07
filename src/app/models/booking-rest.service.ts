@@ -13,19 +13,23 @@ import { Router } from '@angular/router';
 export class BookingRestService extends RestDataSource {
 
   private list: Booking[] = [];
-  private unsubscribe$ = new Subject<void>();
+  private unsubscribe$ = new Subject<void>();  
 
   constructor(http: HttpClient, @Inject(REST_URL) private url: string, public router: Router) {
     super(http, router);
     this.url = url + "booking/";
+  }
+
+  init() {
     this.loadData()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(result => {
         this.list = result;
-        console.log("getAllBooking", this.list)
+        //console.log("getAllBooking", this.list)
       });
-  }
 
+      
+  }
   loadData() {
     return super.sendRequest<Booking[]>("GET", this.url)
   }
@@ -56,6 +60,10 @@ export class BookingRestService extends RestDataSource {
     return this.list;
   }
 
+   getBookingsHoy(): Observable<Booking[]> {
+    return  super.sendRequest<Booking[]>("GET", this.url+'book/hoy')    
+  }
+
   getBookingbyId(id: string): Observable<Booking> {
     return super.sendRequest<Booking>("GET", `${this.url}id/${id}`);
   }
@@ -76,9 +84,9 @@ export class BookingRestService extends RestDataSource {
             this.list.splice(index, 1);
           }
         },
-        e => {
-          super.checkErrorAccses(e)
-        }      
+          e => {
+            super.checkErrorAccses(e)
+          }
         )
     })
     return data;

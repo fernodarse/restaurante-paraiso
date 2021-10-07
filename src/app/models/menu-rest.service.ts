@@ -22,7 +22,7 @@ export class MenuRestService extends RestDataSource {
     this.loadData().pipe(takeUntil(this.unsubscribe$))
     .subscribe(result => {
       this.menuList = result;
-      console.log("getAllMenus", this.menuList)
+      //console.log("getAllMenus", this.menuList)
     });
   }
 

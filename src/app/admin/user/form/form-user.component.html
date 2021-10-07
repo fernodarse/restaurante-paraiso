@@ -57,7 +57,7 @@
         </mat-error>
     </mat-form-field>-->
 
-    <div *ngIf="editing==false">
+    <div *ngIf="editing==false" class="pt-4 pb-4">
         <mat-form-field class="col-12 pb-4">
             <mat-label>Password</mat-label>
             <input matInput placeholder="Password" type="password" name="password" [(ngModel)]="user.password"
@@ -87,7 +87,7 @@
 </form>
 
 
-<div *ngIf="editing">
+<div *ngIf="editing" >
     <mat-card class="bg-primary text-white p-2 mb-2" [class.bg-warning]="editing">
         Cambiar contraseña
     </mat-card>
@@ -104,7 +104,7 @@
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="col-12">
+        <mat-form-field class="col-12 pb-4">
             <mat-label>Repeat the password</mat-label>
             <input matInput placeholder="Repeat the password" type="password" name="confirmPassword"
                 [(ngModel)]="cambiarRepitPas" #confirmPassword="ngModel" required>

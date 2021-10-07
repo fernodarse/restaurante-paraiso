@@ -10,13 +10,15 @@ import { PageEvent } from '@angular/material/paginator';
 import { AppUser } from 'src/app/models/appuser';
 import { UserService } from 'src/app/models/user.service';
 import { Sort } from '@angular/material/sort';
+import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'table-user',
   templateUrl: './table-user.component.html',
   styleUrls: ['./table-user.component.css']
 })
-export class TableUserComponent {
+export class TableUserComponent implements OnInit {
 
   categoria: string = '';
 
@@ -37,7 +39,7 @@ export class TableUserComponent {
 
   constructor(private userServices: UserService,
     @Inject(SHARED_STATE) public observer: Subject<SharedState>,
-    private snackBarService: SnackbarService,) {
+    private snackBarService: SnackbarService,public dialog: MatDialog) {
     this.config = {
       currentPage: this.currentPage,
       itemsPerPage: this.pageSize //? +this.pageSize : this.pageSizeOptions[0]
@@ -73,6 +75,19 @@ export class TableUserComponent {
     this.length = list.length;    
     list=this.sortData(this.sort,list)
     return list
+  }
+
+  openDialog(key: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {msg: "¿Desea eliminar completamente el Usuario?"}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result){
+        this.deleteUser(key);
+      }
+    });
   }
 
   deleteUser(key: string) {
@@ -114,6 +129,10 @@ export class TableUserComponent {
 
   compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  ngOnInit(): void {
+    this.userServices.init();
   }
 
 }

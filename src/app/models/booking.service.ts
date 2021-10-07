@@ -14,13 +14,15 @@ export class BookingService {
   private list: Booking[] = [];
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore) {    
+  }
+
+  init(){
     this.loadData().subscribe(result => {
       this.list = result;
       console.log("getAllBookings", this.list)
     });
   }
-
   loadData() {
     return this.db.collection<Booking>('bookings', ref =>
       ref.orderBy('date', 'desc')) //createdDate
@@ -47,6 +49,10 @@ export class BookingService {
 
   getAllBookings(): Booking[] {
     return this.list;
+  }
+
+  getBookingsHoy(): Observable<Booking[]>  {
+    return of(new Array());
   }
 
   getBookingbyId(id: string): Observable<Booking> {

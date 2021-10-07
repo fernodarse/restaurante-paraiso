@@ -17,19 +17,21 @@ export class UserService {
   private list: AppUser[] = [];
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private db: AngularFirestore, private ecript: EncryptionService) {
-    const users = this.db.collection<AppUser>('appusers')
-      .snapshotChanges().pipe(
-        map(actions => {
-          return actions.map(
-            c => ({
-              userId: c.payload.doc.id,
-              ...c.payload.doc.data()
-            }));
-        })).subscribe(result => {
-          this.list = result;
-          console.log("getAllUser services", this.list)
-        });
+  constructor(private db: AngularFirestore, private ecript: EncryptionService) {    
+ }
+ init(){
+  const users = this.db.collection<AppUser>('appusers')
+  .snapshotChanges().pipe(
+    map(actions => {
+      return actions.map(
+        c => ({
+          userId: c.payload.doc.id,
+          ...c.payload.doc.data()
+        }));
+    })).subscribe(result => {
+      this.list = result;
+      console.log("getAllUser services", this.list)
+    });
  }
 
   create(user: AppUser) {
