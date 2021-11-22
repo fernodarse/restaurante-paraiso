@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Menu } from 'src/app/models/menu';
-import { MenuService } from 'src/app/models/menu.service';
+import { MenuRestService } from 'src/app/models/menu-rest.service';
 declare var $: any
 
 
@@ -12,7 +12,7 @@ declare var $: any
 export class SpecialComponent implements OnInit {
 
   especiales:Menu[];
-  constructor(private menuServices: MenuService) { }
+  constructor(private menuServices: MenuRestService) { }
 
   getSpeciales(){
     return this.menuServices.getDestacados();

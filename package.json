@@ -41,8 +41,6 @@
     "codelyzer": "^6.0.0",
     "crypto-js": "^4.0.0",
     "express": "^4.17.1",
-    "firebase": "^8.6.1",
-    "firebase-admin": "^9.9.0",
     "font-awesome": "^4.7.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",

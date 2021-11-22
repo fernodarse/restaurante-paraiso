@@ -6,10 +6,10 @@ import { MODES, SharedState, SHARED_STATE } from '../models/sharedState.model';
 import { AuthService } from '../services/auth.service';
 import { NgForm } from "@angular/forms";
 import { AuthRestService } from '../services/auth-rest.service';
-import { BookingService } from '../models/booking.service';
-import { CommentService } from '../models/comment.service';
 import { Booking } from '../models/booking';
 import { Comments } from '../models/comment';
+import { BookingRestService } from '../models/booking-rest.service';
+import { CommentRestService } from '../models/comment-rest.service';
 declare var $: any
 
 @Component({
@@ -26,8 +26,8 @@ export class AdminComponent implements OnInit {
 
   constructor(@Inject("autenticar")private authService: AuthRestService,
   @Inject(SHARED_STATE) public observer: Observer<SharedState>,
-  private bookingServices: BookingService,
-  private commentServices: CommentService,) { }
+  private bookingServices: BookingRestService,
+  private commentServices: CommentRestService,) { }
 
   ngOnInit(): void {
     //this.authService.appUser$.subscribe(appUser => this.appUser = appUser);

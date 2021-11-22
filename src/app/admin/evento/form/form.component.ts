@@ -3,7 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Evento } from 'src/app/models/evento';
-import { EventoService } from 'src/app/models/evento.service';
+import { EventoRestService } from 'src/app/models/evento-rest.service';
 import { MODES, SharedState, SHARED_STATE } from 'src/app/models/sharedState.model';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 
@@ -18,7 +18,7 @@ export class FormEventoComponent implements OnInit {
   editing: boolean = false;
 
 
-  constructor(private eventoServices: EventoService,
+  constructor(private eventoServices: EventoRestService,
     @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>,
     private snackBarService: SnackbarService,
     private datePipe: DatePipe,) {

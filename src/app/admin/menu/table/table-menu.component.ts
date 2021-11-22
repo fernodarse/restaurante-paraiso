@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Menu } from "../../../models/menu";
-import { MenuService } from "../../../models/menu.service";
 import { MODES, SharedState, SHARED_STATE } from "../../../models/sharedState.model";
 import { Observable, Observer, Subject } from "rxjs";
 import { takeUntil } from 'rxjs/operators';
@@ -12,6 +11,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 import { Sort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
+import { MenuRestService } from 'src/app/models/menu-rest.service';
 
 @Component({
   selector: 'table-menu',
@@ -37,7 +37,7 @@ export class TableMenuComponent implements OnInit {
   sort:Sort;
   find:string='';
 
-  constructor(private menuServices: MenuService,
+  constructor(private menuServices: MenuRestService,
     @Inject(SHARED_STATE) public observer: Subject<SharedState>,
     private listCategoriaMenu: ListCategoriaMenu,
     private snackBarService: SnackbarService,public dialog: MatDialog) {

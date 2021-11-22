@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Observable, of,combineLatest, Subject } from 'rxjs';
 import { flatMap, map, switchMap, takeUntil } from 'rxjs/operators';
 import { CommentBy, Comments } from '../models/comment';

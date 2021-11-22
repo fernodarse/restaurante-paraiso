@@ -9,7 +9,7 @@ import { Observable, Observer, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
 import { Evento } from 'src/app/models/evento';
-import { EventoService } from 'src/app/models/evento.service';
+import { EventoRestService } from 'src/app/models/evento-rest.service';
 import { MODES, SharedState, SHARED_STATE } from 'src/app/models/sharedState.model';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 
@@ -38,7 +38,7 @@ export class TableEventoComponent implements OnInit {
   sort: Sort;
   find: string = '';
 
-  constructor(private eventoServices: EventoService,
+  constructor(private eventoServices: EventoRestService,
     @Inject(SHARED_STATE) public observer: Subject<SharedState>,
     private snackBarService: SnackbarService,public dialog: MatDialog) {
     this.config = {

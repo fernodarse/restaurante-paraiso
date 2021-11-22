@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AppUser } from '../models/appuser';
 import { Observable, of, throwError } from 'rxjs';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, switchMap } from 'rxjs/operators';
-import * as firebase from 'firebase/app';
-import { Role } from '../models/staticts';
-import { UserRestService } from '../models/user-rest.service';
-import { UserService } from '../models/user.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+import { UserRestService } from '../models/user-rest.service';
 
 
 @Injectable({
@@ -22,22 +18,11 @@ export class AuthRestService {
   socialUser: SocialUser;
   public loggedIn: boolean = false;
 
-  constructor(//public afAuth: AngularFireAuth,
-    private route: ActivatedRoute,
+  constructor( private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService,
+    private userService: UserRestService,
      private socialAuthService: SocialAuthService) {
 
-    /*this.appUser$ = this.afAuth.authState.pipe(
-      switchMap(user => {
-        if (user) {
-          console.log('uid inicio', user.uid)
-          return this.userService.getUserbyRedId(user.uid)
-        } else {
-          return of(null);
-        }
-      })
-    );*/
     this.appUser$ =this.socialAuthService.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -88,20 +73,6 @@ export class AuthRestService {
       this.updateUserData(user);
     }); 
   }
-  /**
-   * autenticarse en las redes sociales con Firebase
-   * @returns Entidad Usuario del sistema con los datos del user de la red
-   */
-  /*async login() {
-    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || this.router.url;
-    localStorage.setItem('returnUrl', returnUrl);
-    const credential = await this.afAuth.signInWithPopup(
-      new firebase.default.auth.GoogleAuthProvider()
-      );
-    let userCreado= this.updateUserData(credential.user);
-    console.log(userCreado);
-    return userCreado;
-  }*/
 
   /**
    * Cierra session a los usuarios de la red
@@ -109,9 +80,6 @@ export class AuthRestService {
   async logout() {
     localStorage.removeItem('token');
     this.socialAuthService.signOut();
-    /*await this.afAuth.signOut().then(() => {
-      this.router.navigate(['/']);
-    });*/
   }
 
   loginUser(username:string,password:string):Observable<any> {

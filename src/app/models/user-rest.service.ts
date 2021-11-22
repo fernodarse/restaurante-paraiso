@@ -53,14 +53,14 @@ export class UserRestService extends RestDataSource {
     return of(user) ;
   }
 
-  createRed(user: any) :Observable<AppUser>{
+  createRed(user: any,rol = Role.User) :Observable<AppUser>{
     let userData=new AppUser();
     userData.userName=user.id;
     userData.redId=user.id;
     userData.email=user.email;
     userData.name= user.name,
     userData.photoURL=user.photoUrl;
-    userData.rol=Role.User
+    userData.rol=rol
     return this.create(userData);
   }
 

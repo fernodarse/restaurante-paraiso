@@ -4,11 +4,9 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Observable, Observer, Subject } from 'rxjs';
 import { MODES, SharedState, SHARED_STATE } from 'src/app/models/sharedState.model';
 import { UserRestService } from 'src/app/models/user-rest.service';
-import { Role } from 'src/app/models/staticts';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { PageEvent } from '@angular/material/paginator';
 import { AppUser } from 'src/app/models/appuser';
-import { UserService } from 'src/app/models/user.service';
 import { Sort } from '@angular/material/sort';
 import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -37,7 +35,7 @@ export class TableUserComponent implements OnInit {
   sort:Sort;
   find:string='';
 
-  constructor(private userServices: UserService,
+  constructor(private userServices: UserRestService,
     @Inject(SHARED_STATE) public observer: Subject<SharedState>,
     private snackBarService: SnackbarService,public dialog: MatDialog) {
     this.config = {

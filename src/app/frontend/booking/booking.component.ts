@@ -2,13 +2,12 @@ import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Booking } from 'src/app/models/booking';
-import { BookingService } from 'src/app/models/booking.service';
 import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { formatDate } from '@angular/common';
 import { AuthService } from 'src/app/services/auth.service';
 import { AppUser } from 'src/app/models/appuser';
-import { Observable } from 'rxjs';
 import { SnackbarService } from 'src/app/services/snackbar.service';
+import { BookingRestService } from 'src/app/models/booking-rest.service';
 
 export const PICK_FORMATS = {
   parse: { dateInput: { month: 'short', year: 'numeric', day: 'numeric' } },
@@ -53,7 +52,7 @@ export class BookingComponent implements OnInit {
 
   @ViewChild('form') ngForm;
   submit: boolean = false;
-  constructor(private bookingService: BookingService, private datePipe: DatePipe,
+  constructor(private bookingService: BookingRestService, private datePipe: DatePipe,
     @Inject("autenticar") private authService: AuthService,
     private snackBarService: SnackbarService,) {
     this.authService.appUser$.subscribe(appUser => {
@@ -83,23 +82,11 @@ export class BookingComponent implements OnInit {
       console.log('datos del booking', this.booking, this.datePipe.transform(this.booking.time, 'MM-dd-yyyy HH:mm',"America/New_York"))
       this.booking.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm',"America/New_York");
       try {
-        (await this.bookingService.create(this.booking)).subscribe(
-          /*() => {//para firebase
-            this.message ='La reserva se ha registrado correctamente'
-          setTimeout(function () {
-            this.message = '';
-          }.bind(this), 9500);
-          this.resetForm()
-          form.resetForm()
-          }*/
+        (await this.bookingService.create(this.booking)).subscribe( 
           (resp) => {
             console.log('respuesta del booking', resp)
             this.submit = false;
-            this.snackBarService.openSnackBar(resp.message);
-            //this.message = resp.message
-            /*setTimeout(function () {
-              this.message = '';
-            }.bind(this), 9500); */
+            this.snackBarService.openSnackBar((resp as any).message);
             this.resetForm()
 
           }

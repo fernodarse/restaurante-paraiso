@@ -1,8 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { AppUser } from 'src/app/models/appuser';
 import { UserRestService } from 'src/app/models/user-rest.service';
 import { AuthService } from '../../services/auth.service';

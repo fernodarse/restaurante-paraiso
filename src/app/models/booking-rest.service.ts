@@ -69,12 +69,6 @@ export class BookingRestService extends RestDataSource {
   }
 
   deleteBooking(bookingId: string) {
-    /*return this.sendRequest<Booking>("DELETE", `${this.url}${bookingId}`)
-      .toPromise()
-      .finally(() => {
-        let index = this.list.findIndex(item => item.bookingId == bookingId);
-        this.list.splice(index, 1);
-      });*/
     let data = new Observable((observer) => {
       this.sendRequest<Booking>("DELETE", `${this.url}${bookingId}`)
         .subscribe((respuesta) => {

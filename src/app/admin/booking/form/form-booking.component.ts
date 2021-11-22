@@ -4,9 +4,9 @@ import { MODES, SharedState, SHARED_STATE } from "../../../models/sharedState.mo
 import { Observable } from "rxjs";
 import { DatePipe } from '@angular/common';
 import { SnackbarService } from 'src/app/services/snackbar.service';
-import { BookingService } from 'src/app/models/booking.service';
 import { Booking } from 'src/app/models/booking';
 import { AuthService } from 'src/app/services/auth.service';
+import { BookingRestService } from 'src/app/models/booking-rest.service';
 
 @Component({
   selector: 'form-booking',
@@ -25,7 +25,7 @@ export class FormBookingComponent implements OnInit {
   maxTime;
   timeV;
 
-  constructor(private bookingServices: BookingService,
+  constructor(private bookingServices: BookingRestService,
     @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>,
     private datePipe: DatePipe,
     private snackBarService: SnackbarService,
@@ -74,9 +74,9 @@ export class FormBookingComponent implements OnInit {
       console.log('submit menu', this.booking);
       if (this.editing) {
         (await this.bookingServices.updateBooking(this.booking.bookingId, this.booking)).subscribe(
-          (resp) => {
+          (resp ) => {
             console.log('respuesta del booking', resp)
-            this.snackBarService.openSnackBar(resp.message);
+            this.snackBarService.openSnackBar((resp as any).message);
             this.resetForm(form);
           })
       } else {
@@ -84,7 +84,7 @@ export class FormBookingComponent implements OnInit {
         (await this.bookingServices.create(this.booking)).subscribe(
           (resp) => {
             console.log('respuesta del booking', resp)
-            this.snackBarService.openSnackBar(resp.message);
+            this.snackBarService.openSnackBar((resp as any).message);
             this.resetForm(form);
           })
       }

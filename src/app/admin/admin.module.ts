@@ -18,12 +18,9 @@ import { TableComponent } from './comments/table/table.component';
 import { DocPipe } from '../pipe/doc.pipe';
 import { TruncateTextPipe } from '../pipe/truncatetext.pipe';
 import { CardComponent } from './comments/card/card.component';
-import { MenuService } from '../models/menu.service';
 import { MenuRestService } from '../models/menu-rest.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FileService } from '../models/file.service';
 import { FileRestService } from '../models/file-rest.service';
-import { EventoService } from '../models/evento.service';
 import { EventoRestService } from '../models/evento-rest.service';
 import { UserComponent } from './user/user.component';
 import { TableUserComponent } from './user/table/table-user.component';
@@ -39,12 +36,9 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from '../services/auth.service';
 import { AuthRestService } from '../services/auth-rest.service';
 import { AuthInterceptorService } from '../services/auth-interceptor';
-import { UserService } from '../models/user.service';
-import { CommentService } from '../models/comment.service';
 import { CommentRestService } from '../models/comment-rest.service';
 import { EncryptionService } from '../services/encryption.service';
 import { BookingComponent } from './booking/booking.component';
-import { BookingService } from '../models/booking.service';
 import { BookingRestService } from '../models/booking-rest.service';
 import { TableBookingComponent } from './booking/table/table.component';
 import { FormBookingComponent } from './booking/form/form-booking.component';
@@ -133,18 +127,12 @@ let routes = RouterModule.forChild([
     CustomvalidationService,
     EncryptionService,
 
-    /*MenuService,
-    FileService,
-    EventoService,
-    UserService,
-    BookingService,*/
-
-    { provide: MenuService, useClass: MenuRestService },
-    { provide: FileService, useClass: FileRestService },
-    { provide: EventoService, useClass: EventoRestService },
-    { provide: UserService, useClass: UserRestService },
-    { provide: CommentService, useClass: CommentRestService },
-    { provide: BookingService, useClass: BookingRestService },
+    MenuRestService,
+    EventoRestService,
+    EventoRestService,
+    CommentRestService,
+    BookingRestService,
+    FileRestService,
 
     {
       provide: HTTP_INTERCEPTORS,

@@ -6,7 +6,6 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { Sort } from '@angular/material/sort';
 import { Observable, Observer, Subject } from 'rxjs';
 import { Booking } from 'src/app/models/booking';
-import { BookingService } from 'src/app/models/booking.service';
 import { MODES, SharedState, SHARED_STATE } from 'src/app/models/sharedState.model';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import jsPDF from 'jspdf';
@@ -14,6 +13,7 @@ import html2canvas from 'html2canvas';
 import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
+import { BookingRestService } from 'src/app/models/booking-rest.service';
 declare var $: any
 
 @Component({
@@ -42,7 +42,7 @@ export class TableBookingComponent implements OnInit,AfterViewInit {
   sort: Sort;
   find: string = '';
 
-  constructor(private bookingServices: BookingService,
+  constructor(private bookingServices: BookingRestService,
     @Inject(SHARED_STATE) public observer: Subject<SharedState>,
     private snackBarService: SnackbarService,
     private datePipe: DatePipe,public dialog: MatDialog) {
@@ -105,7 +105,7 @@ export class TableBookingComponent implements OnInit,AfterViewInit {
     (await this.bookingServices.deleteBooking(key)).subscribe(
       (resp) => {
         console.log('respuesta del booking', resp)
-        this.snackBarService.openSnackBar(resp.message);
+        this.snackBarService.openSnackBar((resp as any).message);
       })
   }
   editBooking(key: string) {

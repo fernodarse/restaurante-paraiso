@@ -8,9 +8,9 @@ import { Observable, Observer, Subject } from 'rxjs';
 import { distinctUntilChanged, map, startWith, takeUntil } from 'rxjs/operators';
 import { ConfirmDialogComponent } from 'src/app/component/confirm-dialog/confirm-dialog.component';
 import { Comments } from 'src/app/models/comment';
-import { CommentService } from 'src/app/models/comment.service';
+import { CommentRestService } from 'src/app/models/comment-rest.service';
 import { Menu } from 'src/app/models/menu';
-import { MenuService } from 'src/app/models/menu.service';
+import { MenuRestService } from 'src/app/models/menu-rest.service';
 import { MODES, SharedState, SHARED_STATE } from 'src/app/models/sharedState.model';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 
@@ -40,10 +40,10 @@ export class TableComponent implements OnInit {
   filteredOptions: Observable<Menu[]>;
   find:string='';
 
-  constructor(private commentServices: CommentService,
+  constructor(private commentServices: CommentRestService,
     @Inject(SHARED_STATE) public observer: Subject<SharedState>,
     private snackBarService: SnackbarService,
-    private menuServices: MenuService,
+    private menuServices: MenuRestService,
     public dialog: MatDialog) {
     this.config = {
       currentPage: this.currentPage,

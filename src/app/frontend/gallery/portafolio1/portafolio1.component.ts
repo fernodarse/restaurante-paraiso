@@ -1,5 +1,4 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { timeStamp } from 'console';
 import { Evento } from 'src/app/models/evento';
 
 @Component({

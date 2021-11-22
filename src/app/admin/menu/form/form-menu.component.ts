@@ -1,15 +1,15 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, NgForm } from "@angular/forms";
 import { Menu } from "../../../models/menu";
-import { MenuService } from "../../../models/menu.service";
 import { MODES, SharedState, SHARED_STATE } from "../../../models/sharedState.model";
 import { Observable } from "rxjs";
 import { DatePipe } from '@angular/common';
-import { FileService } from 'src/app/models/file.service';
 import { CategoriaMenu, ListCategoriaMenu } from 'src/app/models/staticts';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { Utils } from 'src/app/services/utils';
 import { FileDropboxService } from 'src/app/models/file-dropbox.service';
+import { MenuRestService } from 'src/app/models/menu-rest.service';
+import { FileRestService } from 'src/app/models/file-rest.service';
 
 @Component({
   selector: 'form-menu',
@@ -37,10 +37,10 @@ export class FormMenuComponent implements OnInit {
   localUrl: string;
   localDataFile: string;
 
-  constructor(private menuServices: MenuService,
+  constructor(private menuServices: MenuRestService,
     @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>,
     private datePipe: DatePipe,
-    private uploadService: FileService,
+    private uploadService: FileRestService,
     private uploadDropboxService: FileDropboxService,
     private listCategoriaMenu: ListCategoriaMenu,
     private snackBarService: SnackbarService,) {

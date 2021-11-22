@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ValidatorFn, AbstractControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
-import { UserService } from '../models/user.service';
+import { UserRestService } from '../models/user-rest.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomvalidationService {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserRestService) { }
 
   patternValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } => {

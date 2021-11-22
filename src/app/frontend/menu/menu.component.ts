@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Menu } from 'src/app/models/menu';
-import { MenuService } from 'src/app/models/menu.service';
+import { MenuRestService } from 'src/app/models/menu-rest.service';
 import { CategoriaMenu, ListCategoriaMenu } from 'src/app/models/staticts';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  constructor(private menuServices: MenuService,
+  constructor(private menuServices: MenuRestService,
     private listCategoriaMenu: ListCategoriaMenu,) { }
 
   ngOnInit(): void {

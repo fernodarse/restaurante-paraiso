@@ -2,13 +2,12 @@ import { Component, Inject, Input, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { AppUser } from 'src/app/models/appuser';
 import { Comments, CommentBy } from 'src/app/models/comment';
-import { CommentService } from 'src/app/models/comment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { NgForm } from '@angular/forms';
-import { MenuService } from 'src/app/models/menu.service';
+import { CommentRestService } from 'src/app/models/comment-rest.service';
+import { MenuRestService } from 'src/app/models/menu-rest.service';
 
 @Component({
   selector: 'app-comments-form',
@@ -29,10 +28,10 @@ export class CommentsFormComponent implements OnInit {
   submit: boolean = false;
 
   constructor(private datePipe: DatePipe,
-    private commentService: CommentService,
+    private commentService: CommentRestService,
     @Inject("autenticar") private authService: AuthService,
     private snackBarService: SnackbarService,
-    private menuServices: MenuService) { }
+    private menuServices: MenuRestService) { }
 
 
   ngOnInit() {
@@ -53,7 +52,7 @@ export class CommentsFormComponent implements OnInit {
           (resp) => {
             console.log('respuesta del booking', resp)
             this.submit = false;
-            this.snackBarService.openSnackBar(resp.message);
+            this.snackBarService.openSnackBar((resp as any).message);
             this.resetForm(commentForm)
           });
       } catch (Error) {

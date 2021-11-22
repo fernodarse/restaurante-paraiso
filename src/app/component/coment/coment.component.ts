@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommentService } from 'src/app/models/comment.service';
+import { CommentRestService } from 'src/app/models/comment-rest.service';
 declare var $: any
 
 @Component({
@@ -14,7 +14,7 @@ export class ComentComponent implements OnInit {
   tamanoPagina: number = 10
   loading=false;
 
-  constructor(private commentServices: CommentService) { }
+  constructor(private commentServices: CommentRestService) { }
 
   ngOnInit(): void {
     this.commentServices.loadData()

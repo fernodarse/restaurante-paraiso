@@ -1,8 +1,6 @@
 import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, SimpleChange, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
 import { Evento } from 'src/app/models/evento';
-import { EventoService } from 'src/app/models/evento.service';
+import { EventoRestService } from 'src/app/models/evento-rest.service';
 declare var $: any
 @Component({
   selector: 'app-gallery',
@@ -12,7 +10,7 @@ declare var $: any
 export class GalleryComponent implements OnInit {
 
   height: number;
-  constructor(private eventoServices: EventoService, private elementRef: ElementRef,) {
+  constructor(private eventoServices: EventoRestService, private elementRef: ElementRef,) {
     //console.log('Constructor Galery');
   }
   ngOnInit(): void {

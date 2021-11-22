@@ -1,4 +1,3 @@
-import { DocumentReference } from '@firebase/firestore-types';
 
 export class Comments {
     commentId: string;
