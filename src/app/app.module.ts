@@ -36,7 +36,7 @@ import {
     SocialLoginModule,
   ],
   providers: [             
-    { provide: REST_URL, useValue: `https://frozen-fjord-03752.herokuapp.com/` },//https://frozen-fjord-03752.herokuapp.com/ - http://${location.hostname}:3000/
+    { provide: REST_URL, useValue: `https://frozen-fjord-03752.herokuapp.com/` }, //https://frozen-fjord-03752.herokuapp.com/ - http://${location.hostname}:3000/
     AdminAuthGuard,
     UserRestService,
 
