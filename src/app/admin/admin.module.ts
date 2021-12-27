@@ -47,6 +47,7 @@ import { DirectivaModule } from '../directiva/directiva.module';
 import { OcultarNombrePipe } from '../pipe/ocultar-nombre.pipe';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TiempoAtrasPipe } from '../pipe/tiempoatras.pipe';
+import { OneTwoAtlessDirective } from '../directiva/one-two-atless.directive';
 
 const childRoutes: Routes = [
   /*{ path: "", component: IntroComponent, pathMatch: "full" },
@@ -109,6 +110,7 @@ let routes = RouterModule.forChild([
     UserComponent, TableUserComponent, FormUserComponent,
     PasswordPatternDirective,
     MatchPasswordDirective,
+    OneTwoAtlessDirective,
     ValidateUserNameDirective,
     AdminComponent,
     LoginComponent,

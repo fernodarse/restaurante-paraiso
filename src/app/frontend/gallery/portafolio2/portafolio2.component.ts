@@ -17,7 +17,8 @@ export class Portafolio2Component implements OnInit {
   }
 
   imagenEvento(evento: Evento): String {
-    return evento.photoURL != "" ? evento.photoURL : "../../../assets/img-temp/560x560/img1.jpg"
+    let image= evento.photoURL != "" ? evento.photoURL : evento.datosImg.url
+    return image != "" ? image : "../../../assets/img-temp/560x560/img1.jpg"
   }
 
   more(){

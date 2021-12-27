@@ -36,7 +36,7 @@ import {
     SocialLoginModule,
   ],
   providers: [                       
-    { provide: REST_URL, useValue: `http://backend-restaurante.eu-4.evennode.com/` }, //https://frozen-fjord-03752.herokuapp.com/ - http://${location.hostname}:3000/
+    { provide: REST_URL, useValue: `http://backend-restaurante.eu-4.evennode.com/` }, //http://backend-restaurante.eu-4.evennode.com/ - http://${location.hostname}:3000/ - https://frozen-fjord-03752.herokuapp.com/ 
     AdminAuthGuard,
     UserRestService,
 

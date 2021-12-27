@@ -103,8 +103,8 @@ export class FormMenuComponent implements OnInit {
     this.selectedFile = file;
     this.porcentage = 0;
     this.fileAttr = file.name;
-    //this.upload();
-    this.uploadDropbox()
+    this.upload();
+    //this.uploadDropbox()
 
   }
 

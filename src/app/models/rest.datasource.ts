@@ -21,14 +21,14 @@ export class RestDataSource {
             headers: myHeaders
         })
             //.pipe(delay(1000))//demorar la solicitud
-            .pipe(
+            /*.pipe(
                 catchError((error: Response) =>
                     //throwError(`Network Error: ${error.statusText} (${error.status})`)
                     throwError(this.getServerErrorMessage(error))
-                ));
+                )); */
     }
 
-    private getServerErrorMessage(error: Response): string {
+    protected getServerErrorMessage(error: Response): string {
         console.log('error recibido',error )
         switch (error.status) {
             case 404: {

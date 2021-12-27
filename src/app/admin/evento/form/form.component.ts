@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Evento } from 'src/app/models/evento';
 import { EventoRestService } from 'src/app/models/evento-rest.service';
+import { FileRestService } from 'src/app/models/file-rest.service';
 import { MODES, SharedState, SHARED_STATE } from 'src/app/models/sharedState.model';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 
@@ -17,11 +18,18 @@ export class FormEventoComponent implements OnInit {
   evento: Evento = new Evento();
   editing: boolean = false;
 
+  selectedFile: File = null;
+  porcentage = 0;
+  fileAttr = 'Choose File';
+
+  @ViewChild('form') ngForm;
 
   constructor(private eventoServices: EventoRestService,
     @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>,
     private snackBarService: SnackbarService,
-    private datePipe: DatePipe,) {
+    private datePipe: DatePipe,
+    private uploadService: FileRestService,
+    private formBuilder: FormBuilder) {
 
     stateEvents.subscribe((update) => {
       if (update.mode != MODES.FIND) {
@@ -38,31 +46,68 @@ export class FormEventoComponent implements OnInit {
     });
   }
 
-  submitForm(form: NgForm) {
+  async submitForm(form: NgForm) {
+    let reset = false;
     if (form.valid) {
-      console.log('submit menu', this.evento);
-      if (this.editing) {
-        this.eventoServices.updateEvento(this.evento.eventoId, this.evento).then(
-          () => {
-            this.snackBarService.openSnackBar('El evento se modificó correctamente');
-          }
-        );
-      } else {
-        this.evento.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
-        this.eventoServices.createEvento(this.evento).then(
-          () => {
-            this.snackBarService.openSnackBar('El evento se creo satifactioramente');
-          }
-        );
+      console.log('submit evento', this.evento);
+      try {
+        if (this.editing) {
+          (await this.eventoServices.updateEvento(this.evento.eventoId, this.evento)).subscribe(
+            (event) => {
+              this.snackBarService.openSnackBar('El evento se modificó correctamente');
+              this.resetForm();
+            },(error) => {
+              console.log('Error tratado', error);
+              this.snackBarService.openSnackBar('Se ha producido un error, intentelo más tarde');
+            });
+        } else {
+          this.evento.createdDate = this.datePipe.transform(Date.now(), 'MM-dd-yyyy HH:mm');
+          (await this.eventoServices.createEvento(this.evento)).subscribe(
+            (event) => {
+              console.log('Evento creado', event);
+              this.snackBarService.openSnackBar('El evento se creo satifactioramente');
+              this.resetForm();
+            },
+            (error) => {
+              console.log('Error tratado', error);
+              this.snackBarService.openSnackBar('Se ha producido un error, intentelo más tarde');
+            });
+        }
+
+      } catch (Error) {
+        console.log('error', Error)
+        this.snackBarService.openSnackBar('Se ha producido un error, intentelo más tarde');
       }
-      form.reset();
     }
   }
   resetForm() {
     this.evento = new Evento();
+    this.porcentage = 0
+    this.selectedFile = null;
+    this.fileAttr = 'Choose File';
+    this.ngForm.resetForm();
   }
   ngOnInit(): void {
+   /* this.ngForm = this.formBuilder.group({
+      nombre: new FormControl('',[Validators.required]),
+      destacado: new FormControl('',[Validators.required]),
+      descripcion: new FormControl('',[Validators.required]),
+      photoURL: new FormControl('',[Validators.required]),
+      //photoURL: new FormControl('',[Validators.required]),
+    }, { validator: this.matchPassword });*/
   }
+
+ /* matchPassword(control: AbstractControl): ValidationErrors | null {
+ 
+    const photoURL = control.get("photoURL").value;
+    //const confirm = control.get("confirm").value;
+ 
+ 
+    if (photoURL != "" && this.selectedFile ==null) { return { 'noImage': true } }
+ 
+    return null
+ 
+  }*/
 
   getValidationMessages(state: any, thingName?: string) {
     let thing: string = state.path || thingName;//tiene el mombre del campo
@@ -76,6 +121,9 @@ export class FormEventoComponent implements OnInit {
           case "pattern":
             messages.push(`La ${thing} tiene error de formato`);
             break;
+          case "OneFieldAtLess":
+            messages.push(`Seleccione una imagen`);
+            break;
         }
       }
     }
@@ -83,8 +131,27 @@ export class FormEventoComponent implements OnInit {
     return messages;
   }
 
-  hayImagen() {
-    return this.evento.photoURL != '';
+  onFileSelected(event) {
+    let file = event.target.files[0]
+    this.selectedFile = file;
+    this.porcentage = 0;
+    this.fileAttr = file.name;
+    this.upload();
+    //this.uploadDropbox()
+  }
+
+  upload() {
+    if (this.selectedFile) {
+      this.uploadService.pushFileToStorage(this.selectedFile, this.evento.datosImg).subscribe(
+        percentage => {
+          this.porcentage = Math.round(percentage ? percentage : 0);
+          console.log('subido url', this.evento.datosImg)
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 
 }
