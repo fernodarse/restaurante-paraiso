@@ -13,6 +13,7 @@ export class Portafolio2Component implements OnInit {
   constructor() { }
 
   eventos() {
+    //console.log('Evento list', this.eventoList.length)
     return this.eventoList;
   }
 

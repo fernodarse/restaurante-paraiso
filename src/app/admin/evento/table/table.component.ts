@@ -21,6 +21,7 @@ import { SnackbarService } from 'src/app/services/snackbar.service';
 export class TableEventoComponent implements OnInit {
 
 
+  list: Evento[];
   filtro: boolean = false;
 
   //paginado
@@ -43,7 +44,7 @@ export class TableEventoComponent implements OnInit {
     private snackBarService: SnackbarService,public dialog: MatDialog) {
     this.config = {
       currentPage: this.currentPage,
-      itemsPerPage: this.pageSize //? +this.pageSize : this.pageSizeOptions[0]
+      itemsPerPage: this.pageSize 
     };
     observer.subscribe((update) => {
       console.log('recibiendo para buscar', update.id)
@@ -58,10 +59,11 @@ export class TableEventoComponent implements OnInit {
   }
 
   pageChange(pageEvent: PageEvent) {
-    this.currentPage = pageEvent.pageIndex;
-    this.pageSize = pageEvent.pageSize;
     console.log('nueva pagina', pageEvent);
     console.log('nueva config', this.config);
+    this.currentPage = pageEvent.pageIndex;
+    this.pageSize = pageEvent.pageSize;
+    
   }
 
 
@@ -123,7 +125,9 @@ export class TableEventoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllEventos();
+    //this.getAllEventos();
+    this.eventoServices.init()
+    this.list = this.eventoServices.getAllEventos()
   }
 
   changeSort(sort: Sort){

@@ -63,7 +63,7 @@ export class TableBookingComponent implements OnInit,AfterViewInit {
   }
 
   pageChange(pageEvent: PageEvent) {
-    this.currentPage = pageEvent.pageIndex + 1;
+    this.currentPage = pageEvent.pageIndex;
     this.pageSize = pageEvent.pageSize;
   }
 

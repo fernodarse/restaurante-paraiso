@@ -29,6 +29,8 @@ import { Portafolio2Component } from './gallery/portafolio2/portafolio2.componen
 import { CommentsFormComponent } from './about/comments-form/comments-form.component';
 import { ParallaxDirective } from '../directiva/parallax.directive';
 import { DirectivaModule } from '../directiva/directiva.module';
+import { SharedState, SHARED_STATE } from '../models/sharedState.model';
+import { Subject } from 'rxjs';
 
 
 let routes= RouterModule.forChild([
@@ -54,7 +56,9 @@ let routes= RouterModule.forChild([
     UserRestService,   
     CommentRestService,
     BookingRestService,
-    EventoRestService 
+    EventoRestService,
+
+    { provide: SHARED_STATE, useValue: new Subject<SharedState>() },
   ]
 })
 export class FrontendModule { }

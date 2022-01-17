@@ -51,24 +51,27 @@ export class CustomvalidationService {
         return null;
       }*/
       if (!field1Control || !field2Control) {
+        console.log('entro 1')
         return null;
       }
       if (field1Control.errors && !field1Control.errors.OneFieldAtLess) {
+        console.log('entro 2')
         return null;
       }
       if (field2Control.errors && !field2Control.errors.OneFieldAtLess) {
+        console.log('entro 3')
         return null;
       }
       //console.log('valores',field1Control.value, field2Control.value)
-      /*if ( (field1Control.value == "" ||  field1Control.value == null ) && 
+      if ( (field1Control.value == "" ||  field1Control.value == null ) && 
             (field2Control.value == "" || field2Control.value == null) ) {
-        console.log('entro error')
+       console.log('entro 4')
         field1Control.setErrors({ OneFieldAtLess: true });
         field2Control.setErrors({ OneFieldAtLess: true });
       } else {
         field1Control.setErrors(null);
         field2Control.setErrors(null);
-      }*/
+      }
     }
   }
 

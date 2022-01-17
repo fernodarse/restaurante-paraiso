@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AppUser } from 'src/app/models/appuser';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { BookingRestService } from 'src/app/models/booking-rest.service';
+import { MODES, SharedState, SHARED_STATE } from 'src/app/models/sharedState.model';
+import { Observable } from 'rxjs';
 
 export const PICK_FORMATS = {
   parse: { dateInput: { month: 'short', year: 'numeric', day: 'numeric' } },
@@ -54,7 +56,8 @@ export class BookingComponent implements OnInit {
   submit: boolean = false;
   constructor(private bookingService: BookingRestService, private datePipe: DatePipe,
     @Inject("autenticar") private authService: AuthService,
-    private snackBarService: SnackbarService,) {
+    private snackBarService: SnackbarService,
+    @Inject(SHARED_STATE) public stateEvents: Observable<SharedState>,) {
     this.authService.appUser$.subscribe(appUser => {
       this.appUser = appUser;
       console.log('usuario bookin', this.appUser)
@@ -67,6 +70,12 @@ export class BookingComponent implements OnInit {
     this.maxDate = new Date(year + 1, month, day)
     this.minTime = new Date(new Date(year, month, day, 8, 0, 0,).toLocaleString("en-US", {timeZone: "America/New_York"}))
     this.maxTime = new Date(new Date(year, month, day, 20, 0, 0,).toLocaleString("en-US", {timeZone: "America/New_York"}))
+    stateEvents.subscribe((update) => {
+      if (update.mode == MODES.FIND) {
+        this.booking.mensaje=update.id
+        console.log('nuvo time', this.booking.mensaje)
+      }
+    });
   }
 
   async onSubmit(form: NgForm): Promise<void> {

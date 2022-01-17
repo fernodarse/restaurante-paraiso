@@ -1,4 +1,6 @@
 import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, SimpleChange, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
+import { finalize, skipWhile } from 'rxjs/operators';
 import { Evento } from 'src/app/models/evento';
 import { EventoRestService } from 'src/app/models/evento-rest.service';
 declare var $: any
@@ -13,14 +15,19 @@ export class GalleryComponent implements OnInit {
   constructor(private eventoServices: EventoRestService, private elementRef: ElementRef,) {
     //console.log('Constructor Galery');
   }
-  ngOnInit(): void {
-    this.eventoServices.loadData()
-      .subscribe(() => {
-        // initialization of cubeportfolio
-        $.HSCore.components.HSCubeportfolio.init('.cbp');
-      })
+
+   ngOnInit() {    
+     this.eventoServices.init()
+      .pipe(finalize( () => {
+        console.log('finalize');
+        // initialization of cubeportfolio 
+        $.HSCore.components.HSCubeportfolio.init('.cbp')
+      }))
+      .subscribe((result) => { 
+        console.log('OnInit Evento', result);              
+      } )
     this.initHeight();
-    //console.log('OnInit Evento');
+    //console.log('OnInit Evento');    
   }
 
   pagina: number = 1;
@@ -40,7 +47,7 @@ export class GalleryComponent implements OnInit {
   }
 
   eventos(pagina: number) {
-    let list = this.eventoServices.getAllEventos()//getEventosActivos();
+    let list = this.eventoServices.getEventosActivos()//getEventosActivos();
     this.listLengt=list.length;
     //console.log('posiciones', pagina * this.tamanoPagina - this.tamanoPagina, pagina * this.tamanoPagina)
     //if(this.pagina>0 && this.pagina<=list.length/this.tamanoPagina)

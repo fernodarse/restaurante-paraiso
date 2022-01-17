@@ -36,7 +36,7 @@
         </tr>
         <tr *ngFor="let item of getEventoList() | paginate : {
         itemsPerPage: pageSize,
-        currentPage: currentPage,
+        currentPage: currentPage + 1,
         totalItems: length
       };let i = index" [class.active]="i == currentIndex">
             <td>{{ item.name }}</td>
@@ -79,6 +79,6 @@
     </tbody>
 </table>
 <!-- (page)="pageEvent($event)" -->
-<mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="currentPage" [pageSizeOptions]="pageSizeOptions" (page)="pageChange($event)"
-    itemsPerPageLabel='Elmentos x página'>
+<mat-paginator [length]="length" [pageIndex]="currentPage" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+  (page)="pageChange($event)" itemsPerPageLabel='Elmentos x página'>
 </mat-paginator>

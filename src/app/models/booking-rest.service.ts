@@ -26,9 +26,7 @@ export class BookingRestService extends RestDataSource {
       .subscribe(result => {
         this.list = result;
         //console.log("getAllBooking", this.list)
-      });
-
-      
+      });      
   }
   loadData() {
     return super.sendRequest<Booking[]>("GET", this.url)

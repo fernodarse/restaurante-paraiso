@@ -17,13 +17,17 @@ export class EventoRestService extends RestDataSource {
 
   constructor(http: HttpClient, @Inject(REST_URL) private url: string, public router: Router) {
     super(http, router);
-    this.url = url + "evento/";
-    this.loadData()
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe(result => {
+    this.url = url + "evento/";    
+  }
+
+   init() {
+    let v=this.loadData()
+      //.pipe(takeUntil(this.unsubscribe$))
+      v.subscribe(result => {
         this.list = result;
         //console.log("getAllEventos", this.list)
-      });
+      });  
+    return v;
   }
 
   loadData() {
@@ -66,6 +70,7 @@ export class EventoRestService extends RestDataSource {
   }
 
   getAllEventos(): Evento[] {
+    console.log("this.list", this.list.length)
     return this.list;
   }
 

@@ -2,7 +2,7 @@
     {{editing ? "Modificar" : "Crear"}} Evento
 </mat-card>
 <form novalidate #form="ngForm" (ngSubmit)="submitForm(form)" (reset)="resetForm()" class=""
-   [filds]="['photoURL', 'uploadFile']"   >
+    [filds]="['photoURL', 'uploadFile']">
     <div class="row">
         <mat-form-field class="col-8">
             <mat-label>Nombre</mat-label>
@@ -33,8 +33,13 @@
     <mat-card class="example-card">
         <mat-card-header>
             <mat-card-title>{{ evento.tituloImagen() }}</mat-card-title>
-            <mat-card-subtitle>Foto</mat-card-subtitle>
+            <mat-card-subtitle>Foto</mat-card-subtitle>            
         </mat-card-header>
+        <span *ngIf="(photoURL.touched || uploadFile.touched || form.submitted)">
+            <mat-error *ngFor="let error of getValidationMessagesFile(photoURL)">
+                <span [innerHTML]="error"></span>
+            </mat-error>
+        </span>
         <div *ngIf="!evento.hayImagen() "
             style="width: auto;height: 100px;text-align: center;border: dotted 0.1px;padding-top: 40px;"> No imagen
         </div>
@@ -44,33 +49,39 @@
             <mat-form-field class="col-8">
                 <mat-label>Foto</mat-label>
                 <input matInput placeholder="Url de la imagen" name="photoURL" [(ngModel)]="evento.photoURL"
-                    #photoURL="ngModel"  > <!-- pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"-->
-                <mat-error *ngFor="let error of getValidationMessages(photoURL)">
-                    <span [innerHTML]="error"></span>
-                </mat-error>
+                    #photoURL="ngModel">
+                <!-- pattern="^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$"-->
+                <span *ngIf="(photoURL.touched || form.submitted)">
+                    <mat-error *ngFor="let error of getValidationMessages(photoURL)">
+                        <span [innerHTML]="error"></span>
+                    </mat-error>
+                </span>
             </mat-form-field>
 
             <mat-form-field class="form-control">
                 <div>
+                     <!-- Fetch selected filed on change multiple="multiple" -->
+                     <input type="file" #uploadFile="ngModel" [(ngModel)]="selectedFile" id="uploadFile"
+                     (change)="onFileSelected($event)" name="uploadFile" accept="image/*" />
                     <mat-toolbar>
                         <!-- Display files names -->
                         <input matInput [(ngModel)]="fileAttr" readonly name="fileAttr" />
                         <!-- Browse Button -->
                         <button mat-flat-button color="primary" type="button">
-                            Buscar 
+                            Buscar
                         </button>
                     </mat-toolbar>
-                    <!-- Fetch selected filed on change multiple="multiple" -->
-                    <input type="file" #uploadFile="ngModel" [(ngModel)]="selectedFile" id="uploadFile" (change)="onFileSelected($event)" name="uploadFile"
-                        accept="image/*" />
+                   
                 </div>
                 <mat-progress-bar *ngIf="selectedFile" class="" [color]="warn" [mode]="determinate"
                     [value]="porcentage">
                 </mat-progress-bar>
             </mat-form-field>
-            <mat-error *ngFor="let error of getValidationMessages(uploadFile)">
-                <span [innerHTML]="error"></span>
-            </mat-error>
+            <span *ngIf="(uploadFile.touched || form.submitted)">
+                <mat-error *ngFor="let error of getValidationMessages(uploadFile)">
+                    <span [innerHTML]="error"></span>
+                </mat-error>
+            </span>
         </mat-card-actions>
     </mat-card>
 

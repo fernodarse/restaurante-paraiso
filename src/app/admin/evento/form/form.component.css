@@ -8,3 +8,15 @@
     cursor: pointer;
     position: absolute;
 }
+
+.ng-invalid .ng-touched ~ mat-toolbar input, .ng-invalid .ng-touched ~ mat-toolbar button{
+    color: red;
+}
+
+.ng-valid  ~ mat-toolbar input {
+    color: black;
+}
+
+.ng-valid  ~ mat-toolbar button {
+    color: white;
+}

@@ -39,7 +39,18 @@ export class FormEventoComponent implements OnInit {
           this.eventoServices.getEventobyId(update.id).subscribe(result => {
             Object.assign(this.evento, result);
             this.evento.eventoId = update.id;
+            if(this.evento.datosImg.url != ''){
+              this.fileAttr=  this.evento.datosImg.url
+              this.selectedFile=new File([],'');
+            }else{
+              this.fileAttr= 'Choose File'
+              this.selectedFile= null
+            }      
+            
           });
+        }else{
+          this.fileAttr= 'Choose File'
+          this.selectedFile= null
         }
         this.editing = update.mode == MODES.EDIT;
       }
@@ -97,17 +108,6 @@ export class FormEventoComponent implements OnInit {
     }, { validator: this.matchPassword });*/
   }
 
- /* matchPassword(control: AbstractControl): ValidationErrors | null {
- 
-    const photoURL = control.get("photoURL").value;
-    //const confirm = control.get("confirm").value;
- 
- 
-    if (photoURL != "" && this.selectedFile ==null) { return { 'noImage': true } }
- 
-    return null
- 
-  }*/
 
   getValidationMessages(state: any, thingName?: string) {
     let thing: string = state.path || thingName;//tiene el mombre del campo
@@ -121,6 +121,19 @@ export class FormEventoComponent implements OnInit {
           case "pattern":
             messages.push(`La ${thing} tiene error de formato`);
             break;
+        }
+      }
+    }
+    //console.log('errores ',messages)
+    return messages;
+  }
+
+  getValidationMessagesFile(state: any, thingName?: string) {
+    let thing: string = state.path || thingName;//tiene el mombre del campo
+    let messages: string[] = [];
+    if (state.errors) {
+      for (let errorName in state.errors) {
+        switch (errorName) {
           case "OneFieldAtLess":
             messages.push(`Seleccione una imagen`);
             break;
@@ -130,7 +143,6 @@ export class FormEventoComponent implements OnInit {
     //console.log('errores ',messages)
     return messages;
   }
-
   onFileSelected(event) {
     let file = event.target.files[0]
     this.selectedFile = file;

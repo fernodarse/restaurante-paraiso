@@ -55,7 +55,7 @@ export class TableUserComponent implements OnInit {
   }
 
   pageChange(pageEvent: PageEvent) {
-    this.currentPage = pageEvent.pageIndex + 1;
+    this.currentPage = pageEvent.pageIndex;
     this.pageSize = pageEvent.pageSize;
     console.log('nueva pagina', pageEvent);
     console.log('nueva config', this.config);

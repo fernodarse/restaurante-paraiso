@@ -65,7 +65,7 @@ Delete
       </tr>
       <tr *ngFor="let item of getBookingList() | paginate : {
         itemsPerPage: pageSize,
-        currentPage: currentPage,
+        currentPage: currentPage + 1,
         totalItems: length
       };let i = index" [class.active]="i == currentIndex">
         <td class="text-center col-3">{{ item.name }}</td>

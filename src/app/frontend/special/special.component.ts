@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Menu } from 'src/app/models/menu';
 import { MenuRestService } from 'src/app/models/menu-rest.service';
+import { MODES, SharedState, SHARED_STATE } from 'src/app/models/sharedState.model';
 declare var $: any
 
 
@@ -12,7 +14,8 @@ declare var $: any
 export class SpecialComponent implements OnInit {
 
   especiales:Menu[];
-  constructor(private menuServices: MenuRestService) { }
+  constructor(private menuServices: MenuRestService,
+    @Inject(SHARED_STATE) public observer: Subject<SharedState>,) { }
 
   getSpeciales(){
     return this.menuServices.getDestacados();
@@ -24,6 +27,10 @@ export class SpecialComponent implements OnInit {
       // initialization of carousel
     $.HSCore.components.HSCarousel.init('.js-carousel2');
     })
+  }
+
+  editBooking(key: string) {
+    this.observer.next(new SharedState(MODES.FIND, key));
   }
 
 }
